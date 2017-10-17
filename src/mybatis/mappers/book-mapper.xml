@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.BlogMapper">
+	<select id="selectById" resultType="Book">
+		select * from users where id = #{id}
+	</select>
+	<select id="selectByTitle" resultType="К">
+		select * from users where title = #{title}
+	</select>
+	<insert id="insertBook" parameterType="Book" flushCache="true"
+		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys=true
+		timeout="20">
+		insert into books (isbn, title, year) values (#{isbn},
+		#{title}, #{year})
+	</insert>
+
+	<update id="updateBook" parameterType="Book"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update books set (isbn=#{isbn}, title=#{title},
+		year=#{year})
+	</update>
+
+	<delete id="deleteBook" parameterType="Book"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from books where id=#{id}
+	</delete>
+</mapper>
