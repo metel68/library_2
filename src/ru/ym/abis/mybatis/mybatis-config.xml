@@ -32,9 +32,10 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="mappers/book.xml"/> 
-    	<mapper resource="mappers/publisher.xml"/> 
-		<mapper resource="mappers/user.xml"/> 
+		<mapper resource="mappers/author.xml"/>
+		<mapper resource="mappers/book.xml"/>
+    	<mapper resource="mappers/publisher.xml"/>
+		<mapper resource="mappers/user.xml"/>
 	</mappers>
 
 </configuration>

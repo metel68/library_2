@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="author">
+	<select id="selectAll" resultType="Author">
+		select * from author
+	</select>
+	<select id="selectById" resultType="Author" parameterType="int">
+		select * from author where id = #{id}
+	</select>
+	<select id="selectByName" resultType="Author" parameterType="String">
+		select * from author where full_name = #{full_name}
+	</select>
+	<insert id="insertAuthor" parameterType="Author" flushCache="true"
+		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		timeout="20">
+		insert into author (full_name) values (#{full_name})
+	</insert>
+
+	<update id="updateAuthor" parameterType="Author"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update author set (full_name='#{full_name}') where id = #{id}
+	</update>
+
+	<delete id="deleteAuthor" parameterType="int" 
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from author where id=#{id}
+	</delete>
+</mapper>

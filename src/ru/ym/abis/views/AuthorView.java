@@ -2,6 +2,7 @@ package ru.ym.abis.views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -12,20 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import ru.ym.abis.controllers.AuthorController;
 import ru.ym.abis.controllers.PublisherController;
+import ru.ym.abis.models.Author;
 import ru.ym.abis.models.Publisher;
 
 /**
- * Servlet implementation class PublisherView
+ * Servlet implementation class AuthorView
  */
-@WebServlet("/publisher")
-public class PublisherView extends HttpServlet {
+@WebServlet("/author")
+public class AuthorView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PublisherView() {
+    public AuthorView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +36,15 @@ public class PublisherView extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 		
 		try (PrintWriter out = response.getWriter()) {
 			Gson gson = new Gson();
-			PublisherController сontroller = new PublisherController();
-			Publisher publisher = сontroller.selectById(id);
-	        String jsonOutput = gson.toJson(publisher);
+			AuthorController сontroller = new AuthorController();
+			Author author = сontroller.selectById(id);
+	        String jsonOutput = gson.toJson(author);
 	        out.println(jsonOutput);
 	    }
 	}
@@ -54,14 +57,14 @@ public class PublisherView extends HttpServlet {
          
          try (PrintWriter out = response.getWriter()) {
         	Gson gson = new Gson();
-        	Publisher publisher = gson.fromJson(jsonObject, Publisher.class);
-        	if (publisher.getId() == 0) {
+        	Author author = gson.fromJson(jsonObject, Author.class);
+        	if (author.getId() == 0) {
         		String ids = request.getParameter("id");
         		int id = Integer.parseInt(ids);
-        		publisher.setId(id);
+        		author.setId(id);
         	}
-            PublisherController contoller = new PublisherController();
-            int res = contoller.update(publisher);
+        	AuthorController contoller = new AuthorController();
+            int res = contoller.update(author);
             out.print(res);
          }
 	}
@@ -72,7 +75,7 @@ public class PublisherView extends HttpServlet {
 		int id = Integer.parseInt(ids);
 		
 		try (PrintWriter out = response.getWriter()) {
-			PublisherController сontroller = new PublisherController();
+			AuthorController сontroller = new AuthorController();
 			int result = сontroller.delete(id);
 	        out.println(result);
 	    }

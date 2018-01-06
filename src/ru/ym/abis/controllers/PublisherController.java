@@ -2,10 +2,7 @@ package ru.ym.abis.controllers;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
 import ru.ym.abis.DAL.PublisherDAL;
-import ru.ym.abis.DAL.UserDAL;
 import ru.ym.abis.models.Publisher;
 
 public class PublisherController {
