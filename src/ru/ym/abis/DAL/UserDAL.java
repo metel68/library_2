@@ -18,8 +18,8 @@ public class UserDAL extends BaseDAL {
 		return session.selectOne("user.selectById");
 	}
 	
-	public int insertUser(User user) {
-		SqlSession session = getSqlSessionFactory().openSession();
+	public int insert(User user) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
 		return session.insert("user.insertUser", user);
 	}
 }

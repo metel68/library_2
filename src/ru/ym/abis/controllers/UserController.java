@@ -10,6 +10,7 @@ public class UserController {
 	
 	public UserController() {
 		this.dal = new UserDAL();
+		dal.initSqlSessionFactory();
 	}
 	
 	public List<User> getUserAll() {
@@ -20,8 +21,7 @@ public class UserController {
 		return dal.selectById(id);
 	}
 
-	public int insertUser(User user) {
-		// TODO Auto-generated method stub
-		return dal.insertUser(user);
+	public int insert(User user) {
+		return dal.insert(user);
 	}
 }
