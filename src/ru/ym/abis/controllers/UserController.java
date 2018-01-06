@@ -19,4 +19,9 @@ public class UserController {
 	public User getUser(int id) {
 		return dal.selectById(id);
 	}
+
+	public int insertUser(User user) {
+		// TODO Auto-generated method stub
+		return dal.insertUser(user);
+	}
 }

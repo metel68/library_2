@@ -11,6 +11,7 @@
 	<select id="selectByLogin" resultType="User">
 		select * from user where username = #{username}
 	</select>
+	
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">
