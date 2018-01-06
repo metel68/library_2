@@ -31,7 +31,6 @@ CREATE TABLE `book` (
   `count` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_78e6dd7a` (`lang_id`),
   KEY `book_2604cbea` (`publisher_id`),
   CONSTRAINT `publisher_id_70dfdb61_fk_publisher_id` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
