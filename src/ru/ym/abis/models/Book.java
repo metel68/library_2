@@ -1,6 +1,6 @@
 package ru.ym.abis.models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class Book {
@@ -11,9 +11,13 @@ public class Book {
 	private Publisher publisher;
 	private int year;
 	private int count;
+	private int size;
 	private String description;
 	private Date addedAt;
 	
+	public int getId() {
+		return id;
+	}
 	public String getIsbn() {
 		return isbn;
 	}
@@ -32,6 +36,9 @@ public class Book {
 	public int getCount() {
 		return count;
 	}
+	public int getSize() {
+		return size;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -40,6 +47,34 @@ public class Book {
 	}
 	public Date getAddedAt() {
 		return addedAt;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	public void setAddedAt(Date addedAt) {
+		this.addedAt = addedAt;
 	}
 	public Book(int id, String isbn, String title, List<Author> authors, Publisher publisher, int year, int count) {
 		super();

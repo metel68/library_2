@@ -21,17 +21,16 @@ public class AuthorDAL extends BaseDAL{
 		return ret;
 	}
 	
-	public int insert(Author publisher) {
+	public int insert(Author author) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-		int ret = session.insert("author.insertAuthor", publisher);
+		int ret = session.insert("author.insertAuthor", author);
 		session.close();
 		return ret;
 	}
 	
-	public int update(Author publisher) {
+	public int update(Author author) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-        System.out.println(publisher);
-		int ret = session.update("author.updateAuthor", publisher);
+		int ret = session.update("author.updateAuthor", author);
 		session.close();
 		return ret;
 	}

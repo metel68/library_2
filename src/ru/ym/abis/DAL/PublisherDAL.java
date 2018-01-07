@@ -30,7 +30,6 @@ public class PublisherDAL extends BaseDAL {
 	
 	public int update(Publisher publisher) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-        System.out.println(publisher);
 		int ret = session.update("publisher.updatePublisher", publisher);
 		session.close();
 		return ret;

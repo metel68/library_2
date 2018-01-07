@@ -28,6 +28,8 @@ CREATE TABLE `book` (
   `cover` varchar(100) NOT NULL,
   `count` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
+  `description` text,
+  `added_at` date,
   PRIMARY KEY (`id`),
   KEY `book_2604cbea` (`publisher_id`),
   CONSTRAINT `publisher_id_70dfdb61_fk_publisher_id` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`)
