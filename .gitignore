@@ -28,3 +28,4 @@ bin/
 .settings
 /target/
 node_modules/
+.vscode/
