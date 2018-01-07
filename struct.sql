@@ -25,7 +25,7 @@ CREATE TABLE `book` (
   `title` varchar(200) NOT NULL,
   `year` int(11) NOT NULL,
   `size` int(11) NOT NULL,
-  `cover` varchar(100) NOT NULL,
+  `cover` varchar(100),
   `count` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
   `description` text,

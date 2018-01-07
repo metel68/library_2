@@ -34,6 +34,7 @@ public class PublisherView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 		

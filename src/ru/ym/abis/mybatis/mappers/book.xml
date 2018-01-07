@@ -19,26 +19,26 @@
 	<select id="selectAll" resultMap="bookResultMap">
 		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id
 	</select>
-	<select id="selectById" resultMap="bookResultMap">
-		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id where id = #{id}
+	<select id="selectById" parameterType="int" resultMap="bookResultMap">
+		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id where book.id = #{id}
 	</select>
-	<select id="selectByTitle" resultMap="bookResultMap">
+	<select id="selectByTitle" parameterType="String" resultMap="bookResultMap">
 		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id where title = #{title}
 	</select>
 	<insert id="insertBook" parameterType="Book" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">
-		insert into book (isbn, title, year) values (#{isbn},
-		#{title}, #{year})
+		insert into book (ISBN, title, year, size, count, publisher_id, description, added_at) values (#{isbn},
+		#{title}, #{year}, #{size}, #{count}, #{publisher.id}, #{description}, #{addedAt})
 	</insert>
 
 	<update id="updateBook" parameterType="Book"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		update book set (isbn=#{isbn}, title=#{title},
-		year=#{year})
+		update book set (isbn=#{isbn}, title='#{title}', year=#{year}, size=#{size}, count=#{count},
+		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}') where id=#{id}
 	</update>
 
-	<delete id="deleteBook" parameterType="Book"
+	<delete id="deleteBook" parameterType="int"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		delete from book where id=#{id}
 	</delete>

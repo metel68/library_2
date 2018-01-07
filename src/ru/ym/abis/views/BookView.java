@@ -2,7 +2,6 @@ package ru.ym.abis.views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -14,26 +13,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import ru.ym.abis.controllers.AuthorController;
-import ru.ym.abis.controllers.PublisherController;
+import ru.ym.abis.controllers.BookController;
 import ru.ym.abis.models.Author;
-import ru.ym.abis.models.Publisher;
+import ru.ym.abis.models.Book;
 
 /**
- * Servlet implementation class AuthorView
+ * Servlet implementation class BookView
  */
-@WebServlet("/author")
-public class AuthorView extends HttpServlet {
+@WebServlet("/book")
+public class BookView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthorView() {
+    public BookView() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,9 +42,9 @@ public class AuthorView extends HttpServlet {
 		
 		try (PrintWriter out = response.getWriter()) {
 			Gson gson = new Gson();
-			AuthorController сontroller = new AuthorController();
-			Author author = сontroller.selectById(id);
-	        String jsonOutput = gson.toJson(author);
+			BookController сontroller = new BookController();
+			Book book = сontroller.selectById(id);
+	        String jsonOutput = gson.toJson(book);
 	        out.println(jsonOutput);
 	    }
 	}
@@ -58,14 +57,14 @@ public class AuthorView extends HttpServlet {
          
          try (PrintWriter out = response.getWriter()) {
         	Gson gson = new Gson();
-        	Author author = gson.fromJson(jsonObject, Author.class);
-        	if (author.getId() == 0) {
+        	Book book = gson.fromJson(jsonObject, Book.class);
+        	if (book.getId() == 0) {
         		String ids = request.getParameter("id");
         		int id = Integer.parseInt(ids);
-        		author.setId(id);
+        		book.setId(id);
         	}
-        	AuthorController contoller = new AuthorController();
-            int res = contoller.update(author);
+        	BookController contoller = new BookController();
+            int res = contoller.update(book);
             out.print(res);
          }
 	}
@@ -76,7 +75,7 @@ public class AuthorView extends HttpServlet {
 		int id = Integer.parseInt(ids);
 		
 		try (PrintWriter out = response.getWriter()) {
-			AuthorController сontroller = new AuthorController();
+			BookController сontroller = new BookController();
 			int result = сontroller.delete(id);
 	        out.println(result);
 	    }
