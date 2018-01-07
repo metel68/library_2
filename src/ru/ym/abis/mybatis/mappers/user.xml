@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insertUser" parameterType="User" flushCache="true"
-		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
 		insert into user (username, password, rights) values (#{username},
 		#{password}, #{rights})

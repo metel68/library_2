@@ -12,7 +12,7 @@
 		select * from publisher where name = #{name}
 	</select>
 	<insert id="insertPublisher" parameterType="Publisher" flushCache="true"
-		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
 		insert into publisher (name) values (#{name})
 	</insert>

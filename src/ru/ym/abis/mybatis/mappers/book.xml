@@ -41,8 +41,9 @@
 		left join book_authors on book_authors.book_id = book.id
 		left join author on book_authors.author_id = author.id title = #{title}
 	</select>
+	
 	<insert id="insertBook" parameterType="Book" flushCache="true"
-		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
 		insert into book (ISBN, title, year, size, count, publisher_id, description, added_at) values (#{isbn},
 		#{title}, #{year}, #{size}, #{count}, #{publisher.id}, #{description}, #{addedAt})
@@ -59,14 +60,19 @@
 		delete from book where id=#{id}
 	</delete>
 	
-	<update id="updateBook" parameterType="Book"
-		flushCache="true" statementType="PREPARED" timeout="20">
-		update book set (isbn=#{isbn}, title='#{title}', year=#{year}, size=#{size}, count=#{count},
-		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}') where id=#{id}
-	</update>
+	<insert id="insertBookAuthor" parameterType="BookAuthor" flushCache="true"
+		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		timeout="20">
+		insert into book_authors (author_id, book_id) values (#{author.id}, #{book.id})
+	</insert>
 	
 	<delete id="deleteBookAuthor" parameterType="BookAuthor"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		delete from book_authors where book_authors.author_id=#{author.id} and book_authors.book_id=#{book.id} 
+		delete from book_authors where book_authors.author_id=#{author.id} and book_authors.book_id=#{book.id}
+	</delete>
+	
+	<delete id="deleteBookAuthors" parameterType="int"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from book_authors where book_authors.book_id=#{id}
 	</delete>
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import ru.ym.abis.models.Book;
+import ru.ym.abis.models.BookAuthor;
 
 public class BookDAL extends BaseDAL {
 	public List<Book> selectAll() {
@@ -39,6 +40,27 @@ public class BookDAL extends BaseDAL {
 	public int delete(int id) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		int ret = session.delete("book.deleteBook", id);
+		session.close();
+		return ret;
+	}
+	
+	public int insertAuthor(BookAuthor author) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.insert("book.insertBookAuthor", author);
+		session.close();
+		return ret;
+	}
+	
+	public int deleteAuthor(BookAuthor author) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("book.deleteBookAuthor", author);
+		session.close();
+		return ret;
+	}
+
+	public int deleteAuthorsFromBook(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("book.deleteBookAuthors", id);
 		session.close();
 		return ret;
 	}
