@@ -5,24 +5,24 @@
 	<select id="selectAll" resultType="User">
 		select * from user
 	</select>
-	<select id="selectById" resultType="User">
+	<select id="selectById" parameterType="int" resultType="User">
 		select * from user where id = #{id}
 	</select>
-	<select id="selectByLogin" resultType="User">
+	<select id="selectByLogin" parameterType="String" resultType="User">
 		select * from user where username = #{username}
 	</select>
 	
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
-		insert into user (username, password, rights) values (#{username},
-		#{password}, #{rights})
+		insert into user (username, password, is_admin) values (#{username},
+		#{password}, #{isAdmin})
 	</insert>
 
 	<update id="updateUser" parameterType="User"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		update user set (username=#{username}, password=#{password},
-		rights=#{rights})
+		isAdmin=#{isAdmin})
 	</update>
 
 	<delete id="deleteUser" parameterType="User"

@@ -1,7 +1,7 @@
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(128) NOT NULL,
-  `rights` int(2) NOT NULL,
+  `is_admin` boolean NOT NULL,
   `username` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)

@@ -20,6 +20,10 @@ public class UserController {
 	public User getUser(int id) {
 		return dal.selectById(id);
 	}
+	
+	public User getUser(String username) {
+		return dal.selectByLogin(username);
+	}
 
 	public int insert(User user) {
 		return dal.insert(user);

@@ -10,16 +10,29 @@ import ru.ym.abis.models.User;
 public class UserDAL extends BaseDAL {
 	public List<User> selectAll() {
 		SqlSession session = getSqlSessionFactory().openSession();
-		return session.selectList("user.selectAll");
+		List<User> ret = session.selectList("user.selectAll");
+		session.close();
+		return ret;
 	}
 	
 	public User selectById(int id) {
 		SqlSession session = getSqlSessionFactory().openSession();
-		return session.selectOne("user.selectById");
+		User ret = session.selectOne("user.selectById", id);
+		session.close();
+		return ret;
+	}
+
+	public User selectByLogin(String username) {
+		SqlSession session = getSqlSessionFactory().openSession();
+		User ret = session.selectOne("user.selectByLogin", username);
+		session.close();
+		return ret;
 	}
 	
 	public int insert(User user) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-		return session.insert("user.insertUser", user);
+		int ret = session.insert("user.insertUser", user);
+		session.close();
+		return ret;
 	}
 }

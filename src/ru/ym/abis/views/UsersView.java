@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ru.ym.abis.controllers.UserController;
 import ru.ym.abis.models.User;
@@ -38,7 +39,8 @@ public class UsersView extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()) {
-        		Gson gson = new Gson();
+        		GsonBuilder b = new GsonBuilder();
+        		Gson gson = b.excludeFieldsWithoutExposeAnnotation().create();
     			UserController contoller = new UserController();
     			List<User> users = contoller.getUserAll();
     			out.print(gson.toJson(users));
@@ -52,8 +54,10 @@ public class UsersView extends HttpServlet {
          String jsonObject = request.getReader().lines().collect(Collectors.joining()); //BANG! But servlets are mede for form-urlencoded, not for JSON
          
          try (PrintWriter out = response.getWriter()) {
-        	Gson gson = new Gson();
+			GsonBuilder b = new GsonBuilder();
+			Gson gson = b.excludeFieldsWithoutExposeAnnotation().create();
             User user = gson.fromJson(jsonObject, User.class);
+            user.hashPassword();
             UserController userController = new UserController();
             int res = userController.insert(user);
             out.print(res);
