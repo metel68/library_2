@@ -1,5 +1,6 @@
 package ru.ym.abis.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Book {
 	private int id;
 	private String isbn;
 	private String title;
-	private List<Author> authors;
+	private List<Author> authors = new ArrayList<>();
 	private Publisher publisher;
 	private int year;
 	private int count;

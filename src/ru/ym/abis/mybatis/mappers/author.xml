@@ -9,17 +9,17 @@
 		select * from author where id = #{id}
 	</select>
 	<select id="selectByName" resultType="Author" parameterType="String">
-		select * from author where full_name = #{full_name}
+		select * from author where full_name = #{fullName}
 	</select>
 	<insert id="insertAuthor" parameterType="Author" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">
-		insert into author (full_name) values (#{full_name})
+		insert into author (full_name) values (#{fullName})
 	</insert>
 
 	<update id="updateAuthor" parameterType="Author"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		update author set (full_name='#{full_name}') where id = #{id}
+		update author set (full_name='#{fullName}') where id = #{id}
 	</update>
 
 	<delete id="deleteAuthor" parameterType="int" 

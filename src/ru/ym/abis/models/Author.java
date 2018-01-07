@@ -2,7 +2,7 @@ package ru.ym.abis.models;
 
 public class Author {
 	private int id;
-	private String full_name;
+	private String fullName;
 	
 	public int getId() {
 		return id;
@@ -11,10 +11,10 @@ public class Author {
 		this.id = id;
 	}
 	public String getFull_name() {
-		return full_name;
+		return fullName;
 	}
 	public void setFull_name(String full_name) {
-		this.full_name = full_name;
+		this.fullName = full_name;
 	}
 	
 	public Author() {
@@ -23,7 +23,7 @@ public class Author {
 	public Author(int id, String full_name) {
 		super();
 		this.id = id;
-		this.full_name = full_name;
+		this.fullName = full_name;
 	}
 	
 }
