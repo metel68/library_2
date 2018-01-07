@@ -2,6 +2,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="book">
+
+	<resultMap id="Authors" type="Author">
+	    <id property="id" column="author_id"/>
+        <result property="fullName" column="author_name"/>
+	</resultMap>
 	<resultMap id="bookResultMap" type="Book">
 	  <id property="id" column="id"/>
       <result property="isbn" column="ISBN"/>
@@ -15,15 +20,26 @@
 		  <id property="id" column="publisher_id"/>
 		  <result property="name" column="pub_name"/>
 	  </association>
+	  <collection javaType="ArrayList" property="authors" resultMap="Authors" />
 	</resultMap>
+	
 	<select id="selectAll" resultMap="bookResultMap">
-		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id
+		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name from book
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
 	</select>
 	<select id="selectById" parameterType="int" resultMap="bookResultMap">
-		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id where book.id = #{id}
+		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name from book
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id where book.id = #{id}
 	</select>
 	<select id="selectByTitle" parameterType="String" resultMap="bookResultMap">
-		select book.*, publisher.name as pub_name from book left join publisher on publisher.id = book.publisher_id where title = #{title}
+		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name from book
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id title = #{title}
 	</select>
 	<insert id="insertBook" parameterType="Book" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
@@ -41,5 +57,16 @@
 	<delete id="deleteBook" parameterType="int"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		delete from book where id=#{id}
+	</delete>
+	
+	<update id="updateBook" parameterType="Book"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update book set (isbn=#{isbn}, title='#{title}', year=#{year}, size=#{size}, count=#{count},
+		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}') where id=#{id}
+	</update>
+	
+	<delete id="deleteBookAuthor" parameterType="BookAuthor"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from book_authors where book_authors.author_id=#{author.id} and book_authors.book_id=#{book.id} 
 	</delete>
 </mapper>
