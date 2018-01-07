@@ -27,3 +27,5 @@ bin/
 .project
 .settings
 /target/
+node_modules/
+.vscode/
