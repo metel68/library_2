@@ -8,10 +8,10 @@
 	<description>Yet another kupwnya</description>
 	<packaging>war</packaging>
 	<build>
-		<sourceDirectory>src/ru/ym/abis</sourceDirectory>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>src/ru/ym/abis/mybatis</directory>
+				<directory>src/mybatis</directory>
 			</resource>
 		</resources>
 		<plugins>
