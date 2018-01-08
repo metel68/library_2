@@ -25,8 +25,9 @@ public class UserController {
 		return dal.selectByLogin(username);
 	}
 
-	public int insert(User user) {
+	public int insert(User user, boolean isAdmin) {
 		user.hashPassword();
+		user.setAdmin(isAdmin);
 		return dal.insert(user);
 	}
 	

@@ -67,7 +67,7 @@ public class UsersView extends HttpServlet {
 				Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
 				User user = gson.fromJson(jsonObject, User.class);
 
-				int res = this.controller.insert(user);
+				int res = this.controller.insert(user, false);
 				out.print(res);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
