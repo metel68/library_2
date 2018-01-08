@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test.java.DAL;
+package ru.ym.abis.tests.DAL;
 
-import DAL.BaseDAL;
-import org.apache.ibatis.session.SqlSessionFactory;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ru.ym.abis.DAL.UserDAL;
+import ru.ym.abis.models.User;
+
 import static org.junit.Assert.*;
 
 /**
  *
  * @author PFIQ3000
  */
-public class BaseDALTest {
+public class UserDALTest {
     
-    public BaseDALTest() {
+    public UserDALTest() {
     }
     
     @Before
@@ -30,19 +33,22 @@ public class BaseDALTest {
     }
 
     @Test
-    public void testInitSqlSessionFactory() {
-        System.out.println("initSqlSessionFactory");
-        boolean expResult = false;
-        boolean result = BaseDAL.initSqlSessionFactory();
+    public void testSelectAll() {
+        System.out.println("selectAll");
+        UserDAL instance = new UserDAL();
+        List<User> expResult = null;
+        List<User> result = instance.selectAll();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
-    public void testGetSqlSessionFactory() {
-        System.out.println("getSqlSessionFactory");
-        SqlSessionFactory expResult = null;
-        SqlSessionFactory result = BaseDAL.getSqlSessionFactory();
+    public void testSelectById() {
+        System.out.println("selectById");
+        int id = 0;
+        UserDAL instance = new UserDAL();
+        User expResult = null;
+        User result = instance.selectById(id);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

@@ -1,9 +1,10 @@
-package test.java.models;
+package ru.ym.abis.tests.models;
 
-import models.Author;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.*;
+
+import ru.ym.abis.models.Author;
 
 
 public class AuthorTest {

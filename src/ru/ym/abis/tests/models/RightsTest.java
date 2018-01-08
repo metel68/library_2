@@ -1,6 +1,5 @@
-package test.java.models;
+package ru.ym.abis.tests.models;
 
-import models.Rights;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.*;

@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package test.java.controllers;
+package ru.ym.abis.tests.controllers;
 
-import controllers.UserController;
 import java.util.List;
-import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ru.ym.abis.controllers.UserController;
+import ru.ym.abis.models.User;
+
 import static org.junit.Assert.*;
 
 /**

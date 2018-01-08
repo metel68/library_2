@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test.java.DAL;
+package ru.ym.abis.tests.DAL;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author PFIQ3000
  */
-public class PublisherDALTest {
+public class BookDALTest {
     
-    public PublisherDALTest() {
+    public BookDALTest() {
     }
     
     @Before

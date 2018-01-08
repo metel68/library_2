@@ -88,12 +88,12 @@ public class User {
 		return true;
 	}
 
-	public User(int id, String username, String password) {
+	public User(int id, String username, String password, boolean isAdmin) {
 		this();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.isAdmin = false;
+		this.isAdmin = isAdmin;
 	}
 
 	public User() {

@@ -1,9 +1,10 @@
-package test.java.models;
+package ru.ym.abis.tests.models;
 
-import models.Publisher;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.*;
+
+import ru.ym.abis.models.Publisher;
 
 public class PublisherTest {
     

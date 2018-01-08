@@ -77,7 +77,9 @@ public class Book {
 	public void setAddedAt(Date addedAt) {
 		this.addedAt = addedAt;
 	}
-	public Book(int id, String isbn, String title, List<Author> authors, Publisher publisher, int year, int count) {
+	
+	public Book(int id, String isbn, String title, List<Author> authors, Publisher publisher, int year, int count,
+			int size, String description, Date addedAt) {
 		super();
 		this.id = id;
 		this.isbn = isbn;
@@ -86,7 +88,10 @@ public class Book {
 		this.publisher = publisher;
 		this.year = year;
 		this.count = count;
-	} 
+		this.size = size;
+		this.description = description;
+		this.addedAt = addedAt;
+	}
 	public Book() {
 		
 	}
