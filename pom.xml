@@ -8,14 +8,24 @@
 	<description>Yet another kupwnya</description>
 	<packaging>war</packaging>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/ru/ym/abis</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/ru/ym/abis/mybatis</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.0</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<webResources>
+						<resource>
+							<directory>WebContent</directory>
+						</resource>
+					</webResources>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -28,10 +38,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<configuration>
-					<webXml>WebContent\WEB-INF\web.xml</webXml>
+					<excludes>
+						<exclude>tests/**</exclude>
+					</excludes>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>
