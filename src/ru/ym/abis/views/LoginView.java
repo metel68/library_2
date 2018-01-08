@@ -25,7 +25,7 @@ import ru.ym.abis.models.User;
  * Servlet implementation class LoginView
  */
 @WebServlet("/login")
-public class LoginView extends HttpServlet {
+public class LoginView extends BaseView {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -39,6 +39,7 @@ public class LoginView extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 setAccessControlHeaders(response);
          response.setContentType("application/json;charset=UTF-8");
          
          String jsonObject = request.getReader().lines().collect(Collectors.joining());

@@ -23,7 +23,7 @@ import ru.ym.abis.models.Book;
  * Servlet implementation class BooksView
  */
 @WebServlet("/books")
-public class BooksView extends HttpServlet {
+public class BooksView extends BaseView {
 	private static final long serialVersionUID = 1L;
 	BookController controller;
 
@@ -37,6 +37,7 @@ public class BooksView extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		try (PrintWriter out = response.getWriter()) {
@@ -57,6 +58,7 @@ public class BooksView extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		String jsonObject = request.getReader().lines().collect(Collectors.joining());

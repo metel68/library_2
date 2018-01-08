@@ -22,7 +22,7 @@ import ru.ym.abis.models.Publisher;
  * Servlet implementation class PublisherView
  */
 @WebServlet("/publisher")
-public class PublisherView extends HttpServlet {
+public class PublisherView extends BaseView {
 	private static final long serialVersionUID = 1L;
 	PublisherController controller;
 
@@ -40,6 +40,7 @@ public class PublisherView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
@@ -60,6 +61,7 @@ public class PublisherView extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		String jsonObject = request.getReader().lines().collect(Collectors.joining());
@@ -88,6 +90,7 @@ public class PublisherView extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 

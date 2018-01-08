@@ -23,7 +23,7 @@ import ru.ym.abis.models.Author;
  * Servlet implementation class AuthorsView
  */
 @WebServlet("/authors")
-public class AuthorsView extends HttpServlet {
+public class AuthorsView extends BaseView {
 	private static final long serialVersionUID = 1L;
 	private AuthorController controller;
 
@@ -33,7 +33,6 @@ public class AuthorsView extends HttpServlet {
 	public AuthorsView() {
 		super();
 		this.controller = new AuthorController();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,6 +41,7 @@ public class AuthorsView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		try (PrintWriter out = response.getWriter()) {
@@ -62,6 +62,7 @@ public class AuthorsView extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		String jsonObject = request.getReader().lines().collect(Collectors.joining());

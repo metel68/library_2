@@ -25,7 +25,7 @@ import ru.ym.abis.models.Book;
  * Servlet implementation class BookView
  */
 @WebServlet("/book")
-public class BookView extends HttpServlet {
+public class BookView extends BaseView {
 	private static final long serialVersionUID = 1L;
 	BookController controller;
 
@@ -43,6 +43,7 @@ public class BookView extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);

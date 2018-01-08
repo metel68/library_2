@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +18,7 @@ import ru.ym.abis.controllers.UserController;
 import ru.ym.abis.models.User;
 
 @WebServlet(name = "UsersList", urlPatterns = { "/users" })
-public class UsersView extends HttpServlet {
+public class UsersView extends BaseView {
 
 	private static final long serialVersionUID = 5705929666227862893L;
 	private UserController controller;
@@ -41,6 +40,7 @@ public class UsersView extends HttpServlet {
 		// HttpSession session = request.getSession(true);
 		// session.setAttribute("parameter", parameter);
 
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		try (PrintWriter out = response.getWriter()) {
@@ -58,6 +58,7 @@ public class UsersView extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		String jsonObject = request.getReader().lines().collect(Collectors.joining());
@@ -74,11 +75,6 @@ public class UsersView extends HttpServlet {
 				response.setStatus(500);
 			}
 		}
-	}
-
-	@Override
-	public String getServletInfo() {
-		return "Пример сервлета";
 	}
 
 }
