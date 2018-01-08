@@ -1,4 +1,4 @@
-package ru.ym.abis.views;
+package views;
 
 import java.io.IOException;
 

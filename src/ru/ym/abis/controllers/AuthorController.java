@@ -1,9 +1,9 @@
-package ru.ym.abis.controllers;
+package controllers;
 
 import java.util.List;
 
-import ru.ym.abis.DAL.AuthorDAL;
-import ru.ym.abis.models.Author;
+import DAL.AuthorDAL;
+import models.Author;
 
 public class AuthorController {
 	private AuthorDAL dal;

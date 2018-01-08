@@ -1,10 +1,10 @@
-package ru.ym.abis.tests.manual;
+package tests.manual;
 
 import java.util.List;
 
-import ru.ym.abis.DAL.BaseDAL;
-import ru.ym.abis.DAL.BookDAL;
-import ru.ym.abis.models.Book;
+import DAL.BaseDAL;
+import DAL.BookDAL;
+import models.Book;
 
 public class DbInit {
 

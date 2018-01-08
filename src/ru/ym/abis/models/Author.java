@@ -1,4 +1,4 @@
-package ru.ym.abis.models;
+package models;
 
 public class Author {
 	private int id;

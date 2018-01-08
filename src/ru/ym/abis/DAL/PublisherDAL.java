@@ -1,10 +1,10 @@
-package ru.ym.abis.DAL;
+package DAL;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import ru.ym.abis.models.Publisher;
+import models.Publisher;
 
 public class PublisherDAL extends BaseDAL {
 	public List<Publisher> selectAll() {

@@ -1,4 +1,4 @@
-package ru.ym.abis.views;
+package views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,9 +14,9 @@ import org.apache.ibatis.exceptions.PersistenceException;
 
 import com.google.gson.Gson;
 
-import ru.ym.abis.Constants;
-import ru.ym.abis.controllers.BookController;
-import ru.ym.abis.models.Book;
+import utils.Constants;
+import controllers.BookController;
+import models.Book;
 
 /**
  * Servlet implementation class BooksView

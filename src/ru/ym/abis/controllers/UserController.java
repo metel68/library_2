@@ -1,9 +1,9 @@
-package ru.ym.abis.controllers;
+package controllers;
 
 import java.util.List;
 
-import ru.ym.abis.DAL.UserDAL;
-import ru.ym.abis.models.User;
+import DAL.UserDAL;
+import models.User;
 
 public class UserController {
 	private UserDAL dal;

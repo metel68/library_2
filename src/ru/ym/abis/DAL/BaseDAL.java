@@ -1,4 +1,4 @@
-package ru.ym.abis.DAL;
+package DAL;
 
 import java.io.IOException;
 import java.io.Reader;

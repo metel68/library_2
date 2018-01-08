@@ -1,4 +1,4 @@
-package ru.ym.abis.tests.models;
+package tests.models;
 
 import org.junit.*;
 import static org.junit.Assert.*;

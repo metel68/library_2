@@ -1,9 +1,9 @@
-package ru.ym.abis.controllers;
+package controllers;
 
 import java.util.List;
 
-import ru.ym.abis.DAL.PublisherDAL;
-import ru.ym.abis.models.Publisher;
+import DAL.PublisherDAL;
+import models.Publisher;
 
 public class PublisherController {
 	private PublisherDAL dal;

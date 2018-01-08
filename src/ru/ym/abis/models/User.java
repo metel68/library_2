@@ -1,4 +1,4 @@
-package ru.ym.abis.models;
+package models;
 
 import java.nio.charset.StandardCharsets;
 

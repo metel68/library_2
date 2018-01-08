@@ -1,4 +1,4 @@
-package ru.ym.abis.views;
+package views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import ru.ym.abis.Constants;
-import ru.ym.abis.controllers.UserController;
-import ru.ym.abis.models.User;
+import utils.Constants;
+import controllers.UserController;
+import models.User;
 
 @WebServlet(name = "UsersList", urlPatterns = { "/users" })
 public class UsersView extends BaseView {

@@ -1,12 +1,12 @@
-package ru.ym.abis.tests.controllers;
+package tests.controllers;
 
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.ym.abis.controllers.UserController;
-import ru.ym.abis.models.User;
+import controllers.UserController;
+import models.User;
 
 import static org.junit.Assert.*;
 

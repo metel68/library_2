@@ -1,11 +1,11 @@
-package ru.ym.abis.controllers;
+package controllers;
 
 import java.util.List;
 
-import ru.ym.abis.DAL.BookDAL;
-import ru.ym.abis.models.Author;
-import ru.ym.abis.models.Book;
-import ru.ym.abis.models.BookAuthor;
+import DAL.BookDAL;
+import models.Author;
+import models.Book;
+import models.BookAuthor;
 
 public class BookController {
 	private BookDAL dal;

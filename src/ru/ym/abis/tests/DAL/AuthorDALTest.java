@@ -1,4 +1,4 @@
-package ru.ym.abis.tests.DAL;
+package tests.DAL;
 
 import org.junit.After;
 import org.junit.Before;

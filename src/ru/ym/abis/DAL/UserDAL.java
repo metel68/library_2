@@ -1,11 +1,11 @@
-package ru.ym.abis.DAL;
+package DAL;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import ru.ym.abis.models.User;
+import models.User;
 
 public class UserDAL extends BaseDAL {
 	public List<User> selectAll() {

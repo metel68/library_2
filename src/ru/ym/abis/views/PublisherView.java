@@ -1,4 +1,4 @@
-package ru.ym.abis.views;
+package views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +13,9 @@ import org.apache.ibatis.exceptions.PersistenceException;
 
 import com.google.gson.Gson;
 
-import ru.ym.abis.Constants;
-import ru.ym.abis.controllers.PublisherController;
-import ru.ym.abis.models.Publisher;
+import utils.Constants;
+import controllers.PublisherController;
+import models.Publisher;
 
 /**
  * Servlet implementation class PublisherView

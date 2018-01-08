@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.ym.abis.tests.DAL;
+package tests.DAL;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.ym.abis.DAL.BaseDAL;
+import DAL.BaseDAL;
 
 import static org.junit.Assert.*;
 

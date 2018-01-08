@@ -1,10 +1,10 @@
-package ru.ym.abis.tests.models;
+package tests.models;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.*;
 
-import ru.ym.abis.models.Author;
+import models.Author;
 
 
 public class AuthorTest {

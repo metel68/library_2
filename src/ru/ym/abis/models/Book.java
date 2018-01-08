@@ -1,4 +1,4 @@
-package ru.ym.abis.models;
+package models;
 
 import java.util.ArrayList;
 import java.util.Date;

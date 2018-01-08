@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.ym.abis.tests.DAL;
+package tests.DAL;
 
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.ym.abis.DAL.UserDAL;
-import ru.ym.abis.models.User;
+import DAL.UserDAL;
+import models.User;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package ru.ym.abis;
+package utils;
 
 public class Constants {
 	public static final String DB_ERROR = "Error istantiating DB connection!";

@@ -1,4 +1,4 @@
-package ru.ym.abis.tests.models;
+package tests.models;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.*;
 
-import ru.ym.abis.models.Author;
-import ru.ym.abis.models.Book;
-import ru.ym.abis.models.Publisher;
+import models.Author;
+import models.Book;
+import models.Publisher;
 
 public class BookTest {
 

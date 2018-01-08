@@ -1,10 +1,10 @@
-package ru.ym.abis.DAL;
+package DAL;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import ru.ym.abis.models.Author;
+import models.Author;
 
 public class AuthorDAL extends BaseDAL{
 	public List<Author> selectAll() {
