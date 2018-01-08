@@ -14,59 +14,71 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ru.ym.abis.Constants;
 import ru.ym.abis.controllers.UserController;
 import ru.ym.abis.models.User;
 
-@WebServlet(name = "UsersList", urlPatterns = {"/users"})
+@WebServlet(name = "UsersList", urlPatterns = { "/users" })
 public class UsersView extends HttpServlet {
-   
+
 	private static final long serialVersionUID = 5705929666227862893L;
-	
+	private UserController controller;
+	private GsonBuilder gsonb = new GsonBuilder();
+
 	public UsersView() {
 		super();
+		this.controller = new UserController();
 	}
 
 	@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-//        // Параметр
-//        String parameter = request.getParameter("parameter");
-//
-//        // Старт HTTP сессии
-//        HttpSession session = request.getSession(true);
-//        session.setAttribute("parameter", parameter);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// // Параметр
+		// String parameter = request.getParameter("parameter");
+		//
+		// // Старт HTTP сессии
+		// HttpSession session = request.getSession(true);
+		// session.setAttribute("parameter", parameter);
 
 		response.setContentType("application/json;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
-        		GsonBuilder b = new GsonBuilder();
-        		Gson gson = b.excludeFieldsWithoutExposeAnnotation().create();
-    			UserController contoller = new UserController();
-    			List<User> users = contoller.getUserAll();
-    			out.print(gson.toJson(users));
-        }
-    } 
 
-    @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	 response.setContentType("application/json;charset=UTF-8");
-         
-         String jsonObject = request.getReader().lines().collect(Collectors.joining()); //BANG! But servlets are mede for form-urlencoded, not for JSON
-         
-         try (PrintWriter out = response.getWriter()) {
-			GsonBuilder b = new GsonBuilder();
-			Gson gson = b.excludeFieldsWithoutExposeAnnotation().create();
-            User user = gson.fromJson(jsonObject, User.class);
-            user.hashPassword();
-            UserController userController = new UserController();
-            int res = userController.insert(user);
-            out.print(res);
-         }
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
+				List<User> users = this.controller.getUserAll();
+				out.print(gson.toJson(users));
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
 	}
 
 	@Override
-    public String getServletInfo() {
-        return "Пример сервлета";
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+
+		String jsonObject = request.getReader().lines().collect(Collectors.joining());
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
+				User user = gson.fromJson(jsonObject, User.class);
+
+				int res = this.controller.insert(user);
+				out.print(res);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
+
+	@Override
+	public String getServletInfo() {
+		return "Пример сервлета";
+	}
 
 }

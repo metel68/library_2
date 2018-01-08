@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import com.google.gson.Gson;
 
+import ru.ym.abis.Constants;
 import ru.ym.abis.controllers.PublisherController;
 import ru.ym.abis.models.Publisher;
 
@@ -21,62 +24,82 @@ import ru.ym.abis.models.Publisher;
 @WebServlet("/publisher")
 public class PublisherView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PublisherView() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	PublisherController controller;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public PublisherView() {
+		super();
+		this.controller = new PublisherController();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
-		
+
 		try (PrintWriter out = response.getWriter()) {
-			Gson gson = new Gson();
-			PublisherController сontroller = new PublisherController();
-			Publisher publisher = сontroller.selectById(id);
-	        String jsonOutput = gson.toJson(publisher);
-	        out.println(jsonOutput);
-	    }
-	}
-	
-	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         response.setContentType("application/json;charset=UTF-8");
-         
-         String jsonObject = request.getReader().lines().collect(Collectors.joining()); //BANG! But servlets are mede for form-urlencoded, not for JSON
-         
-         try (PrintWriter out = response.getWriter()) {
-        	Gson gson = new Gson();
-        	Publisher publisher = gson.fromJson(jsonObject, Publisher.class);
-        	if (publisher.getId() == 0) {
-        		String ids = request.getParameter("id");
-        		int id = Integer.parseInt(ids);
-        		publisher.setId(id);
-        	}
-            PublisherController contoller = new PublisherController();
-            int res = contoller.update(publisher);
-            out.print(res);
-         }
+			try {
+				Gson gson = new Gson();
+				Publisher publisher = controller.selectById(id);
+				String jsonOutput = gson.toJson(publisher);
+				out.println(jsonOutput);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
 	}
 
 	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+
+		String jsonObject = request.getReader().lines().collect(Collectors.joining());
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = new Gson();
+				Publisher publisher = gson.fromJson(jsonObject, Publisher.class);
+				if (publisher.getId() == 0) {
+					String ids = request.getParameter("id");
+					int id = Integer.parseInt(ids);
+					publisher.setId(id);
+				}
+				int res = controller.update(publisher);
+				out.print(res);
+			} catch (PersistenceException e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(422);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
-		
+
 		try (PrintWriter out = response.getWriter()) {
-			PublisherController сontroller = new PublisherController();
-			int result = сontroller.delete(id);
-	        out.println(result);
-	    }
+			try {
+				int result = controller.delete(id);
+				out.println(result);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
 	}
 
 }

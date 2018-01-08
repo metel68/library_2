@@ -46,16 +46,21 @@ public class LoginView extends HttpServlet {
          try (PrintWriter out = response.getWriter()) {
  			Gson gson = new Gson();
             UserController userController = new UserController();
-            
             User jsonUser = gson.fromJson(jsonObject, User.class);
-            User referenceUser = userController.getUser(jsonUser.getUsername());
-            jsonUser.hashPassword();
             
-            if (referenceUser.equals(jsonUser)) {
-            	out.print(Constants.JSON_AUTHORIZED);
-            } else {
-            	out.print(Constants.JSON_NOT_AUTHORIZED);
-            	response.setStatus(401);
+            try {
+	            if (userController.authorize(jsonUser)) {
+	            	out.print(Constants.JSON_AUTHORIZED);
+	            } else {
+	            	out.print(Constants.JSON_NOT_AUTHORIZED);
+	            	response.setStatus(401);
+	            }
+            } catch (NullPointerException e) {
+            	out.print(String.format(Constants.JSON_ERROR, e.toString()));
+            	response.setStatus(422);
+            } catch (Exception e) {
+            	out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+            	response.setStatus(500);
             }
 		}
          

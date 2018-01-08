@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import com.google.gson.Gson;
 
+import ru.ym.abis.Constants;
 import ru.ym.abis.controllers.AuthorController;
 import ru.ym.abis.models.Author;
 
@@ -22,44 +25,61 @@ import ru.ym.abis.models.Author;
 @WebServlet("/authors")
 public class AuthorsView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AuthorsView() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private AuthorController controller;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
-        		Gson gson = new Gson();
-        		AuthorController contoller = new AuthorController();
-    			List<Author> publishers = contoller.selectAll();
-    			out.print(gson.toJson(publishers));
-        }
+	public AuthorsView() {
+		super();
+		this.controller = new AuthorController();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        
-        String jsonObject = request.getReader().lines().collect(Collectors.joining()); //BANG! But servlets are mede for form-urlencoded, not for JSON
-        
-        try (PrintWriter out = response.getWriter()) {
-        	Gson gson = new Gson();
-        	Author author = gson.fromJson(jsonObject, Author.class);
-       	    AuthorController contoller = new AuthorController();
-            int res = contoller.insert(author);
-            out.print(res);
-        }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = new Gson();
+				List<Author> publishers = controller.selectAll();
+				out.print(gson.toJson(publishers));
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+
+		String jsonObject = request.getReader().lines().collect(Collectors.joining());
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = new Gson();
+				Author author = gson.fromJson(jsonObject, Author.class);
+				int res = controller.insert(author);
+				out.print(res);
+			} catch (PersistenceException e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(422);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
 	}
 
 }

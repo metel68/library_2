@@ -26,6 +26,14 @@ public class UserController {
 	}
 
 	public int insert(User user) {
+		user.hashPassword();
 		return dal.insert(user);
+	}
+	
+	public boolean authorize(User jsonUser) {
+		User referenceUser = this.getUser(jsonUser.getUsername());
+        jsonUser.hashPassword();
+        
+        return jsonUser.equals(referenceUser);
 	}
 }
