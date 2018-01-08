@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -71,8 +70,8 @@ public class PublishersView extends BaseView {
 			try {
 				Gson gson = new Gson();
 				Publisher publisher = gson.fromJson(jsonObject, Publisher.class);
-				int res = controller.insert(publisher);
-				out.print(res);
+				publisher = controller.insert(publisher);
+				out.print(gson.toJson(publisher));
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);

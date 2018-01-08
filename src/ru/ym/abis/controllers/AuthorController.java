@@ -21,8 +21,9 @@ public class AuthorController {
 		return dal.selectById(id);
 	}
 	
-	public int insert(Author author) {
-		return dal.insert(author);
+	public Author insert(Author author) {
+		dal.insert(author);
+		return author;
 	}
 	
 	public int update(Author author) {

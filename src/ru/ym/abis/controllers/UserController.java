@@ -25,16 +25,20 @@ public class UserController {
 		return dal.selectByLogin(username);
 	}
 
-	public int insert(User user, boolean isAdmin) {
+	public User insert(User user, boolean isAdmin) {
 		user.hashPassword();
 		user.setAdmin(isAdmin);
-		return dal.insert(user);
+		dal.insert(user);
+		return user;
 	}
 	
-	public boolean authorize(User jsonUser) {
+	public User authorize(User jsonUser) {
 		User referenceUser = this.getUser(jsonUser.getUsername());
         jsonUser.hashPassword();
         
-        return jsonUser.equals(referenceUser);
+        if (jsonUser.equals(referenceUser)) {
+        	return referenceUser;
+        }
+        return null;
 	}
 }

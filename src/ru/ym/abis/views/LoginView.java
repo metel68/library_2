@@ -2,20 +2,15 @@ package ru.ym.abis.views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ru.ym.abis.Constants;
 import ru.ym.abis.controllers.UserController;
@@ -27,6 +22,7 @@ import ru.ym.abis.models.User;
 @WebServlet("/login")
 public class LoginView extends BaseView {
 	private static final long serialVersionUID = 1L;
+	private GsonBuilder gsonb = new GsonBuilder();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,13 +41,14 @@ public class LoginView extends BaseView {
          String jsonObject = request.getReader().lines().collect(Collectors.joining());
          
          try (PrintWriter out = response.getWriter()) {
- 			Gson gson = new Gson();
+ 			Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
             UserController userController = new UserController();
             User jsonUser = gson.fromJson(jsonObject, User.class);
             
             try {
-	            if (userController.authorize(jsonUser)) {
-	            	out.print(Constants.JSON_AUTHORIZED);
+            	User dbUser = userController.authorize(jsonUser);
+	            if (dbUser != null) {
+	            	out.print(gson.toJson(dbUser));
 	            } else {
 	            	out.print(Constants.JSON_NOT_AUTHORIZED);
 	            	response.setStatus(401);

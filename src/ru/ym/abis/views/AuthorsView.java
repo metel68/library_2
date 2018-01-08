@@ -71,8 +71,8 @@ public class AuthorsView extends BaseView {
 			try {
 				Gson gson = new Gson();
 				Author author = gson.fromJson(jsonObject, Author.class);
-				int res = controller.insert(author);
-				out.print(res);
+				author = controller.insert(author);
+				out.print(gson.toJson(author));
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);

@@ -6,19 +6,15 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import com.google.gson.Gson;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import ru.ym.abis.Constants;
-import ru.ym.abis.controllers.AuthorController;
 import ru.ym.abis.controllers.BookController;
-import ru.ym.abis.models.Author;
 import ru.ym.abis.models.Book;
 
 /**

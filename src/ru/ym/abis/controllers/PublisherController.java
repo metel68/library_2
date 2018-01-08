@@ -21,8 +21,9 @@ public class PublisherController {
 		return dal.selectById(id);
 	}
 	
-	public int insert(Publisher publisher) {
-		return dal.insert(publisher);
+	public Publisher insert(Publisher publisher) {
+		dal.insert(publisher);
+		return publisher;
 	}
 	
 	public int update(Publisher publisher) {

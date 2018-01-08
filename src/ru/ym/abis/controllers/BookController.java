@@ -23,13 +23,13 @@ public class BookController {
 		return dal.selectById(id);
 	}
 	
-	public int insert(Book book) {
-		int res = dal.insert(book); // we need to have saved book to make m2m relation
+	public Book insert(Book book) {
+		dal.insert(book);
 		for (Author author : book.getAuthors()) {
 			BookAuthor link = new BookAuthor(book, author);
 			dal.insertAuthor(link);
 		}
-		return res;
+		return dal.selectById(book.getId());
 	}
 	
 	public int update(Book book) {

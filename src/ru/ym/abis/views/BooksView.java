@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -67,8 +66,8 @@ public class BooksView extends BaseView {
 			try {
 				Gson gson = new Gson();
 				Book book = gson.fromJson(jsonObject, Book.class);
-				int res = controller.insert(book);
-				out.print(res);
+				book = controller.insert(book);
+				out.print(gson.toJson(book));
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);

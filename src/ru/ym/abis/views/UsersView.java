@@ -68,8 +68,8 @@ public class UsersView extends BaseView {
 				Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
 				User user = gson.fromJson(jsonObject, User.class);
 
-				int res = this.controller.insert(user, false);
-				out.print(res);
+				User newUser = this.controller.insert(user, false);
+				out.print(gson.toJson(newUser));
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);
