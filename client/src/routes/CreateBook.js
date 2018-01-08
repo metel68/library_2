@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Form, Button, Dropdown, Input, TextArea } from 'semantic-ui-react';
+import Author from '../components/Author';
+import API from '../Api';
 // private int id;
 // private String isbn;
 // private String title;
@@ -14,65 +16,142 @@ class CreateBook extends Component {
   constructor() {
     super();
     this.state = {
-      book: {
-        title: '',
-        authors: [],
-        publisher: '',
-        year: '',
-        count: '',
-        size: '',
-        description: '',
-      },
+      title: '',
+      authors: [],
+      publishers: [],
+      publisher: '',
+      year: '',
+      count: '',
+      size: '',
+      description: '',
+      author: '',
+      newPublisher: '',
     };
   }
 
+  changeInputValue = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  changeAuthorsArray = (e, data) => {
+    const { value } = data;
+    this.setState({ authors: value });
+  };
+
+  addNewAuthor = async () => {
+    const { author } = this.state;
+    const response = await API.createNewAuthor(author);
+    console.log(response);
+    return response;
+  };
+
+  addNewPublisher = async () => {
+    const { newPublisher } = this.state;
+    const response = await API.createNewPublisher(newPublisher);
+    console.log(response);
+    return response;
+  };
+
+  setPublisherValue = (e, data) => {
+    const { value } = data;
+    this.setState({ publisher: value });
+  };
+
   render() {
-    const authors = [
-      { key: 'angular', text: 'Angular', value: 'angular' },
-      { key: 'css', text: 'CSS', value: 'css' },
-      { key: 'design', text: 'Graphic Design', value: 'design' },
-      { key: 'ember', text: 'Ember', value: 'ember' },
-      { key: 'html', text: 'HTML', value: 'html' },
-      { key: 'ia', text: 'Information Architecture', value: 'ia' },
-      { key: 'javascript', text: 'Javascript', value: 'javascript' },
-      { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
-      { key: 'meteor', text: 'Meteor', value: 'meteor' },
-      { key: 'node', text: 'NodeJS', value: 'node' },
-      { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
-      { key: 'python', text: 'Python', value: 'python' },
-      { key: 'rails', text: 'Rails', value: 'rails' },
-      { key: 'react', text: 'React', value: 'react' },
-      { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
-      { key: 'ruby', text: 'Ruby', value: 'ruby' },
-      { key: 'ui', text: 'UI Design', value: 'ui' },
-      { key: 'ux', text: 'User Experience', value: 'ux' },
-    ];
     const {
-      title, publisher, year, count, size, description,
+      title,
+      publisher,
+      year,
+      count,
+      size,
+      description,
+      author,
+      newPublisher,
+      authors,
+      publishers,
     } = this.state;
+    const {
+      changeInputValue,
+      changeAuthorsArray,
+      addNewAuthor,
+      setPublisherValue,
+      addNewPublisher,
+    } = this;
     return (
       <Container text>
         <Header>Добавить книгу</Header>
         <Form>
           <Form.Field>
             <label>Название</label>
-            <input value={title} placeholder="Название книги" />
+            <input
+              name="title"
+              onChange={changeInputValue}
+              value={title}
+              placeholder="Название книги"
+            />
           </Form.Field>
           <Form.Field>
             <label>Выбрать авторов книги</label>
-            <Dropdown placeholder="Выбрать авторов" fluid multiple selection options={authors} />
+            <Dropdown
+              placeholder="Выбрать авторов"
+              fluid
+              multiple
+              selection
+              options={authors}
+              onChange={changeAuthorsArray}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Добавить автора</label>
+            <input
+              value={author}
+              name="author"
+              onChange={changeInputValue}
+              placeholder="Имя автора"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Button type="submit" onClick={addNewAuthor}>
+              Добавить
+            </Button>
           </Form.Field>
           <Form.Field>
             <label>Выбрать издательство</label>
-            <input title={publisher} placeholder="Название книги" />
+            <Dropdown
+              placeholder="Выбрать издательство"
+              fluid
+              selection
+              options={publishers}
+              onChange={setPublisherValue}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Добавить издательство</label>
+            <input
+              value={newPublisher}
+              name="newPublisher"
+              onChange={changeInputValue}
+              placeholder="Название издательства"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Button type="submit" onClick={addNewPublisher}>
+              Добавить
+            </Button>
           </Form.Field>
           <Form.Field>
             <label>Введите год издания</label>
-            <input title={year} placeholder="Год издания" />
+            <input value={year} name="year" onChange={changeInputValue} placeholder="Год издания" />
           </Form.Field>
           <Form.Field>
             <label>Колличество книг на складе</label>
-            <input title={count} placeholder="Колличество книг на складе" />
+            <input
+              name="count"
+              onChange={changeInputValue}
+              value={count}
+              placeholder="Колличество книг на складе"
+            />
           </Form.Field>
           <Form.Field>
             <label>Колличество книг на складе</label>
@@ -81,11 +160,19 @@ class CreateBook extends Component {
               label={{ basic: true, content: 'страниц' }}
               labelPosition="right"
               placeholder="Введите колличество страниц в книге"
+              name="size"
+              onChange={changeInputValue}
             />
           </Form.Field>
           <Form.Field>
             <label>Описание книги</label>
-            <TextArea value={description} placeholder="Tell us more" style={{ minHeight: 100 }} />
+            <TextArea
+              onChange={changeInputValue}
+              value={description}
+              name="description"
+              placeholder="Tell us more"
+              style={{ minHeight: 100 }}
+            />
           </Form.Field>
           <Button type="submit">Submit</Button>
         </Form>
