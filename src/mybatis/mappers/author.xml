@@ -9,7 +9,7 @@
 		select * from author where id = #{id}
 	</select>
 	<select id="selectByName" resultType="Author" parameterType="String">
-		select * from author where full_name = #{fullName}
+		select * from author where full_name like #{fullName}
 	</select>
 	<insert id="insertAuthor" parameterType="Author" flushCache="true"
 		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"

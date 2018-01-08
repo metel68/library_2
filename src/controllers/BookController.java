@@ -23,6 +23,10 @@ public class BookController {
 		return dal.selectById(id);
 	}
 	
+	public Book selectByName(String name) {
+		return dal.selectByName(name);
+	}
+	
 	public Book insert(Book book) {
 		dal.insert(book);
 		for (Author author : book.getAuthors()) {

@@ -41,13 +41,21 @@ public class BookView extends BaseView {
 			throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
-		String ids = request.getParameter("id");
-		int id = Integer.parseInt(ids);
 
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Book book = controller.selectById(id);
+				String ids = request.getParameter("id");
+				Book book;
+				if (ids != null) {
+					int id = Integer.parseInt(ids);
+					book = controller.selectById(id);
+				} else {
+					book = controller.selectByName(request.getParameter("name"));
+				}
+				if (book == null) {
+					response.setStatus(404);
+				}
 				String jsonOutput = gson.toJson(book);
 				out.println(jsonOutput);
 			} catch (Exception e) {

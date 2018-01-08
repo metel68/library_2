@@ -8,9 +8,6 @@
 	<select id="selectById" resultType="Publisher" parameterType="int">
 		select * from publisher where id = #{id}
 	</select>
-	<select id="selectByLogin" resultType="Publisher" parameterType="String">
-		select * from publisher where name = #{name}
-	</select>
 	<insert id="insertPublisher" parameterType="Publisher" flushCache="true"
 		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">

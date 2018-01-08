@@ -48,6 +48,9 @@ public class PublisherView extends BaseView {
 			try {
 				Gson gson = new Gson();
 				Publisher publisher = controller.selectById(id);
+				if (publisher == null) {
+					response.setStatus(404);
+				}
 				String jsonOutput = gson.toJson(publisher);
 				out.println(jsonOutput);
 			} catch (Exception e) {

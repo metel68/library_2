@@ -22,6 +22,13 @@ public class BookDAL extends BaseDAL {
 		return ret;
 	}
 	
+	public Book selectByName(String title) {
+		SqlSession session = getSqlSessionFactory().openSession();
+		Book ret = session.selectOne("book.selectByTitle", title);
+		session.close();
+		return ret;
+	}
+	
 	public int insert(Book book) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		int ret = session.insert("book.insertBook", book);

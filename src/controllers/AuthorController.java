@@ -21,6 +21,10 @@ public class AuthorController {
 		return dal.selectById(id);
 	}
 	
+	public Author selectByName(String name) {
+		return dal.selectByName(name);
+	}
+	
 	public Author insert(Author author) {
 		dal.insert(author);
 		return author;

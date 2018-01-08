@@ -21,6 +21,13 @@ public class AuthorDAL extends BaseDAL{
 		return ret;
 	}
 	
+	public Author selectByName(String name) {
+		SqlSession session = getSqlSessionFactory().openSession();
+		Author ret = session.selectOne("author.selectByName", name);
+		session.close();
+		return ret;
+	}
+	
 	public int insert(Author author) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		int ret = session.insert("author.insertAuthor", author);

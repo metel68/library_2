@@ -41,13 +41,21 @@ public class AuthorView extends BaseView {
 			throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
-		String ids = request.getParameter("id");
-		int id = Integer.parseInt(ids);
 
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Author author = controller.selectById(id);
+				Author author;
+				String ids = request.getParameter("id");
+				if (ids != null) {
+					int id = Integer.parseInt(ids);
+					author = controller.selectById(id);
+				} else {
+					author = controller.selectByName(request.getParameter("name"));
+				}
+				if (author == null) {
+					response.setStatus(404);
+				}
 				String jsonOutput = gson.toJson(author);
 				out.println(jsonOutput);
 			} catch (Exception e) {
