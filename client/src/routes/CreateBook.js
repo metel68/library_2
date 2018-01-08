@@ -16,17 +16,40 @@ class CreateBook extends Component {
   constructor() {
     super();
     this.state = {
+      authors: {
+        showAddField: false,
+        loaded: [],
+        selected: [],
+      },
       title: '',
-      authors: [],
       publishers: [],
       publisher: '',
       year: '',
       count: '',
       size: '',
       description: '',
-      author: '',
       newPublisher: '',
     };
+  }
+
+  async componentDidMount() {
+    const authorsResponse = await API.getAuthors();
+    if (authorsResponse.ok) {
+      const { data } = authorsResponse;
+      const { authors } = this.state;
+      this.setState({ authors: { ...authors, loaded: data } });
+    } else {
+      console.error(authorsResponse.error);
+    }
+
+    const publishersResponse = await API.getPublishers();
+
+    if (publishersResponse.ok) {
+      const { data } = publishersResponse;
+      this.setState({ publishers: data });
+    } else {
+      console.error(publishersResponse.error);
+    }
   }
 
   changeInputValue = e => {
@@ -36,14 +59,25 @@ class CreateBook extends Component {
 
   changeAuthorsArray = (e, data) => {
     const { value } = data;
-    this.setState({ authors: value });
+    const { authors } = this.state;
+    const newAuthors = value.map(authorId => ({
+      id: authorId,
+    }));
+    this.setState({ authors: { ...authors, selected: [...authors.selected, ...newAuthors] } });
   };
 
-  addNewAuthor = async () => {
-    const { author } = this.state;
-    const response = await API.createNewAuthor(author);
-    console.log(response);
-    return response;
+  addNewAuthor = async e => {
+    const { value } = e.target;
+    const response = await API.createNewAuthor(value);
+    const { ok, data, error } = response;
+    if (ok) {
+      this.setState(prevState => ({
+        ...prevState,
+        authors: { ...prevState.authors, loaded: prevState.authors.loaded.push(value) }, //TODO: Заменить нужным форматом автора из data
+      }));
+    } else {
+      console.error(error);
+    }
   };
 
   addNewPublisher = async () => {
@@ -58,6 +92,23 @@ class CreateBook extends Component {
     this.setState({ publisher: value });
   };
 
+  NewAuthorForm = () => {
+    const { changeInputValue, addNewAuthor } = this;
+    return (
+      <Form.Field>
+        <Form.Field>
+          <label>Добавить автора</label>
+          <input name="author" onChange={changeInputValue} placeholder="Имя автора" />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" onClick={addNewAuthor}>
+            Добавить
+          </Button>
+        </Form.Field>
+      </Form.Field>
+    );
+  };
+
   render() {
     const {
       title,
@@ -66,10 +117,9 @@ class CreateBook extends Component {
       count,
       size,
       description,
-      author,
       newPublisher,
-      authors,
       publishers,
+      authors,
     } = this.state;
     const {
       changeInputValue,
@@ -77,7 +127,9 @@ class CreateBook extends Component {
       addNewAuthor,
       setPublisherValue,
       addNewPublisher,
+      NewAuthorForm,
     } = this;
+
     return (
       <Container text>
         <Header>Добавить книгу</Header>
@@ -98,24 +150,11 @@ class CreateBook extends Component {
               fluid
               multiple
               selection
-              options={authors}
+              options={authors.loaded}
               onChange={changeAuthorsArray}
             />
           </Form.Field>
-          <Form.Field>
-            <label>Добавить автора</label>
-            <input
-              value={author}
-              name="author"
-              onChange={changeInputValue}
-              placeholder="Имя автора"
-            />
-          </Form.Field>
-          <Form.Field>
-            <Button type="submit" onClick={addNewAuthor}>
-              Добавить
-            </Button>
-          </Form.Field>
+          {authors.showAddField ? NewAuthorForm() : null}
           <Form.Field>
             <label>Выбрать издательство</label>
             <Dropdown

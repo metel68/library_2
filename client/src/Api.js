@@ -7,28 +7,62 @@ const createBook = async (data) => {
 };
 
 const createNewAuthor = async (author) => {
-  const response = await fetch(`${BASE_URL}authors`, {
-    method: 'POST',
-    body: { fullname: author },
-  });
-  const data = await response.json();
-  console.log(data);
-  return response;
+  try {
+    const response = await fetch(`${BASE_URL}authors`, {
+      method: 'POST',
+      body: JSON.stringify({ fullName: author }),
+    });
+    const data = await response.json();
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
 };
 
 const createNewPublisher = async (publisher) => {
-  const response = await fetch(`${BASE_URL}publishers`, {
-    method: 'POST',
-    body: { name: publisher },
-  });
+  try {
+    const response = await fetch(`${BASE_URL}publishers`, {
+      method: 'POST',
+      body: JSON.stringify({ name: publisher }),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  return data;
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+const getAuthors = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}authors`);
+    const json = await response.json();
+    const data = json.map(author => ({
+      key: author.id,
+      text: author.fullName,
+      value: author.id,
+    }));
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+const getPublishers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}publishers`);
+    const data = await response.json();
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
 };
 
 export default {
   createBook,
   createNewAuthor,
   createNewPublisher,
+  getAuthors,
+  getPublishers,
 };
