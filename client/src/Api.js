@@ -34,15 +34,17 @@ const createNewPublisher = async (publisher) => {
   }
 };
 
+const formatData = data => ({
+  key: data.id,
+  text: data.fullName || data.name,
+  value: data.id,
+});
+
 const getAuthors = async () => {
   try {
     const response = await fetch(`${BASE_URL}authors`);
     const json = await response.json();
-    const data = json.map(author => ({
-      key: author.id,
-      text: author.fullName,
-      value: author.id,
-    }));
+    const data = json.map(formatData);
     return { ok: true, data };
   } catch (error) {
     return { ok: false, error };
@@ -52,7 +54,8 @@ const getAuthors = async () => {
 const getPublishers = async () => {
   try {
     const response = await fetch(`${BASE_URL}publishers`);
-    const data = await response.json();
+    const json = await response.json();
+    const data = json.map(formatData);
     return { ok: true, data };
   } catch (error) {
     return { ok: false, error };

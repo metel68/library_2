@@ -17,18 +17,22 @@ class CreateBook extends Component {
     super();
     this.state = {
       authors: {
-        showAddField: false,
+        showAddField: true,
         loaded: [],
         selected: [],
+        new: '',
+      },
+      publishers: {
+        showAddField: false,
+        loaded: [],
+        selected: '',
+        new: '',
       },
       title: '',
-      publishers: [],
-      publisher: '',
       year: '',
       count: '',
       size: '',
       description: '',
-      newPublisher: '',
     };
   }
 
@@ -46,7 +50,10 @@ class CreateBook extends Component {
 
     if (publishersResponse.ok) {
       const { data } = publishersResponse;
-      this.setState({ publishers: data });
+      this.setState(prevState => ({
+        ...prevState,
+        publishers: { ...prevState.publishers, loaded: data },
+      }));
     } else {
       console.error(publishersResponse.error);
     }
@@ -67,38 +74,82 @@ class CreateBook extends Component {
   };
 
   addNewAuthor = async e => {
-    const { value } = e.target;
-    const response = await API.createNewAuthor(value);
+    const { authors } = this.state;
+    const response = await API.createNewAuthor(authors.new);
     const { ok, data, error } = response;
     if (ok) {
+      const { id, fullName } = data;
       this.setState(prevState => ({
         ...prevState,
-        authors: { ...prevState.authors, loaded: prevState.authors.loaded.push(value) }, //TODO: Заменить нужным форматом автора из data
+        authors: {
+          ...prevState.authors,
+          loaded: [...prevState.authors.loaded, { key: id, text: fullName, value: id }],
+          new: '',
+          showAddField: false,
+        }, //TODO: Заменить нужным форматом автора из data
       }));
     } else {
       console.error(error);
     }
   };
 
-  addNewPublisher = async () => {
-    const { newPublisher } = this.state;
-    const response = await API.createNewPublisher(newPublisher);
-    console.log(response);
-    return response;
+  addNewPublisher = async e => {
+    const { publishers } = this.state;
+    const response = await API.createNewPublisher(publishers.new);
+    const { ok, data, error } = response;
+    if (ok) {
+      const { id, name } = data;
+      this.setState(prevState => ({
+        ...prevState,
+        publishers: {
+          ...prevState.publishers,
+          loaded: [...prevState.publishers.loaded, { key: id, text: name, value: id }],
+          new: '',
+          showAddField: false,
+        },
+      }));
+    } else {
+      console.error(error);
+    }
+  };
+
+  changeNewPublisherValue = e => {
+    const { value } = e.target;
+    this.setState(prevState => ({
+      ...prevState,
+      publishers: { ...prevState.publishers, new: value },
+    }));
+  };
+
+  changeNewAuthorValue = e => {
+    const { value } = e.target;
+    this.setState(prevState => ({
+      ...prevState,
+      authors: { ...prevState.authors, new: value },
+    }));
   };
 
   setPublisherValue = (e, data) => {
     const { value } = data;
-    this.setState({ publisher: value });
+    this.setState(prevState => ({
+      ...prevState,
+      publishers: { ...prevState.publishers, selected: value },
+    }));
   };
 
   NewAuthorForm = () => {
-    const { changeInputValue, addNewAuthor } = this;
+    const { authors } = this.state;
+    const { changeNewAuthorValue, addNewAuthor } = this;
     return (
       <Form.Field>
         <Form.Field>
           <label>Добавить автора</label>
-          <input name="author" onChange={changeInputValue} placeholder="Имя автора" />
+          <input
+            name="author"
+            value={authors.new}
+            onChange={changeNewAuthorValue}
+            placeholder="Имя автора"
+          />
         </Form.Field>
         <Form.Field>
           <Button type="submit" onClick={addNewAuthor}>
@@ -110,17 +161,7 @@ class CreateBook extends Component {
   };
 
   render() {
-    const {
-      title,
-      publisher,
-      year,
-      count,
-      size,
-      description,
-      newPublisher,
-      publishers,
-      authors,
-    } = this.state;
+    const { title, publishers, year, count, size, description, authors } = this.state;
     const {
       changeInputValue,
       changeAuthorsArray,
@@ -128,6 +169,7 @@ class CreateBook extends Component {
       setPublisherValue,
       addNewPublisher,
       NewAuthorForm,
+      changeNewPublisherValue,
     } = this;
 
     return (
@@ -161,16 +203,16 @@ class CreateBook extends Component {
               placeholder="Выбрать издательство"
               fluid
               selection
-              options={publishers}
+              options={publishers.loaded}
               onChange={setPublisherValue}
             />
           </Form.Field>
           <Form.Field>
             <label>Добавить издательство</label>
             <input
-              value={newPublisher}
+              value={publishers.new}
               name="newPublisher"
-              onChange={changeInputValue}
+              onChange={changeNewPublisherValue}
               placeholder="Название издательства"
             />
           </Form.Field>
