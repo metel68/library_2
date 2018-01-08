@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="selectAll" resultType="User">
+		select * from user
+	</select>
+	<select id="selectById" parameterType="int" resultType="User">
+		select * from user where id = #{id}
+	</select>
+	<select id="selectByLogin" parameterType="String" resultType="User">
+		select * from user where username = #{username}
+	</select>
+	
+	<insert id="insertUser" parameterType="User" flushCache="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+		timeout="20">
+		insert into user (username, password, is_admin) values (#{username},
+		#{password}, #{isAdmin})
+	</insert>
+
+	<update id="updateUser" parameterType="User"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update user set (username=#{username}, password=#{password},
+		isAdmin=#{isAdmin})
+	</update>
+
+	<delete id="deleteUser" parameterType="User"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from user where id=#{id}
+	</delete>
+</mapper>
