@@ -15,6 +15,7 @@ public class Book {
 	private int size;
 	private String description;
 	private Date addedAt;
+	private String cover;
 	
 	public int getId() {
 		return id;
@@ -94,6 +95,12 @@ public class Book {
 	}
 	public Book() {
 		
+	}
+	public String getCover() {
+		return cover;
+	}
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 		
 }

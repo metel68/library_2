@@ -16,6 +16,7 @@
       <result property="count" column="count"/>
       <result property="description" column="description"/>
       <result property="addedAt" column="added_at"/>      
+      <result property="cover" column="cover"/>
 	  <association property="publisher" javaType="Publisher">
 		  <id property="id" column="publisher_id"/>
 		  <result property="name" column="pub_name"/>
@@ -45,14 +46,14 @@
 	<insert id="insertBook" parameterType="Book" flushCache="true"
 		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
-		insert into book (ISBN, title, year, size, count, publisher_id, description, added_at) values (#{isbn},
-		#{title}, #{year}, #{size}, #{count}, #{publisher.id}, #{description}, #{addedAt})
+		insert into book (ISBN, title, year, size, count, publisher_id, description, added_at, cover) values (#{isbn},
+		#{title}, #{year}, #{size}, #{count}, #{publisher.id}, #{description}, #{addedAt}, #{cover})
 	</insert>
 
 	<update id="updateBook" parameterType="Book"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		update book set (isbn=#{isbn}, title='#{title}', year=#{year}, size=#{size}, count=#{count},
-		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}') where id=#{id}
+		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}, cover=#{cover}') where id=#{id}
 	</update>
 
 	<delete id="deleteBook" parameterType="int"
