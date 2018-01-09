@@ -170,6 +170,35 @@ const registerUser = async ({ email, password }) => {
   }
 };
 
+const auth = async ({ email, password }) => {
+  try {
+    const response = await fetch(`${BASE_URL}login`, {
+      method: 'POST',
+      body: JSON.stringify({ username: email, password }),
+    });
+
+    const data = await response.json();
+
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+const deleteBook = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}book?id=${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
 export default {
   createBook,
   createNewAuthor,
@@ -182,4 +211,6 @@ export default {
   createNewCategory,
   searchBooks,
   registerUser,
+  auth,
+  deleteBook,
 };

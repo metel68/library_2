@@ -4,6 +4,7 @@ import { Container, Input, Checkbox as C } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import intersection from 'lodash/intersection';
 import { Book as B } from '../components';
+import { isAdmin } from '../utils';
 import API from '../Api';
 
 class Home extends Component {
@@ -21,7 +22,7 @@ class Home extends Component {
     const { data } = response;
     const res = await API.getCategories();
     const tagsData = res.data;
-    this.setState({ books: data, tags: tagsData });
+    this.setState({ books: data, tags: tagsData, isAdmin: isAdmin() });
   }
 
   searchBook = async e => {
@@ -46,8 +47,14 @@ class Home extends Component {
     }
   };
 
+  logout = () => {
+    localStorage.setItem('isAuthorized', false);
+    localStorage.setItem('isAdmin', false);
+    this.props.history.push('/');
+  };
+
   render() {
-    const { books, tags, selectedFilters } = this.state;
+    const { books, tags, selectedFilters, isAdmin } = this.state;
     const filteredBooks = selectedFilters.length
       ? books.filter(book => {
           const bookCategoriesId = book.categories.map(category => category.id);
@@ -55,11 +62,14 @@ class Home extends Component {
           return numberOfIntersections !== 0;
         })
       : books;
-    const { searchBook, filterBooks } = this;
+    const { searchBook, filterBooks, logout } = this;
     return (
       <Layout>
+        <a href="#" onClick={logout}>
+          Выйти
+        </a>
         <Wrapper>
-          <Link to={{ pathname: 'book/create' }}>Добавить книгу</Link>
+          {isAdmin ? <Link to={{ pathname: '/book/create' }}>Добавить книгу</Link> : null}
           <Input icon="search" placeholder="Search..." onChange={searchBook} />
         </Wrapper>
         <Wrapper>

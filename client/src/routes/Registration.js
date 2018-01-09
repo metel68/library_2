@@ -15,7 +15,7 @@ import API from '../Api';
 // private int size;
 // private String description;
 // private Date addedAt;
-class CreateBook extends Component {
+class Registration extends Component {
   constructor() {
     super();
     this.state = {
@@ -36,7 +36,14 @@ class CreateBook extends Component {
     } else {
       const response = await API.registerUser(this.state);
       const { ok, data } = response;
-      console.log(response);
+
+      if (ok) {
+        localStorage.setItem('isAdmin', data.isAdmin);
+        localStorage.setItem('isAuthorized', true);
+        this.props.history.push('/books/list');
+      } else {
+        this.setState({ error: 'Не правильные email или пароль' });
+      }
     }
   };
 
@@ -64,6 +71,7 @@ class CreateBook extends Component {
           <Button type="submit" onClick={createNewUser}>
             Submit
           </Button>
+          <RegistrationLink to={{ pathname: '/' }}>Авторизоваться</RegistrationLink>
         </Form>
       </Wrapper>
     );
@@ -75,4 +83,9 @@ const Wrapper = styled(Container)`
   margin-bottom: 50px;
 `;
 
-export default CreateBook;
+const RegistrationLink = styled(Link)`
+  margin-left: 500px;
+  margin-top: 30px;
+`;
+
+export default Registration;

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import API from '../Api';
 import { Image, Title, Author } from '../components';
+import { isAdmin } from '../utils';
 
 class Book extends Component {
   constructor() {
@@ -17,16 +18,28 @@ class Book extends Component {
     const { bookId } = this.props.match.params;
     const response = await API.getBook(bookId);
     const { data } = response;
-    this.setState({ book: data });
+    this.setState({ book: data, isAdmin: isAdmin() });
   }
 
+  deleteBook = async () => {
+    const { book } = this.state;
+    const reponse = API.deleteBook(book.id);
+  };
+
   render() {
-    const {
-      cover, title, authors, isbn, publisher, year, size, description,
-    } = this.state.book;
+    const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
+    const { deleteBook } = this;
+    const { isAdmin } = this.state;
     return (
       <Layout text>
-        <Link to={{ pathname: '/' }}>Назад</Link>
+        <InfoRow>
+          <Link to={{ pathname: '/' }}>Назад</Link>
+          {isAdmin ? (
+            <a href="#" onClick={deleteBook}>
+              Удалить
+            </a>
+          ) : null}
+        </InfoRow>
         <BookWrapper>
           <Image src={cover} />
           <BookTitle>

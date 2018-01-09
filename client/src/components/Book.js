@@ -11,7 +11,7 @@ export const Book = ({
   }, className,
 }) => (
   <Wrapper className={className}>
-    <Link to={{ pathname: `book/view/${id}` }}>
+    <Link to={{ pathname: `/book/view/${id}` }}>
       <Image src={cover} />
     </Link>
     <Title>{title}</Title>
