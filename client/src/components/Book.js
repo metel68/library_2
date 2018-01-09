@@ -7,15 +7,17 @@ import Author from './Author';
 
 export const Book = ({
   book: {
-    id, coverFilename, title, authors,
+    id, cover, title, authors,
   }, className,
 }) => (
   <Wrapper className={className}>
-    <Link to={{ pathname: `book/view/${id}` }}>
-      <Image src={`/img/${coverFilename}`} />
+    <Link to={{ pathname: `/book/view/${id}` }}>
+      <Image src={cover} />
     </Link>
     <Title>{title}</Title>
-    {authors.map(author => <Author key={`${id}${author}`}>{author}</Author>)}
+    {authors.map(author => (
+      <Author key={`${author.id}${author.fullName}`}>{author.fullName}</Author>
+    ))}
   </Wrapper>
 );
 
