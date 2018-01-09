@@ -58,18 +58,27 @@ public class UserControllerTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        User user = null;
-        boolean isAdmin = false;
+        User user1 = new User(1, "Bro122", "password123", false);
+        UserController instance = new UserController();
+        User result = instance.insert(user1, false);
+        User expResult = instance.getUser(user1.getId());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        User user1 = new User();
         UserController instance = new UserController();
         User expResult = null;
-        User result = instance.insert(user, isAdmin);
+        User result = instance.insert(user1, false);
         assertEquals(expResult, result);
     }
 
     @Test
     public void testAuthorize() {
         System.out.println("authorize");
-        User jsonUser = null;
+        User jsonUser = new User();
         UserController instance = new UserController();
         User expResult = null;
         User result = instance.authorize(jsonUser);

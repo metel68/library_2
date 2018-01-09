@@ -2,9 +2,13 @@ package tests.DAL;
 
 import DAL.BaseDAL;
 import DAL.BookDAL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import models.Author;
 import models.Book;
 import models.BookAuthor;
+import models.Publisher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,24 +63,30 @@ public class BookDALTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Book book = null;
+        System.out.println("insert");
+        Date date = new Date(2017, 9, 19);
+        Author author1 = new Author(1, "Hell Bolovich");
+	Author author2 = new Author(2, "Vik Ovologov");
+        List<Author> authorSet = new ArrayList<>();
+	authorSet.add(author1);
+	authorSet.add(author2);
+	Publisher ognivo = new Publisher(1, "Ognivo");
+        Book book1 = new Book(1, "234567", "Pekavit", authorSet, ognivo, 2018, 2, 784, "Book with history", date);
+        BookDAL instance = new BookDAL();
+        int result = instance.insert(book1);
+        Book expResult = instance.selectById(book1.getId());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        Book book = new Book();
         BookDAL instance = new BookDAL();
         int expResult = 0;
         int result = instance.insert(book);
         assertEquals(expResult, result);
     }
-
-
-    @Test
-    public void testUpdate() {
-        System.out.println("update");
-        Book book = null;
-        BookDAL instance = new BookDAL();
-        int expResult = 0;
-        int result = instance.update(book);
-        assertEquals(expResult, result);
-    }
-
 
     @Test
     public void testDelete() {

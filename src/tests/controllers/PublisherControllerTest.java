@@ -1,6 +1,7 @@
 package tests.controllers;
 
 import controllers.PublisherController;
+import java.util.Date;
 import java.util.List;
 import models.Publisher;
 import org.junit.After;
@@ -33,7 +34,6 @@ public class PublisherControllerTest {
         List<Publisher> expResult = null;
         List<Publisher> result = instance.selectAll();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -44,29 +44,26 @@ public class PublisherControllerTest {
         Publisher expResult = null;
         Publisher result = instance.selectById(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Publisher publisher = null;
+        Publisher publisher1 = new Publisher(1, "Ognivo");
         PublisherController instance = new PublisherController();
-        Publisher expResult = null;
-        Publisher result = instance.insert(publisher);
+        Publisher result = instance.insert(publisher1);
+        Publisher expResult = instance.selectById(publisher1.getId());
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
-    public void testUpdate() {
-        System.out.println("update");
-        Publisher publisher = null;
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        Publisher book = new Publisher();
         PublisherController instance = new PublisherController();
-        int expResult = 0;
-        int result = instance.update(publisher);
+        Publisher expResult = null;
+        Publisher result = instance.insert(book);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -77,7 +74,6 @@ public class PublisherControllerTest {
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }

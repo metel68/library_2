@@ -50,12 +50,4 @@ public class AuthorTest {
 		assertEquals(author2.getFull_name(), "Gavrila Metel");
 	}
 
-	@Test
-	public void testTrueAuthor() {
-		Author author5 = new Author(5, "Hell Bolovich");
-		author5.setFull_name("Gavrila Metel");
-		assertTrue(author5.getFull_name() == "Gavrila Metel");
-		author5.setId(7);
-		assertTrue(author5.getId() == 7);
-	}
 }

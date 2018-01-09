@@ -49,21 +49,20 @@ public class PublisherDALTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Publisher publisher = null;
+        Publisher publisher1 = new Publisher(1, "Ognivo");
         PublisherDAL instance = new PublisherDAL();
-        int expResult = 0;
-        int result = instance.insert(publisher);
+        int result = instance.insert(publisher1);
+        Publisher expResult = instance.selectById(publisher1.getId());
         assertEquals(expResult, result);
     }
 
-
     @Test
-    public void testUpdate() {
-        System.out.println("update");
-        Publisher publisher = null;
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        Publisher publisher = new Publisher();
         PublisherDAL instance = new PublisherDAL();
         int expResult = 0;
-        int result = instance.update(publisher);
+        int result = instance.insert(publisher);
         assertEquals(expResult, result);
     }
 
