@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Book as B } from '../components';
 
@@ -21,10 +22,10 @@ class Home extends Component {
   render() {
     const { books } = this.state;
     return (
-      <div>
+      <Layout text>
         <Link to={{ pathname: 'book/create' }}>Add book</Link>
         <Wrapper>{books.map(book => <Book book={book} />)}</Wrapper>
-      </div>
+      </Layout>
     );
   }
 }
@@ -42,6 +43,10 @@ const Book = styled(B)`
   align-items: flex-start;
   margin-bottom: 25px;
   width: 25%;
+`;
+
+const Layout = styled(Container)`
+  margin-top: 50px;
 `;
 
 export default Home;

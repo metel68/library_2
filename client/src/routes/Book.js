@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Image, Title, Author } from '../components';
 import { Link } from 'react-router-dom';
+import { Image, Title, Author } from '../components';
 
 class Book extends Component {
   constructor() {

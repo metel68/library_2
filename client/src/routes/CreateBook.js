@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Form, Button, Dropdown, Input, TextArea } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Author from '../components/Author';
 import API from '../Api';
 // private int id;
@@ -200,6 +202,7 @@ class CreateBook extends Component {
     const response = await API.createBook(this.state);
     const { ok, data, error } = response;
     if (ok) {
+      this.props.history.push('/');
       console.log(data);
     } else {
       console.error(error);
@@ -334,7 +337,8 @@ class CreateBook extends Component {
     } = this;
 
     return (
-      <Container text>
+      <Wrapper text>
+        <Link to={{ pathname: '/' }}>Назад</Link>
         <Header>Добавить книгу</Header>
         <Form>
           <Form.Field>
@@ -443,9 +447,14 @@ class CreateBook extends Component {
             Submit
           </Button>
         </Form>
-      </Container>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled(Container)`
+  margin-top: 50px;
+  margin-bottom: 50px;
+`;
 
 export default CreateBook;
