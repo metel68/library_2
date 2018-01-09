@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests.DAL;
 
 import java.util.List;
@@ -15,10 +10,6 @@ import models.User;
 
 import static org.junit.Assert.*;
 
-/**
- *
- * @author PFIQ3000
- */
 public class UserDALTest {
     
     public UserDALTest() {
@@ -34,21 +25,38 @@ public class UserDALTest {
 
     @Test
     public void testSelectAll() {
-        System.out.println("selectAll");
+        System.out.println("UserDAL selectAll");
         UserDAL instance = new UserDAL();
-        List<User> expResult = null;
         List<User> result = instance.selectAll();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertTrue(result!=null && result.size()>0);
     }
+
 
     @Test
     public void testSelectById() {
-        System.out.println("selectById");
-        int id = 0;
+        System.out.println("UserDAL selectById");
+        int id = 1;
         UserDAL instance = new UserDAL();
-        User expResult = null;
         User result = instance.selectById(id);
+        assertTrue(result!=null);
+    }
+    
+    @Test
+    public void testSelectByLogin() {
+        System.out.println("UserDAL selectByLogin");
+        String username = "katavova";
+        UserDAL instance = new UserDAL();
+        User result = instance.selectByLogin(username);
+        assertTrue(result!=null);
+    }
+    
+    @Test
+    public void testInsert() {
+        System.out.println("insert");
+        User user = null;
+        UserDAL instance = new UserDAL();
+        int expResult = 0;
+        int result = instance.insert(user);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

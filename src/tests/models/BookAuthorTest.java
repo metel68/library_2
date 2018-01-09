@@ -32,7 +32,9 @@ public class BookAuthorTest {
 
     @Test
 	public void testCreateBookAuthor() {
-		BookAuthor bookauthor = new BookAuthor();
+                Book book1 = new Book();
+                Author author1 = new Author();
+		BookAuthor bookauthor = new BookAuthor(book1, author1);
 		assertNotNull(bookauthor);
 	}
     
@@ -53,9 +55,9 @@ public class BookAuthorTest {
             Book book1 = new Book(1, "234567", "Pekavit", authorSet, ognivo, 2018, 2, 784, "Book with history", date);
             Book book2 = new Book(3, "456789", "Woodpoint", authorSet, ks, 1987, 1, 999, "Longest tome for parents", date2);
             
-            BookAuthor bookauthor1 = new BookAuthor(author1,book1);
-            BookAuthor bookauthor11 = new BookAuthor(author1,book2);
-            BookAuthor bookauthor2 = new BookAuthor(author2,book2);
+            BookAuthor bookauthor1 = new BookAuthor(book1,author1);
+            BookAuthor bookauthor11 = new BookAuthor(book2,author1);
+            BookAuthor bookauthor2 = new BookAuthor(book2,author2);
             
                 assertEquals(bookauthor1, bookauthor1);
 		assertEquals(bookauthor1, bookauthor11);
