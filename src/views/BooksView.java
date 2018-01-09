@@ -42,8 +42,15 @@ public class BooksView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				List<Book> publishers = controller.selectAll();
-				out.print(gson.toJson(publishers));
+				List<Book> books;
+				
+				if (request.getParameter("name") != null) {
+					books = controller.findByName(request.getParameter("name"));
+				} else {
+					books = controller.selectAll();
+				}
+				
+				out.print(gson.toJson(books));
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);

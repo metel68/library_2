@@ -24,8 +24,9 @@ public class BookController {
 		return dal.selectById(id);
 	}
 	
-	public Book selectByName(String name) {
-		return dal.selectByName(name);
+	public List<Book> findByName(String name) {
+		String likePattern = String.format("%%%s%%", name);
+		return dal.findByName(likePattern);
 	}
 	
 	public Book insert(Book book) {

@@ -23,9 +23,9 @@ public class BookDAL extends BaseDAL {
 		return ret;
 	}
 	
-	public Book selectByName(String title) {
+	public List<Book> findByName(String title) {
 		SqlSession session = getSqlSessionFactory().openSession();
-		Book ret = session.selectOne("book.selectByTitle", title);
+		List<Book> ret = session.selectList("book.selectByTitle", title);
 		session.close();
 		return ret;
 	}
