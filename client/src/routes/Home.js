@@ -22,8 +22,8 @@ class Home extends Component {
   render() {
     const { books } = this.state;
     return (
-      <Layout text>
-        <Link to={{ pathname: 'book/create' }}>Add book</Link>
+      <Layout>
+        <Link to={{ pathname: 'book/create' }}>Добавить книгу</Link>
         <Wrapper>{books.map(book => <Book book={book} />)}</Wrapper>
       </Layout>
     );
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 150px 50px;
+  margin-top: 50px;
 `;
 
 const Book = styled(B)`
