@@ -23,6 +23,7 @@ const createBook = async (bookInfo) => {
     size,
     description,
     cover,
+    isbn,
   } = bookInfo;
 
   const data = {
@@ -35,7 +36,7 @@ const createBook = async (bookInfo) => {
     size,
     description,
     cover,
-    isbn: 123321,
+    isbn,
   };
 
   const response = await fetch(`${BASE_URL}books`, { method: 'POST', body: JSON.stringify(data) });
