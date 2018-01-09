@@ -33,7 +33,7 @@
 
 	<select id="selectAll" resultMap="categoryResultMap">
 		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
-		book_category.category_id, category.name as cat_name from book
+		category.id as category_id, category.name as cat_name from book
 		left join publisher on publisher.id = book.publisher_id
 		left join book_authors on book_authors.book_id = book.id
 		left join author on book_authors.author_id = author.id
@@ -42,7 +42,7 @@
 	</select>
 	<select id="selectById" resultMap="categoryResultMap" parameterType="int">
 		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
-		book_category.category_id, category.name as cat_name from book
+		category.id as category_id, category.name as cat_name from book
 		left join publisher on publisher.id = book.publisher_id
 		left join book_authors on book_authors.book_id = book.id
 		left join author on book_authors.author_id = author.id

@@ -41,9 +41,9 @@ public class BookTest {
 		Author author2 = new Author(1, "Vik Ovologov");
 
 		assertEquals(author1.getId(), 1);
-		assertEquals(author1.getFull_name(), "Hell Bolovich");
+		assertEquals(author1.getFullName(), "Hell Bolovich");
 		assertEquals(author2.getId(), 1);
-		assertEquals(author2.getFull_name(), "Vik Ovologov");
+		assertEquals(author2.getFullName(), "Vik Ovologov");
 
 		List<Author> authorSet = new ArrayList<>();
 		authorSet.add(author1);
