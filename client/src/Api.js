@@ -145,6 +145,16 @@ const getBook = async (id) => {
   }
 };
 
+const searchBooks = async (query) => {
+  try {
+    const response = await fetch(`${BASE_URL}books?name=${query}`);
+    const json = await response.json();
+    return { ok: true, data: json };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
 export default {
   createBook,
   createNewAuthor,
@@ -155,4 +165,5 @@ export default {
   getBooks,
   getBook,
   createNewCategory,
+  searchBooks,
 };

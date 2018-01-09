@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Container } from 'semantic-ui-react';
+import { Container, Input } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Book as B } from '../components';
 import API from '../Api';
@@ -19,11 +19,22 @@ class Home extends Component {
     this.setState({ books: data });
   }
 
+  searchBook = async e => {
+    const { value } = e.target;
+    const response = await API.searchBooks(value);
+    const { data } = response;
+    this.setState({ books: data });
+  };
+
   render() {
     const { books } = this.state;
+    const { searchBook } = this;
     return (
       <Layout>
-        <Link to={{ pathname: 'book/create' }}>Добавить книгу</Link>
+        <Wrapper>
+          <Link to={{ pathname: 'book/create' }}>Добавить книгу</Link>
+          <Input icon="search" placeholder="Search..." onChange={searchBook} />
+        </Wrapper>
         <Wrapper>{books.map(book => <Book book={book} />)}</Wrapper>
       </Layout>
     );
@@ -42,7 +53,7 @@ const Book = styled(B)`
   display: flex;
   align-items: flex-start;
   margin-bottom: 25px;
-  width: 25%;
+  width: 33%;
 `;
 
 const Layout = styled(Container)`
