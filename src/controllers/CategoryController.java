@@ -21,10 +21,6 @@ public class CategoryController {
 		return dal.selectById(id);
 	}
 	
-	public Category selectByName(String name) {
-		return dal.selectByName(name);
-	}
-	
 	public Category insert(Category category) {
 		dal.insert(category);
 		return category;

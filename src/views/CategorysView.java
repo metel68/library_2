@@ -47,8 +47,8 @@ public class CategorysView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				List<Category> publishers = controller.selectAll();
-				out.print(gson.toJson(publishers));
+				List<Category> categorys = controller.selectAll();
+				out.print(gson.toJson(categorys));
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);

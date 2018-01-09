@@ -45,18 +45,14 @@ public class CategoryView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Category author;
 				String ids = request.getParameter("id");
-				if (ids != null) {
-					int id = Integer.parseInt(ids);
-					author = controller.selectById(id);
-				} else {
-					author = controller.selectByName(request.getParameter("name"));
-				}
-				if (author == null) {
+				int id = Integer.parseInt(ids);
+				
+				Category category = controller.selectById(id);
+				if (category == null) {
 					response.setStatus(404);
 				}
-				String jsonOutput = gson.toJson(author);
+				String jsonOutput = gson.toJson(category);
 				out.println(jsonOutput);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
@@ -75,13 +71,13 @@ public class CategoryView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Category author = gson.fromJson(jsonObject, Category.class);
-				if (author.getId() == 0) {
+				Category category = gson.fromJson(jsonObject, Category.class);
+				if (category.getId() == 0) {
 					String ids = request.getParameter("id");
 					int id = Integer.parseInt(ids);
-					author.setId(id);
+					category.setId(id);
 				}
-				int res = controller.update(author);
+				int res = controller.update(category);
 				out.print(res);
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));

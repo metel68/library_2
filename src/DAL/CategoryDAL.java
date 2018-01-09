@@ -21,13 +21,6 @@ public class CategoryDAL extends BaseDAL{
 		return ret;
 	}
 	
-	public Category selectByName(String name) {
-		SqlSession session = getSqlSessionFactory().openSession();
-		Category ret = session.selectOne("category.selectByName", name);
-		session.close();
-		return ret;
-	}
-	
 	public int insert(Category category) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		int ret = session.insert("category.insertCategory", category);
