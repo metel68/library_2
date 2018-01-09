@@ -16,23 +16,23 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import com.google.gson.Gson;
 
 import utils.Constants;
-import controllers.AuthorController;
-import models.Author;
+import controllers.CategoryController;
+import models.Category;
 
 /**
- * Servlet implementation class AuthorsView
+ * Servlet implementation class CategorysView
  */
-@WebServlet("/authors")
-public class AuthorsView extends BaseView {
+@WebServlet("/categories")
+public class CategorysView extends BaseView {
 	private static final long serialVersionUID = 1L;
-	private AuthorController controller;
+	private CategoryController controller;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AuthorsView() {
+	public CategorysView() {
 		super();
-		this.controller = new AuthorController();
+		this.controller = new CategoryController();
 	}
 
 	/**
@@ -47,8 +47,8 @@ public class AuthorsView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				List<Author> authors = controller.selectAll();
-				out.print(gson.toJson(authors));
+				List<Category> publishers = controller.selectAll();
+				out.print(gson.toJson(publishers));
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);
@@ -70,7 +70,7 @@ public class AuthorsView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Author author = gson.fromJson(jsonObject, Author.class);
+				Category author = gson.fromJson(jsonObject, Category.class);
 				author = controller.insert(author);
 				out.print(gson.toJson(author));
 			} catch (PersistenceException e) {

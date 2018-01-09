@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<select id="selectAll" resultType="Category">
+		select * from category
+	</select>
+	<select id="selectById" resultType="Category" parameterType="int">
+		select * from category where id = #{id}
+	</select>
+	<select id="selectByName" resultType="Category" parameterType="String">
+		select * from category where name like #{name}
+	</select>
+	<insert id="insertCategory" parameterType="Category" flushCache="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+		timeout="20">
+		insert into category (name) values (#{name})
+	</insert>
+
+	<update id="updateCategory" parameterType="Category"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update category set (name='#{name}') where id = #{id}
+	</update>
+
+	<delete id="deleteCategory" parameterType="int" 
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from category where id=#{id}
+	</delete>
+</mapper>

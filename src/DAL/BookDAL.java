@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import models.Book;
 import models.BookAuthor;
+import models.BookCategory;
 
 public class BookDAL extends BaseDAL {
 	public List<Book> selectAll() {
@@ -68,6 +69,27 @@ public class BookDAL extends BaseDAL {
 	public int deleteAuthorsFromBook(int id) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		int ret = session.delete("book.deleteBookAuthors", id);
+		session.close();
+		return ret;
+	}
+	
+	public int insertCategory(BookCategory category) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.insert("book.insertBookCategory", category);
+		session.close();
+		return ret;
+	}
+	
+	public int deleteCategory(BookCategory category) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("book.deleteBookCategory", category);
+		session.close();
+		return ret;
+	}
+
+	public int deleteCategorysFromBook(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("book.deleteBookCategorys", id);
 		session.close();
 		return ret;
 	}
