@@ -92,7 +92,7 @@ class CreateBook extends Component {
     const newAuthors = value.map(authorId => ({
       id: authorId,
     }));
-    this.setState({ authors: { ...authors, selected: [...authors.selected, ...newAuthors] } });
+    this.setState({ authors: { ...authors, selected: newAuthors } });
   };
 
   addNewAuthor = async e => {
@@ -174,7 +174,7 @@ class CreateBook extends Component {
       id: categorieId,
     }));
     this.setState({
-      categories: { ...categories, selected: [...categories.selected, ...newCategories] },
+      categories: { ...categories, selected: newCategories },
     });
   };
 
@@ -320,6 +320,7 @@ class CreateBook extends Component {
       authors,
       categories,
       cover,
+      isbn,
     } = this.state;
     const {
       changeInputValue,
@@ -421,6 +422,10 @@ class CreateBook extends Component {
               value={count}
               placeholder="Колличество книг на складе"
             />
+          </Form.Field>
+          <Form.Field>
+            <label>ISBN код</label>
+            <input name="isbn" onChange={changeInputValue} value={isbn} placeholder="ISBN код" />
           </Form.Field>
           <Form.Field>
             <label>Колличество страниц в книге</label>
