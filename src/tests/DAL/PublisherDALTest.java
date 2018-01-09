@@ -1,23 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests.DAL;
 
+import DAL.PublisherDAL;
+import java.util.List;
+import models.Publisher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
-/**
- *
- * @author PFIQ3000
- */
 public class PublisherDALTest {
     
     public PublisherDALTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(100);
     
     @Before
     public void setUp() {
@@ -28,7 +27,55 @@ public class PublisherDALTest {
     }
 
     @Test
-    public void testSomeMethod() {
+    public void testSelectAll() {
+        System.out.println("PublisherDAL selectAll");
+        PublisherDAL instance = new PublisherDAL();
+        List<Publisher> result = instance.selectAll();
+        assertTrue(result!=null && result.size()>0);
+    }
+
+
+    @Test
+    public void testSelectById() {
+        System.out.println("PublisherDAL selectById");
+        int id = 1;
+        PublisherDAL instance = new PublisherDAL();
+        Publisher result = instance.selectById(id);
+        assertTrue(result!=null);
+    }
+    
+    @Test
+    public void testInsert() {
+        System.out.println("insert");
+        Publisher publisher = null;
+        PublisherDAL instance = new PublisherDAL();
+        int expResult = 0;
+        int result = instance.insert(publisher);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        Publisher publisher = null;
+        PublisherDAL instance = new PublisherDAL();
+        int expResult = 0;
+        int result = instance.update(publisher);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        int id = 1;
+        PublisherDAL instance = new PublisherDAL();
+        int expResult = 0;
+        int result = instance.delete(id);
+        assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
     

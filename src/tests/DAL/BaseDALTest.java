@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests.DAL;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,15 +8,16 @@ import org.junit.Test;
 import DAL.BaseDAL;
 
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
-/**
- *
- * @author PFIQ3000
- */
 public class BaseDALTest {
     
     public BaseDALTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(100);
     
     @Before
     public void setUp() {

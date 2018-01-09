@@ -9,11 +9,16 @@ import DAL.UserDAL;
 import models.User;
 
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
 public class UserDALTest {
     
     public UserDALTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(100);
     
     @Before
     public void setUp() {

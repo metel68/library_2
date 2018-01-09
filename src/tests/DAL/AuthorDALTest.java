@@ -7,11 +7,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
 public class AuthorDALTest {
     
     public AuthorDALTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(100);
     
     @Before
     public void setUp() {
