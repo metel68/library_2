@@ -155,6 +155,21 @@ const searchBooks = async (query) => {
   }
 };
 
+const registerUser = async ({ email, password }) => {
+  try {
+    const response = await fetch(`${BASE_URL}users`, {
+      method: 'POST',
+      body: JSON.stringify({ username: email, password }),
+    });
+
+    const data = await response.json();
+
+    return { ok: true, data };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
 export default {
   createBook,
   createNewAuthor,
@@ -166,4 +181,5 @@ export default {
   getBook,
   createNewCategory,
   searchBooks,
+  registerUser,
 };

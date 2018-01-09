@@ -29,8 +29,15 @@ class CreateBook extends Component {
     this.setState({ [name]: value });
   };
 
-  createNewUser = e => {
-    console.log(this.state);
+  createNewUser = async e => {
+    const { email, password } = this.setState;
+    if (email === '' || password === '') {
+      this.setState({ error: 'Email или Пароль не должны быть пустыми' });
+    } else {
+      const response = await API.registerUser(this.state);
+      const { ok, data } = response;
+      console.log(response);
+    }
   };
 
   render() {
