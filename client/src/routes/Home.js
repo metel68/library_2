@@ -22,7 +22,7 @@ class Home extends Component {
     const { books } = this.state;
     return (
       <div>
-        <Link to={{ pathname: 'book/add' }}>Add book</Link>
+        <Link to={{ pathname: 'book/create' }}>Add book</Link>
         <Wrapper>{books.map(book => <Book book={book} />)}</Wrapper>
       </div>
     );

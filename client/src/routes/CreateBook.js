@@ -6,6 +6,7 @@ import API from '../Api';
 // private String isbn;
 // private String title;
 // private List<Author> authors = new ArrayList<>();
+// private List<Category> cateries = new ArrayList<>()
 // private Publisher publisher;
 // private int year;
 // private int count;
@@ -17,7 +18,7 @@ class CreateBook extends Component {
     super();
     this.state = {
       authors: {
-        showAddField: true,
+        showAddField: false,
         loaded: [],
         selected: [],
         new: '',
@@ -28,11 +29,18 @@ class CreateBook extends Component {
         selected: '',
         new: '',
       },
+      categories: {
+        showAddField: false,
+        loaded: [],
+        selected: [],
+        new: '',
+      },
       title: '',
       year: '',
       count: '',
       size: '',
       description: '',
+      cover: '',
     };
   }
 
@@ -56,6 +64,18 @@ class CreateBook extends Component {
       }));
     } else {
       console.error(publishersResponse.error);
+    }
+
+    const categoriesResponse = await API.getCategories();
+
+    if (categoriesResponse.ok) {
+      const { data } = categoriesResponse;
+      this.setState(prevState => ({
+        ...prevState,
+        categories: { ...prevState.categories, loaded: data },
+      }));
+    } else {
+      console.error(categoriesResponse.error);
     }
   }
 
@@ -133,13 +153,78 @@ class CreateBook extends Component {
     const { value } = data;
     this.setState(prevState => ({
       ...prevState,
-      publishers: { ...prevState.publishers, selected: value },
+      publishers: { ...prevState.publishers, selected: { id: value } },
+    }));
+  };
+
+  changeNewCategoryValue = e => {
+    const { value } = e.target;
+    this.setState(prevState => ({
+      ...prevState,
+      categories: { ...prevState.categories, new: value },
+    }));
+  };
+
+  changeCategoriesArray = (e, data) => {
+    const { value } = data;
+    const { categories } = this.state;
+    const newCategories = value.map(categorieId => ({
+      id: categorieId,
+    }));
+    this.setState({
+      categories: { ...categories, selected: [...categories.selected, ...newCategories] },
+    });
+  };
+
+  addNewCategory = async () => {
+    const { categories } = this.state;
+    const response = await API.createNewCategory(categories.new);
+    const { ok, data, error } = response;
+    if (ok) {
+      const { id, name } = data;
+      this.setState(prevState => ({
+        ...prevState,
+        categories: {
+          ...prevState.categories,
+          loaded: [...prevState.categories.loaded, { key: id, text: name, value: id }],
+          new: '',
+          showAddField: false,
+        },
+      }));
+    } else {
+      console.error(error);
+    }
+  };
+
+  createNewBook = async () => {
+    const response = await API.createBook(this.state);
+    const { ok, data, error } = response;
+    if (ok) {
+      console.log(data);
+    } else {
+      console.error(error);
+    }
+  };
+
+  showAddField = e => {
+    const { name } = e.target;
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: { ...prevState[name], showAddField: true },
+    }));
+  };
+
+  hideAddField = e => {
+    const { name } = e.target;
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: { ...prevState[name], showAddField: false },
     }));
   };
 
   NewAuthorForm = () => {
     const { authors } = this.state;
-    const { changeNewAuthorValue, addNewAuthor } = this;
+    const { changeNewAuthorValue, addNewAuthor, hideAddField } = this;
     return (
       <Form.Field>
         <Form.Field>
@@ -156,12 +241,83 @@ class CreateBook extends Component {
             Добавить
           </Button>
         </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="authors" onClick={hideAddField}>
+            Отменить
+          </Button>
+        </Form.Field>
+      </Form.Field>
+    );
+  };
+
+  NewCategoryForm = () => {
+    const { categories } = this.state;
+    const { changeNewCategoryValue, addNewCategory, hideAddField } = this;
+    return (
+      <Form.Field>
+        <Form.Field>
+          <label>Добавить категорию</label>
+          <input
+            name="author"
+            value={categories.new}
+            onChange={changeNewCategoryValue}
+            placeholder="Название категории"
+          />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" onClick={addNewCategory}>
+            Добавить
+          </Button>
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="categories" onClick={hideAddField}>
+            Отменить
+          </Button>
+        </Form.Field>
+      </Form.Field>
+    );
+  };
+
+  NewPublisherForm = () => {
+    const { publishers } = this.state;
+    const { changeNewPublisherValue, addNewPublisher, hideAddField } = this;
+    return (
+      <Form.Field>
+        <Form.Field>
+          <label>Добавить издательство</label>
+          <input
+            value={publishers.new}
+            name="newPublisher"
+            onChange={changeNewPublisherValue}
+            placeholder="Название издательства"
+          />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" onClick={addNewPublisher}>
+            Добавить
+          </Button>
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="publishers" onClick={hideAddField}>
+            Отменить
+          </Button>
+        </Form.Field>
       </Form.Field>
     );
   };
 
   render() {
-    const { title, publishers, year, count, size, description, authors } = this.state;
+    const {
+      title,
+      publishers,
+      year,
+      count,
+      size,
+      description,
+      authors,
+      categories,
+      cover,
+    } = this.state;
     const {
       changeInputValue,
       changeAuthorsArray,
@@ -169,7 +325,12 @@ class CreateBook extends Component {
       setPublisherValue,
       addNewPublisher,
       NewAuthorForm,
+      NewCategoryForm,
+      NewPublisherForm,
       changeNewPublisherValue,
+      changeCategoriesArray,
+      createNewBook,
+      showAddField,
     } = this;
 
     return (
@@ -186,6 +347,23 @@ class CreateBook extends Component {
             />
           </Form.Field>
           <Form.Field>
+            <label>Выбрать категории книги</label>
+            <Dropdown
+              placeholder="Выбрать категории"
+              fluid
+              multiple
+              selection
+              options={categories.loaded}
+              onChange={changeCategoriesArray}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Button type="submit" name="categories" onClick={showAddField}>
+              +
+            </Button>
+          </Form.Field>
+          {categories.showAddField ? NewCategoryForm() : null}
+          <Form.Field>
             <label>Выбрать авторов книги</label>
             <Dropdown
               placeholder="Выбрать авторов"
@@ -195,6 +373,11 @@ class CreateBook extends Component {
               options={authors.loaded}
               onChange={changeAuthorsArray}
             />
+          </Form.Field>
+          <Form.Field>
+            <Button type="submit" name="authors" onClick={showAddField}>
+              +
+            </Button>
           </Form.Field>
           {authors.showAddField ? NewAuthorForm() : null}
           <Form.Field>
@@ -208,22 +391,23 @@ class CreateBook extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Добавить издательство</label>
-            <input
-              value={publishers.new}
-              name="newPublisher"
-              onChange={changeNewPublisherValue}
-              placeholder="Название издательства"
-            />
-          </Form.Field>
-          <Form.Field>
-            <Button type="submit" onClick={addNewPublisher}>
-              Добавить
+            <Button type="submit" name="publishers" onClick={showAddField}>
+              +
             </Button>
           </Form.Field>
+          {publishers.showAddField ? NewPublisherForm() : null}
           <Form.Field>
             <label>Введите год издания</label>
             <input value={year} name="year" onChange={changeInputValue} placeholder="Год издания" />
+          </Form.Field>
+          <Form.Field>
+            <label>Вставьте ссылку на картинку обложки книги</label>
+            <input
+              value={cover}
+              name="cover"
+              onChange={changeInputValue}
+              placeholder="ссылка на обложку"
+            />
           </Form.Field>
           <Form.Field>
             <label>Колличество книг на складе</label>
@@ -235,7 +419,7 @@ class CreateBook extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Колличество книг на складе</label>
+            <label>Колличество страниц в книге</label>
             <Input
               value={size}
               label={{ basic: true, content: 'страниц' }}
@@ -255,7 +439,9 @@ class CreateBook extends Component {
               style={{ minHeight: 100 }}
             />
           </Form.Field>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" onClick={createNewBook}>
+            Submit
+          </Button>
         </Form>
       </Container>
     );
