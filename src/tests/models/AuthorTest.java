@@ -40,14 +40,14 @@ public class AuthorTest {
 		author1.setId(3);
 		assertEquals(author1.getId(), 3);
 
-		author1.setFull_name("Vik Ov.");
-		assertEquals(author1.getFull_name(), "Vik Ov.");
+		author1.setFullName("Vik Ov.");
+		assertEquals(author1.getFullName(), "Vik Ov.");
 
 		author2.setId(4);
 		assertEquals(author2.getId(), 4);
 
-		author2.setFull_name("Gavrila Metel");
-		assertEquals(author2.getFull_name(), "Gavrila Metel");
+		author2.setFullName("Gavrila Metel");
+		assertEquals(author2.getFullName(), "Gavrila Metel");
 	}
 
 }

@@ -4,6 +4,8 @@ import controllers.PublisherController;
 import java.util.Date;
 import java.util.List;
 import models.Publisher;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class PublisherControllerTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
@@ -56,7 +58,7 @@ public class PublisherControllerTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Publisher book = new Publisher();

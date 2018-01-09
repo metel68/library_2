@@ -46,16 +46,13 @@ public class BookView extends BaseView {
 			try {
 				Gson gson = new Gson();
 				String ids = request.getParameter("id");
-				Book book;
-				if (ids != null) {
-					int id = Integer.parseInt(ids);
-					book = controller.selectById(id);
-				} else {
-					book = controller.selectByName(request.getParameter("name"));
-				}
+				int id = Integer.parseInt(ids);
+				Book book = controller.selectById(id);
+
 				if (book == null) {
 					response.setStatus(404);
 				}
+				
 				String jsonOutput = gson.toJson(book);
 				out.println(jsonOutput);
 			} catch (Exception e) {

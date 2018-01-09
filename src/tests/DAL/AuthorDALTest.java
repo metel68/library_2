@@ -5,6 +5,8 @@ import DAL.BaseDAL;
 
 import java.util.List;
 import models.Author;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,16 +60,18 @@ public class AuthorDALTest {
   
    
     @Test
-    public void testInsert() {
+    public void testInsertAndDelete() {
         System.out.println("insert");
         Author author1 = new Author(1, "Hell Bolovich");
         AuthorDAL instance = new AuthorDAL();
         int result = instance.insert(author1);
-        Author expResult = instance.selectById(author1.getId());
+        int expResult = 1;
+        assertEquals(expResult, result);
+        result = instance.delete(author1.getId());
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Author author = new Author();

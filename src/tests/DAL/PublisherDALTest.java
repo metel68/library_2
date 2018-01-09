@@ -4,6 +4,8 @@ import DAL.BaseDAL;
 import DAL.PublisherDAL;
 import java.util.List;
 import models.Publisher;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,11 +54,11 @@ public class PublisherDALTest {
         Publisher publisher1 = new Publisher(1, "Ognivo");
         PublisherDAL instance = new PublisherDAL();
         int result = instance.insert(publisher1);
-        Publisher expResult = instance.selectById(publisher1.getId());
+        int expResult = 1;
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Publisher publisher = new Publisher();

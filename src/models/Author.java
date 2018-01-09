@@ -10,20 +10,20 @@ public class Author {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFull_name() {
+	public String getFullName() {
 		return fullName;
 	}
-	public void setFull_name(String full_name) {
-		this.fullName = full_name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	public Author() {
 		
 	}
-	public Author(int id, String full_name) {
+	public Author(int id, String fullName) {
 		super();
 		this.id = id;
-		this.fullName = full_name;
+		this.fullName = fullName;
 	}
 	@Override
 	public int hashCode() {

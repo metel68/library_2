@@ -1,0 +1,326 @@
+{
+  "lastBookId": 39,
+  "list": [
+    {
+      "id": "0",
+      "title": "Изучаем HTML5",
+      "authors": ["Брюс Лоусон", "Реми Шарп"],
+      "url": "https://www.ozon.ru/context/detail/id/28297184/",
+      "tags": ["0", "1", "3", "5"],
+      "coverFilename": "0.png"
+    },
+    {
+      "id": "1",
+      "title": "HTML5: Up and Running",
+      "authors": ["Марк Пилгрим"],
+      "url": "http://shop.oreilly.com/product/9780596806033.do",
+      "tags": ["0", "1", "4", "5"],
+      "coverFilename": "1.jpg"
+    },
+    {
+      "id": "2",
+      "title": "HTML5. Рецепты программирования",
+      "authors": ["Кристофер Шмитт", "Кайл Симпсон"],
+      "url": "https://www.piter.com/product_by_id/21920827",
+      "tags": ["0", "1", "3", "5"],
+      "coverFilename": "2.png"
+    },
+    {
+      "id": "3",
+      "title": "Programming HTML5 Applications",
+      "authors": ["Захари Кессин"],
+      "url": "http://shop.oreilly.com/product/0636920015116.do",
+      "tags": ["0", "1", "4", "5"],
+      "coverFilename": "3.jpg"
+    },
+    {
+      "id": "4",
+      "title": "HTML5 Canvas",
+      "authors": ["Стив Фултон", "Джефф Фултон"],
+      "url": "http://shop.oreilly.com/product/0636920026266.do",
+      "tags": ["1", "2", "4", "5", "14"],
+      "coverFilename": "4.jpg"
+    },
+    {
+      "id": "5",
+      "title": "Functional JavaScript",
+      "authors": ["Майкл Фогус"],
+      "url": "http://shop.oreilly.com/product/0636920028857.do",
+      "tags": ["1", "2", "7", "9", "10"],
+      "coverFilename": "5.png"
+    },
+    {
+      "id": "6",
+      "title": "JavaScript Allongé",
+      "authors": ["Рег Брейтуэйт"],
+      "url": "https://leanpub.com/javascriptallongesix",
+      "tags": ["2", "4", "7", "9", "10"],
+      "coverFilename": "6.jpeg"
+    },
+    {
+      "id": "7",
+      "title": "JavaScript. Сильные стороны",
+      "authors": ["Дуглас Крокфорд"],
+      "url": "http://www.ozon.ru/context/detail/id/20217226/",
+      "tags": ["0", "1", "3", "7"],
+      "coverFilename": "7.png"
+    },
+    {
+      "id": "8",
+      "title": "Секреты JavaScript ниндзя",
+      "authors": ["Джон Резиг", "Беэр Бибо"],
+      "url": "http://www.ozon.ru/context/detail/id/22421421/",
+      "tags": ["0", "1", "3", "7"],
+      "coverFilename": "8.jpg"
+    },
+    {
+      "id": "9",
+      "title": "Сила JavaScript. 68 способов эффективного использования JS",
+      "authors": ["Дэвид Херман"],
+      "url": "http://www.ozon.ru/context/detail/id/20413530/",
+      "tags": ["0", "1", "3", "7"],
+      "coverFilename": "9.jpg"
+    },
+    {
+      "id": "10",
+      "title": "Working with Static Sites",
+      "authors": ["Реймонд Кэмден", "Брайан Ринальди"],
+      "url": "http://shop.oreilly.com/product/0636920051879.do",
+      "tags": ["2", "4", "11"],
+      "coverFilename": "10.jpg"
+    },
+    {
+      "id": "11",
+      "title": "JavaScript. Оптимизация производительности",
+      "authors": ["Николас Закас"],
+      "url": "http://www.ozon.ru/context/detail/id/18421547/",
+      "tags": ["2", "3", "7", "12"],
+      "coverFilename": "11.jpg"
+    },
+    {
+      "id": "12",
+      "title": "High Performance Web Sites",
+      "authors": ["Стив Саудерс"],
+      "url": "http://shop.oreilly.com/product/9780596529307.do",
+      "tags": ["2", "4", "12"],
+      "coverFilename": "12.jpg"
+    },
+    {
+      "id": "13",
+      "title": "Even Faster Web Sites",
+      "authors": ["Стив Саудерс"],
+      "url": "http://shop.oreilly.com/product/9780596522315.do",
+      "tags": ["2", "4", "12"],
+      "coverFilename": "13.jpg"
+    },
+    {
+      "id": "14",
+      "title": "JavaScript. Подробное руководство",
+      "authors": ["Дэвид Флэнаган"],
+      "url": "https://www.ozon.ru/context/detail/id/3881091/",
+      "tags": ["0", "1", "2", "3", "7"],
+      "coverFilename": "14.jpg"
+    },
+    {
+      "id": "15",
+      "title": "JavaScript. Шаблоны",
+      "authors": ["Стоян Стефанов"],
+      "url": "http://www.ozon.ru/context/detail/id/6287517/",
+      "tags": ["2", "3", "7"],
+      "coverFilename": "15.jpg"
+    },
+    {
+      "id": "16",
+      "title": "Выразительный JavaScript",
+      "authors": ["Марейн Хавербек"],
+      "url": "https://www.gitbook.com/book/karmazzin/eloquentjavascript_ru",
+      "tags": ["0", "1", "3", "7"],
+      "coverFilename": "16.jpg"
+    },
+    {
+      "id": "17",
+      "title": "Learning JavaScript Design Patterns",
+      "authors": ["Эдди Османи"],
+      "url": "https://addyosmani.com/resources/essentialjsdesignpatterns/book/",
+      "tags": ["2", "4", "7"],
+      "coverFilename": "17.jpg"
+    },
+    {
+      "id": "18",
+      "title": "Speaking JavaScript",
+      "authors": ["Аксель Раушмайер"],
+      "url": "http://speakingjs.com/",
+      "tags": ["0", "1", "4", "7"],
+      "coverFilename": "18.jpg"
+    },
+    {
+      "id": "19",
+      "title": "High Performance Browser Networking",
+      "authors": ["Илья Григорик"],
+      "url": "https://hpbn.co",
+      "tags": ["2", "4", "12"],
+      "coverFilename": "19.jpg"
+    },
+    {
+      "id": "20",
+      "title": "WebGL. Программирование трёхмерной графики",
+      "authors": ["Коичи Мацуда", "Роджер Ли"],
+      "url": "https://www.ozon.ru/context/detail/id/31239396/",
+      "tags": ["2", "3", "13", "14"],
+      "coverFilename": "20.png"
+    },
+    {
+      "id": "21",
+      "title": "React.js. Быстрый старт",
+      "authors": ["Стоян Стефанов"],
+      "url": "http://www.ozon.ru/context/detail/id/139961087/",
+      "tags": ["1", "2", "3", "15"],
+      "coverFilename": "21.png"
+    },
+    {
+      "id": "22",
+      "title": "SVG Animations",
+      "authors": ["Сара Дрэснер"],
+      "url": "http://shop.oreilly.com/product/0636920045335.do",
+      "tags": ["2", "4", "14", "16"],
+      "coverFilename": "22.jpg"
+    },
+    {
+      "id": "23",
+      "title": "Designing Great Web APIs",
+      "authors": ["Джеймс Хиггинботэм"],
+      "url":
+        "https://conferences.oreilly.com/fluent/fl-ca/public/content/designing-great-web-apis?download=true",
+      "tags": ["2", "4", "17", "18"],
+      "coverFilename": "23.png"
+    },
+    {
+      "id": "24",
+      "title": "JavaScript. Карманный справочник",
+      "authors": ["Дэвид Флэнаган"],
+      "url": "http://www.ozon.ru/context/detail/id/31100361/",
+      "tags": ["0", "1", "2", "3", "7"],
+      "coverFilename": "24.png"
+    },
+    {
+      "id": "25",
+      "title": "Speaking JavaScript",
+      "authors": ["Аксель Раушмайер"],
+      "url": "http://speakingjs.com/",
+      "tags": ["1", "2", "7"],
+      "coverFilename": "25.png"
+    },
+    {
+      "id": "26",
+      "title": "Understanding ECMAScript 6",
+      "authors": ["Николас Закас"],
+      "url": "https://leanpub.com/understandinges6",
+      "tags": ["1", "2", "4", "7"],
+      "coverFilename": "26.png"
+    },
+    {
+      "id": "27",
+      "title": "Пуленепробиваемый веб-дизайн",
+      "authors": ["Дэн Седерхольм"],
+      "url": "http://www.ozon.ru/context/detail/id/10793233/",
+      "tags": ["0", "1", "3", "5", "6", "19"],
+      "coverFilename": "27.png"
+    },
+    {
+      "id": "28",
+      "title": "Сначала мобильные!",
+      "authors": ["Люк Вроблевски"],
+      "url": "http://www.ozon.ru/context/detail/id/15708347/",
+      "tags": ["0", "1", "2", "3", "19"],
+      "coverFilename": "28.jpg"
+    },
+    {
+      "id": "29",
+      "title": "CSS3 для веб-дизайнеров",
+      "authors": ["Дэн Сидерхолм"],
+      "url": "http://www.ozon.ru/context/detail/id/19431033/",
+      "tags": ["0", "1", "3", "6"],
+      "coverFilename": "29.jpg"
+    },
+    {
+      "id": "30",
+      "title": "Transforms in CSS",
+      "authors": ["Эрик Мейер"],
+      "url": "http://www.oreilly.com/free/transforms-in-css.csp",
+      "tags": ["1", "2", "4", "6"],
+      "coverFilename": "30.png"
+    },
+    {
+      "id": "31",
+      "title": "Секреты CSS",
+      "authors": ["Лиа Веру"],
+      "url": "http://www.ozon.ru/context/detail/id/137213400/",
+      "tags": ["1", "2", "3", "6"],
+      "coverFilename": "31.png"
+    },
+    {
+      "id": "32",
+      "title": "HTML5 для веб-дизайнеров",
+      "authors": ["Джереми Кит"],
+      "url": "http://www.ozon.ru/context/detail/id/19431055/",
+      "tags": ["0", "3", "5"],
+      "coverFilename": "32.jpg"
+    },
+    {
+      "id": "33",
+      "title": "Большая книга CSS3",
+      "authors": ["Дэвид Макфарланд"],
+      "url": "http://www.ozon.ru/context/detail/id/24493075/",
+      "tags": ["0", "1", "3", "6"],
+      "coverFilename": "33.png"
+    },
+    {
+      "id": "34",
+      "title": "Build Your Own AngularJS",
+      "authors": ["Теро Парвиайнен"],
+      "url": "https://teropa.info/build-your-own-angular/",
+      "tags": ["2", "4", "7"],
+      "coverFilename": "34.png"
+    },
+    {
+      "id": "35",
+      "title": "Less. Путеводитель для новичков",
+      "authors": ["Денис Малиночкин"],
+      "url": "https://www.gitbook.com/book/mrmlnc/less-guidebook-for-beginners/details",
+      "tags": ["1", "2", "3", "6"],
+      "coverFilename": "35.png"
+    },
+    {
+      "id": "36",
+      "title": "CSS. Каскадные таблицы стилей",
+      "authors": ["Эрик Мейер"],
+      "url": "http://www.ozon.ru/context/detail/id/3881079/",
+      "tags": ["0", "1", "3", "6"],
+      "coverFilename": "36.png"
+    },
+    {
+      "id": "37",
+      "title": "Node.js in Action",
+      "authors": ["Майк Кантелон", "Марк Хартер", "Натан Раджлич", "Ти Джей Головайчук"],
+      "url": "https://www.amazon.com/Node-js-Action-Mike-Cantelon/dp/1617290572",
+      "tags": ["1", "2", "4", "8"],
+      "coverFilename": "37.png"
+    },
+    {
+      "id": "38",
+      "title": "JavaScript для профессиональных веб-разработчиков",
+      "authors": ["Николас Закас"],
+      "url": "https://www.ozon.ru/context/detail/id/31257038/",
+      "tags": ["0", "1", "2", "3", "7"],
+      "coverFilename": "38.png"
+    },
+    {
+      "id": "39",
+      "title": "Maintainable JavaScript",
+      "authors": ["Николас Закас"],
+      "url": "https://www.amazon.com/gp/product/1449327680/",
+      "tags": ["1", "2", "4", "7"],
+      "coverFilename": "39.png"
+    }
+  ]
+}

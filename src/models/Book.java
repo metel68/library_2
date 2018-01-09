@@ -11,6 +11,7 @@ public class Book {
 	private String isbn;
 	private String title;
 	private List<Author> authors = new ArrayList<>();
+	private List<Category> categories = new ArrayList<>();
 	private Publisher publisher;
 	private int year;
 	private int count;
@@ -144,4 +145,10 @@ public class Book {
 		return true;
 	}
 		
+	public List<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 }

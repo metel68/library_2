@@ -7,6 +7,8 @@ import java.util.List;
 import models.Author;
 import models.Book;
 import models.Publisher;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ public class BookControllerTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
@@ -50,13 +52,12 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testSelectByName() {
-        System.out.println("selectByName");
+    public void testFindByName() {
+        System.out.println("findByName");
         String name = "";
         BookController instance = new BookController();
-        Book expResult = null;
-        Book result = instance.selectByName(name);
-        assertEquals(expResult, result);
+        List<Book> result = instance.findByName(name);
+        assertEquals(result.size(), 0);
     }
 
     @Test
@@ -76,7 +77,7 @@ public class BookControllerTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Book book = new Book();

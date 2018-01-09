@@ -1,6 +1,8 @@
 package tests.DAL;
 
 import java.util.List;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +69,7 @@ public class UserDALTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         User user1 = new User();

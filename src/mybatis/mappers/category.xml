@@ -1,0 +1,69 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<resultMap id="categoryResultMap" type="Category">
+		<id property="id" column="category_id" />
+		<result property="name" column="cat_name" />
+		<collection javaType="ArrayList" property="books"
+			resultMap="Books" />
+	</resultMap>
+	<resultMap id="Authors" type="Author">
+	    <id property="id" column="author_id"/>
+        <result property="fullName" column="author_name"/>
+	</resultMap>
+	
+	<resultMap id="Books" type="Book">
+		<id property="id" column="id" />
+		<result property="isbn" column="ISBN" />
+		<result property="year" column="year" />
+		<result property="title" column="title" />
+		<result property="size" column="size" />
+		<result property="count" column="count" />
+		<result property="description" column="description" />
+		<result property="addedAt" column="added_at" />
+		<result property="cover" column="cover" />
+		<association property="publisher" javaType="Publisher">
+			<id property="id" column="publisher_id" />
+			<result property="name" column="pub_name" />
+		</association>
+		<collection javaType="ArrayList" property="authors"
+			resultMap="Authors" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="categoryResultMap">
+		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
+		category.id as category_id, category.name as cat_name from book
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
+		left join book_category on book_category.book_id = book.id
+		right join category on book_category.category_id = category.id
+	</select>
+	<select id="selectById" resultMap="categoryResultMap" parameterType="int">
+		select book.*, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
+		category.id as category_id, category.name as cat_name from book
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
+		left join book_category on book_category.book_id = book.id
+		right join category on book_category.category_id = category.id where category.id = #{id}
+	</select>
+	<insert id="insertCategory" parameterType="Category" flushCache="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id"
+		useGeneratedKeys="true" timeout="20">
+		insert into category (name) values
+		(#{name})
+	</insert>
+
+	<update id="updateCategory" parameterType="Category" flushCache="true"
+		statementType="PREPARED" timeout="20">
+		update category set (name='#{name}')
+		where id = #{id}
+	</update>
+
+	<delete id="deleteCategory" parameterType="int" flushCache="true"
+		statementType="PREPARED" timeout="20">
+		delete from category where id=#{id}
+	</delete>
+</mapper>

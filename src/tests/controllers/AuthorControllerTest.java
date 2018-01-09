@@ -3,6 +3,8 @@ package tests.controllers;
 import controllers.AuthorController;
 import java.util.List;
 import models.Author;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class AuthorControllerTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(2000);
     
     @Before
     public void setUp() {
@@ -65,7 +67,7 @@ public class AuthorControllerTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Author author = new Author();

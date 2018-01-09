@@ -3,6 +3,8 @@ package tests.controllers;
 import controllers.UserController;
 import java.util.List;
 import models.User;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +67,7 @@ public class UserControllerTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         User user1 = new User();

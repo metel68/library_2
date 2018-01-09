@@ -9,6 +9,8 @@ import models.Author;
 import models.Book;
 import models.BookAuthor;
 import models.Publisher;
+
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,13 +58,12 @@ public class BookDALTest {
         System.out.println("BookDAL selectByName");
         String title = "WoodPoint";
         BookDAL instance = new BookDAL();
-        Book result = instance.selectByName(title);
-        assertTrue(result!=null);
+        List<Book> result = instance.findByName(title);
+        assertEquals(result.size(), 0);
     }
     
     @Test
     public void testInsert() {
-        System.out.println("insert");
         System.out.println("insert");
         Date date = new Date(2017, 9, 19);
         Author author1 = new Author(1, "Hell Bolovich");
@@ -78,7 +79,7 @@ public class BookDALTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Book book = new Book();
