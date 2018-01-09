@@ -17,7 +17,7 @@ public class BaseDALTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
@@ -30,10 +30,9 @@ public class BaseDALTest {
     @Test
     public void testInitSqlSessionFactory() {
         System.out.println("initSqlSessionFactory");
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = BaseDAL.initSqlSessionFactory();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -42,7 +41,6 @@ public class BaseDALTest {
         SqlSessionFactory expResult = null;
         SqlSessionFactory result = BaseDAL.getSqlSessionFactory();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }

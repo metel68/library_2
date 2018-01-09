@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import DAL.BaseDAL;
 import DAL.UserDAL;
 import models.User;
 
@@ -18,10 +19,11 @@ public class UserDALTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
@@ -63,7 +65,6 @@ public class UserDALTest {
         int expResult = 0;
         int result = instance.insert(user);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }

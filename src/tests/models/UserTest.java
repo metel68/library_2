@@ -34,7 +34,7 @@ public class UserTest {
 		User user11 = new User(1, "LenaOlova", "9353278671a", false);
 		User user2 = new User(2, "MaxMetel", "32gr3g23etsd", true);
 		assertEquals(user1, user1);
-		assertEquals(user1, user11);
+		assertNotEquals(user1, user11);
 		assertEquals(user2, user2);
 		assertEquals(user1.getId(), 1);
 		assertEquals(user1.getUsername(), "Bro122");
@@ -72,19 +72,15 @@ public class UserTest {
                 
                 user11.setId(12);
                 assertEquals(user11.toString(), "12: Katia Verova");
-                assertTrue(user11.toString() == "12: Katia Verova");
                 
                 user11.setUsername("Katia Verova-Gelever");
                 assertEquals(user11.toString(), "12: Katia Verova-Gelever");
-                assertTrue(user11.toString() == "12: Katia Verova-Gelever");
                 
                 user11.setPassword("renejkreejr4");
                 assertEquals(user11.toString(), "12: Katia Verova-Gelever");
-                assertTrue(user11.toString() == "12: Katia Verova-Gelever");
                 
                 user11.setAdmin(false);
                 assertEquals(user11.toString(), "12: Katia Verova-Gelever");
-                assertTrue(user11.toString() == "12: Katia Verova-Gelever");
         }
         
         /*@Test

@@ -57,7 +57,7 @@ public class BookTest {
 		Book book2 = new Book(3, "456789", "Woodpoint", authorSet, ks, 1987, 1, 999, "Longest tome for parents", date2);
 
 		assertEquals(book1, book1);
-		assertEquals(book1, book11);
+		assertNotEquals(book1, book11);
 		assertEquals(book2, book2);
                 
                 book1.setId(4);

@@ -1,5 +1,6 @@
 package tests.DAL;
 
+import DAL.BaseDAL;
 import DAL.PublisherDAL;
 import java.util.List;
 import models.Publisher;
@@ -16,10 +17,11 @@ public class PublisherDALTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
@@ -52,7 +54,6 @@ public class PublisherDALTest {
         int expResult = 0;
         int result = instance.insert(publisher);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
 
@@ -64,7 +65,6 @@ public class PublisherDALTest {
         int expResult = 0;
         int result = instance.update(publisher);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
 
@@ -76,7 +76,6 @@ public class PublisherDALTest {
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }

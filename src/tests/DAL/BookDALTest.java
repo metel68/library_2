@@ -1,5 +1,6 @@
 package tests.DAL;
 
+import DAL.BaseDAL;
 import DAL.BookDAL;
 import java.util.List;
 import models.Book;
@@ -17,10 +18,11 @@ public class BookDALTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
@@ -62,7 +64,6 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.insert(book);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
 
@@ -74,7 +75,6 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.update(book);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
 
@@ -86,7 +86,6 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
     @Test
@@ -97,7 +96,6 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.insertAuthor(bookAuthor);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
     @Test
@@ -108,7 +106,6 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.deleteAuthor(bookAuthor);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
     @Test
@@ -119,6 +116,5 @@ public class BookDALTest {
         int expResult = 0;
         int result = instance.deleteAuthorsFromBook(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 }

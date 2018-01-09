@@ -16,7 +16,7 @@ public class UserControllerTest {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(100);
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
@@ -33,7 +33,6 @@ public class UserControllerTest {
         List<User> expResult = null;
         List<User> result = instance.getUserAll();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -44,7 +43,6 @@ public class UserControllerTest {
         User expResult = null;
         User result = instance.getUser(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -55,7 +53,6 @@ public class UserControllerTest {
         User expResult = null;
         User result = instance.getUser(username);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -67,7 +64,6 @@ public class UserControllerTest {
         User expResult = null;
         User result = instance.insert(user, isAdmin);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -78,7 +74,6 @@ public class UserControllerTest {
         User expResult = null;
         User result = instance.authorize(jsonUser);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }
