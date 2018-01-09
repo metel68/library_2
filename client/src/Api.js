@@ -124,6 +124,26 @@ const createNewCategory = async (category) => {
   }
 };
 
+const getBooks = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}books`);
+    const json = await response.json();
+    return { ok: true, data: json };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+const getBook = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}book?id=${id}`);
+    const json = await response.json();
+    return { ok: true, data: json };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
 export default {
   createBook,
   createNewAuthor,
@@ -131,5 +151,7 @@ export default {
   getAuthors,
   getPublishers,
   getCategories,
+  getBooks,
+  getBook,
   createNewCategory,
 };

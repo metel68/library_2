@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+import API from '../Api';
 import { Image, Title, Author } from '../components';
 
 class Book extends Component {
@@ -13,34 +15,38 @@ class Book extends Component {
 
   async componentDidMount() {
     const { bookId } = this.props.match.params;
-    const response = await fetch(`http://localhost:3004/getBook/${bookId}`);
-    const data = await response.json();
-    const book = data.data[0];
-    this.setState({ book });
+    const response = await API.getBook(bookId);
+    const { data } = response;
+    this.setState({ book: data });
   }
 
   render() {
-    const { coverFilename, title, authors } = this.state.book;
+    const { cover, title, authors } = this.state.book;
     return (
-      <div>
+      <Layout text>
         <Link to={{ pathname: '/' }}>Назад</Link>
-        <Container>
-          <Image src={`/img/${coverFilename}`} />
+        <BookWrapper>
+          <Image src={cover} />
           <BookInfo>
             <Title>{title}</Title>
-            {authors ? authors.map(author => <Author>{author}</Author>) : null}
+            {authors
+              ? authors.map(author => <Author key={author.id}>{author.fullName}</Author>)
+              : null}
           </BookInfo>
-        </Container>
-      </div>
+        </BookWrapper>
+      </Layout>
     );
   }
 }
 
-const Container = styled.div`
+const Layout = styled(Container)`
+  margin-top: 50px;
+`;
+
+const BookWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 920px;
-  margin: 100px auto;
+  margin-top: 50px;
 `;
 
 const BookInfo = styled.div`

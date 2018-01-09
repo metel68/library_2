@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Book as B } from '../components';
+import API from '../Api';
 
 class Home extends Component {
   constructor() {
@@ -13,10 +14,9 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('http://localhost:3004', { mode: 'cors' });
-    const data = await response.json();
-    const books = data.data.list;
-    this.setState({ books });
+    const response = await API.getBooks();
+    const { data } = response;
+    this.setState({ books: data });
   }
 
   render() {
