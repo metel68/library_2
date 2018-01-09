@@ -60,10 +60,20 @@ public class UserDALTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        User user = null;
+        User user1 = new User(1, "Bro122", "password123", false);
+        UserDAL instance = new UserDAL();
+        int result = instance.insert(user1);
+        User expResult = instance.selectById(user1.getId());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        User user1 = new User();
         UserDAL instance = new UserDAL();
         int expResult = 0;
-        int result = instance.insert(user);
+        int result = instance.insert(user1);
         assertEquals(expResult, result);
     }
     

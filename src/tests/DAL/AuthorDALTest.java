@@ -50,34 +50,32 @@ public class AuthorDALTest {
     @Test
     public void testSelectByName() {
         System.out.println("AuthorDAL selectByName");
-        String name = "Katia";
+        String name = "";
         AuthorDAL instance = new AuthorDAL();
         Author result = instance.selectByName(name);
         assertTrue(result!=null);
     }
-    
-
+  
+   
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Author author = null;
+        Author author1 = new Author(1, "Hell Bolovich");
+        AuthorDAL instance = new AuthorDAL();
+        int result = instance.insert(author1);
+        Author expResult = instance.selectById(author1.getId());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        Author author = new Author();
         AuthorDAL instance = new AuthorDAL();
         int expResult = 0;
         int result = instance.insert(author);
         assertEquals(expResult, result);
     }
-
-
-    @Test
-    public void testUpdate() {
-        System.out.println("update");
-        Author author = null;
-        AuthorDAL instance = new AuthorDAL();
-        int expResult = 0;
-        int result = instance.update(author);
-        assertEquals(expResult, result);
-    }
-
 
     @Test
     public void testDelete() {

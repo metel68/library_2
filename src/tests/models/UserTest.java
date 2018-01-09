@@ -57,8 +57,6 @@ public class UserTest {
         @Test
         public void testTrueUser() {
                 User user5 = new User(5, "Slava Volkov", "mypasswordisgood", false);
-                user5.setUsername("New Ray");
-		assertTrue(user5.getUsername() == "New Ray");
                 user5.setId(9);
 		assertTrue(user5.getId() == 9);
                 user5.setAdmin(true);

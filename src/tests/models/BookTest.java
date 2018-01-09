@@ -118,12 +118,6 @@ public class BookTest {
                 
                 book2.setId(5);
 		assertTrue(book2.getId() == 5);
-
-		book2.setTitle("Black Woodpoint");
-		assertTrue(book2.getTitle() == "Black Woodpoint");
-                
-                book2.setIsbn("243567");
-		assertTrue(book2.getIsbn() == "243567");
                 
                 book2.setAuthors(authorSet2);
 		assertTrue(book2.getAuthors() == authorSet2);
@@ -155,9 +149,6 @@ public class BookTest {
 		assertTrue(book2.getSize() == 0);
                 book2.setSize(-12);
 		assertTrue(book2.getSize() == -12);
-                
-                book2.setDescription("Good Tests");
-		assertTrue(book2.getDescription() == "Good Tests");
                 
                 book2.setAddedAt(date2);
 		assertTrue(book2.getAddedAt() == date2);

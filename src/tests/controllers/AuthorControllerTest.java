@@ -33,7 +33,6 @@ public class AuthorControllerTest {
         List<Author> expResult = null;
         List<Author> result = instance.selectAll();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -44,7 +43,6 @@ public class AuthorControllerTest {
         Author expResult = null;
         Author result = instance.selectById(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -55,30 +53,29 @@ public class AuthorControllerTest {
         Author expResult = null;
         Author result = instance.selectByName(name);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testInsert() {
         System.out.println("insert");
-        Author author = null;
+        Author author1 = new Author(1, "Hell Bolovich");
+        AuthorController instance = new AuthorController();
+        Author result = instance.insert(author1);
+        Author expResult = instance.selectById(author1.getId());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testInsertEmpty() {
+        System.out.println("insertEmpty");
+        Author author = new Author();
         AuthorController instance = new AuthorController();
         Author expResult = null;
         Author result = instance.insert(author);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
-
-    @Test
-    public void testUpdate() {
-        System.out.println("update");
-        Author author = null;
-        AuthorController instance = new AuthorController();
-        int expResult = 0;
-        int result = instance.update(author);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
+    
+    
 
     @Test
     public void testDelete() {
@@ -88,7 +85,6 @@ public class AuthorControllerTest {
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }
