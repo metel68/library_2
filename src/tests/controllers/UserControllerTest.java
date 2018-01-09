@@ -1,23 +1,22 @@
 package tests.controllers;
 
+import controllers.UserController;
 import java.util.List;
+import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import controllers.UserController;
-import models.User;
-
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
-/**
- *
- * @author PFIQ3000
- */
 public class UserControllerTest {
     
     public UserControllerTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(100);
     
     @Before
     public void setUp() {
@@ -38,12 +37,46 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testGetUser() {
+    public void testGetUser_int() {
         System.out.println("getUser");
         int id = 0;
         UserController instance = new UserController();
         User expResult = null;
         User result = instance.getUser(id);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testGetUser_String() {
+        System.out.println("getUser");
+        String username = "";
+        UserController instance = new UserController();
+        User expResult = null;
+        User result = instance.getUser(username);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testInsert() {
+        System.out.println("insert");
+        User user = null;
+        boolean isAdmin = false;
+        UserController instance = new UserController();
+        User expResult = null;
+        User result = instance.insert(user, isAdmin);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testAuthorize() {
+        System.out.println("authorize");
+        User jsonUser = null;
+        UserController instance = new UserController();
+        User expResult = null;
+        User result = instance.authorize(jsonUser);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
