@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tests.DAL;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,15 +8,16 @@ import org.junit.Test;
 import DAL.BaseDAL;
 
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
-/**
- *
- * @author PFIQ3000
- */
 public class BaseDALTest {
     
     public BaseDALTest() {
     }
+    
+    @Rule
+    public TestRule timeout = new Timeout(1000);
     
     @Before
     public void setUp() {
@@ -34,10 +30,9 @@ public class BaseDALTest {
     @Test
     public void testInitSqlSessionFactory() {
         System.out.println("initSqlSessionFactory");
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = BaseDAL.initSqlSessionFactory();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
 
     @Test
@@ -46,7 +41,6 @@ public class BaseDALTest {
         SqlSessionFactory expResult = null;
         SqlSessionFactory result = BaseDAL.getSqlSessionFactory();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }

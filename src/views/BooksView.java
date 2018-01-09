@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import utils.Constants;
 import controllers.BookController;
+import exceptions.ValidationException;
 import models.Book;
 
 /**
@@ -75,7 +76,7 @@ public class BooksView extends BaseView {
 				Book book = gson.fromJson(jsonObject, Book.class);
 				book = controller.insert(book);
 				out.print(gson.toJson(book));
-			} catch (PersistenceException e) {
+			} catch (PersistenceException | ValidationException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);
 			} catch (Exception e) {

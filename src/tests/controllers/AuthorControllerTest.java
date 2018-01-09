@@ -1,8 +1,6 @@
-package tests.DAL;
+package tests.controllers;
 
-import DAL.AuthorDAL;
-import DAL.BaseDAL;
-
+import controllers.AuthorController;
 import java.util.List;
 import models.Author;
 
@@ -14,17 +12,16 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.*;
 
-public class AuthorDALTest {
+public class AuthorControllerTest {
     
-    public AuthorDALTest() {
+    public AuthorControllerTest() {
     }
     
     @Rule
-    public TestRule timeout = new Timeout(1000);
+    public TestRule timeout = new Timeout(2000);
     
     @Before
     public void setUp() {
-    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
@@ -33,41 +30,40 @@ public class AuthorDALTest {
 
     @Test
     public void testSelectAll() {
-        System.out.println("AuthorDAL selectAll");
-        AuthorDAL instance = new AuthorDAL();
+        System.out.println("selectAll");
+        AuthorController instance = new AuthorController();
+        List<Author> expResult = null;
         List<Author> result = instance.selectAll();
-        assertTrue(result!=null && result.size()>0);
+        assertEquals(expResult, result);
     }
-
 
     @Test
     public void testSelectById() {
-        System.out.println("AuthorDAL selectById");
-        int id = 1;
-        AuthorDAL instance = new AuthorDAL();
+        System.out.println("selectById");
+        int id = 0;
+        AuthorController instance = new AuthorController();
+        Author expResult = null;
         Author result = instance.selectById(id);
-        assertTrue(result!=null);
+        assertEquals(expResult, result);
     }
 
     @Test
     public void testSelectByName() {
-        System.out.println("AuthorDAL selectByName");
+        System.out.println("selectByName");
         String name = "";
-        AuthorDAL instance = new AuthorDAL();
+        AuthorController instance = new AuthorController();
+        Author expResult = null;
         Author result = instance.selectByName(name);
-        assertTrue(result!=null);
+        assertEquals(expResult, result);
     }
-  
-   
+
     @Test
-    public void testInsertAndDelete() {
+    public void testInsert() {
         System.out.println("insert");
         Author author1 = new Author(1, "Hell Bolovich");
-        AuthorDAL instance = new AuthorDAL();
-        int result = instance.insert(author1);
-        int expResult = 1;
-        assertEquals(expResult, result);
-        result = instance.delete(author1.getId());
+        AuthorController instance = new AuthorController();
+        Author result = instance.insert(author1);
+        Author expResult = instance.selectById(author1.getId());
         assertEquals(expResult, result);
     }
 
@@ -75,17 +71,19 @@ public class AuthorDALTest {
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
         Author author = new Author();
-        AuthorDAL instance = new AuthorDAL();
-        int expResult = 0;
-        int result = instance.insert(author);
+        AuthorController instance = new AuthorController();
+        Author expResult = null;
+        Author result = instance.insert(author);
         assertEquals(expResult, result);
     }
+    
+    
 
     @Test
     public void testDelete() {
         System.out.println("delete");
-        int id = 1;
-        AuthorDAL instance = new AuthorDAL();
+        int id = 0;
+        AuthorController instance = new AuthorController();
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);

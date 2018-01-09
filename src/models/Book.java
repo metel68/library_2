@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import exceptions.ValidationException;
+
 public class Book {
 	private int id;
 	private String isbn;
@@ -69,12 +71,21 @@ public class Book {
 	}
 	public void setYear(int year) {
 		this.year = year;
+		if (year <= 0 || year > 2018) {
+			throw new ValidationException();
+		}
 	}
 	public void setCount(int count) {
 		this.count = count;
+		if (count < 0) {
+			throw new ValidationException();
+		}
 	}
 	public void setSize(int size) {
 		this.size = size;
+		if (size <= 0) {
+			throw new ValidationException();
+		}
 	}
 	public void setAddedAt(Date addedAt) {
 		this.addedAt = addedAt;
@@ -93,6 +104,10 @@ public class Book {
 		this.size = size;
 		this.description = description;
 		this.addedAt = addedAt;
+		
+		if (year <= 0 || year > 2018 || size <= 0 || count < 0) {
+			throw new ValidationException();
+		}
 	}
 	public Book() {
 		
@@ -103,6 +118,33 @@ public class Book {
 	public void setCover(String cover) {
 		this.cover = cover;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (id != other.id)
+			return false;
+		if (isbn == null) {
+			if (other.isbn != null)
+				return false;
+		} else if (!isbn.equals(other.isbn))
+			return false;
+		return true;
+	}
+		
 	public List<Category> getCategories() {
 		return categories;
 	}

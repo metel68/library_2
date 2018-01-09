@@ -1,7 +1,7 @@
-package tests.DAL;
+package tests.controllers;
 
-import DAL.BaseDAL;
-import DAL.PublisherDAL;
+import controllers.PublisherController;
+import java.util.Date;
 import java.util.List;
 import models.Publisher;
 
@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.*;
 
-public class PublisherDALTest {
+public class PublisherControllerTest {
     
-    public PublisherDALTest() {
+    public PublisherControllerTest() {
     }
     
     @Rule
@@ -23,7 +23,6 @@ public class PublisherDALTest {
     
     @Before
     public void setUp() {
-    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
@@ -32,48 +31,48 @@ public class PublisherDALTest {
 
     @Test
     public void testSelectAll() {
-        System.out.println("PublisherDAL selectAll");
-        PublisherDAL instance = new PublisherDAL();
+        System.out.println("selectAll");
+        PublisherController instance = new PublisherController();
+        List<Publisher> expResult = null;
         List<Publisher> result = instance.selectAll();
-        assertTrue(result!=null && result.size()>0);
+        assertEquals(expResult, result);
     }
-
 
     @Test
     public void testSelectById() {
-        System.out.println("PublisherDAL selectById");
-        int id = 1;
-        PublisherDAL instance = new PublisherDAL();
+        System.out.println("selectById");
+        int id = 0;
+        PublisherController instance = new PublisherController();
+        Publisher expResult = null;
         Publisher result = instance.selectById(id);
-        assertTrue(result!=null);
+        assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testInsert() {
         System.out.println("insert");
         Publisher publisher1 = new Publisher(1, "Ognivo");
-        PublisherDAL instance = new PublisherDAL();
-        int result = instance.insert(publisher1);
-        int expResult = 1;
+        PublisherController instance = new PublisherController();
+        Publisher result = instance.insert(publisher1);
+        Publisher expResult = instance.selectById(publisher1.getId());
         assertEquals(expResult, result);
     }
 
     @Test(expected=PersistenceException.class)
     public void testInsertEmpty() {
         System.out.println("insertEmpty");
-        Publisher publisher = new Publisher();
-        PublisherDAL instance = new PublisherDAL();
-        int expResult = 0;
-        int result = instance.insert(publisher);
+        Publisher book = new Publisher();
+        PublisherController instance = new PublisherController();
+        Publisher expResult = null;
+        Publisher result = instance.insert(book);
         assertEquals(expResult, result);
     }
-
 
     @Test
     public void testDelete() {
         System.out.println("delete");
-        int id = 1;
-        PublisherDAL instance = new PublisherDAL();
+        int id = 0;
+        PublisherController instance = new PublisherController();
         int expResult = 0;
         int result = instance.delete(id);
         assertEquals(expResult, result);
