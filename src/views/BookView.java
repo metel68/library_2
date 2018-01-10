@@ -65,6 +65,7 @@ public class BookView extends BaseView {
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
 
 		String jsonObject = request.getReader().lines().collect(Collectors.joining());
@@ -93,6 +94,7 @@ public class BookView extends BaseView {
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		setAccessControlHeaders(response);
 		String ids = request.getParameter("id");
 		int id = Integer.parseInt(ids);
 

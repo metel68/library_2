@@ -104,6 +104,6 @@
 	
 	<delete id="deleteBookCategorys" parameterType="int"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		delete from book_category where book_authors.book_id=#{id}
+		delete from book_category where book_category.book_id=#{id}
 	</delete>
 </mapper>
