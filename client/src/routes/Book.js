@@ -24,6 +24,7 @@ class Book extends Component {
   deleteBook = async () => {
     const { book } = this.state;
     const reponse = API.deleteBook(book.id);
+    this.props.history.push('/');
   };
 
   render() {
