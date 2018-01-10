@@ -2,13 +2,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
-	<select id="selectAll" resultType="User">
+	<resultMap id="userResultMap" type="User">
+	    <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="isAdmin" column="is_admin"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="userResultMap">
 		select * from user
 	</select>
-	<select id="selectById" parameterType="int" resultType="User">
+	<select id="selectById" parameterType="int" resultMap="userResultMap">
 		select * from user where id = #{id}
 	</select>
-	<select id="selectByLogin" parameterType="String" resultType="User">
+	<select id="selectByLogin" parameterType="String" resultMap="userResultMap">
 		select * from user where username = #{username}
 	</select>
 	
