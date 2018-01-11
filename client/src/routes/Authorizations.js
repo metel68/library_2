@@ -29,7 +29,7 @@ class Authorization extends Component {
   };
 
   auth = async e => {
-    const { email, password } = this.setState;
+    const { email, password } = this.state;
     if (email === '' || password === '') {
       this.setState({ error: 'Email или Пароль не должны быть пустыми' });
     } else {
