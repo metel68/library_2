@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Header, Form, Button, Dropdown, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Author from '../components/Author';
 import API from '../Api';
 // private int id;
 // private String isbn;
