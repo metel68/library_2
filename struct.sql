@@ -62,3 +62,14 @@ CREATE TABLE `book_category` (
   CONSTRAINT `book_category_category_id_99e880cf_fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `book_category_book_id_d6f28d4a_fk_book_ISBN` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `book_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` varchar(17) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `main_book_owners_book_id_303f824e_uniq` (`book_id`,`user_id`),
+  KEY `main_book_owners_user_id_80f057e4_fk_auth_user_id` (`user_id`),
+  CONSTRAINT `main_book_owners_book_id_3de5e13f_fk_main_book_ISBN` FOREIGN KEY (`book_id`) REFERENCES `main_book` (`ISBN`),
+  CONSTRAINT `main_book_owners_user_id_80f057e4_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;

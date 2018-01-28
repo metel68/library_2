@@ -3,8 +3,8 @@ package DAL;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
+import models.FavoritesItem;
 import models.User;
 
 public class UserDAL extends BaseDAL {
@@ -35,4 +35,27 @@ public class UserDAL extends BaseDAL {
 		session.close();
 		return ret;
 	}
+	
+	
+	public int insertUserFav(FavoritesItem author) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.insert("user.insertUserFav", author);
+		session.close();
+		return ret;
+	}
+	
+	public int deleteUserFav(FavoritesItem author) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUserFav", author);
+		session.close();
+		return ret;
+	}
+
+	public int deleteUserFavs(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUserFavs", id);
+		session.close();
+		return ret;
+	}
+	
 }

@@ -20,6 +20,7 @@
 		<typeAlias alias="Publisher" type="models.Publisher" />
 		<typeAlias alias="BookAuthor" type="models.BookAuthor" />
 		<typeAlias alias="BookCategory" type="models.BookCategory" />
+		<typeAlias alias="FavoritesItem" type="models.FavoritesItem" />
 	</typeAliases>
 
 	<environments default="development">

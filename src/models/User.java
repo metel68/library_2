@@ -1,6 +1,8 @@
 package models;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -18,6 +20,9 @@ public class User {
 
 	@Expose
 	private boolean isAdmin;
+	
+	@Expose
+	private List<Book> favorites = new ArrayList<>();
 
 	public String getUsername() {
 		return username;
@@ -101,5 +106,9 @@ public class User {
 	@Override
 	public String toString() {
 		return this.getId() + ": " + this.getUsername();
+	}
+
+	public List<Book> getFavorites() {
+		return favorites;
 	}
 }

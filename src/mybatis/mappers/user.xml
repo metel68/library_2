@@ -2,15 +2,53 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+
+	<resultMap id="Authors" type="Author">
+	    <id property="id" column="author_id"/>
+        <result property="fullName" column="author_name"/>
+	</resultMap>
+	<resultMap id="Categorys" type="Category">
+	    <id property="id" column="category_id"/>
+        <result property="name" column="cat_name"/>
+	</resultMap>
+	<resultMap id="bookResultMap" type="Book">
+	  <id property="id" column="book_id"/>
+      <result property="isbn" column="ISBN"/>
+      <result property="year" column="year"/>
+      <result property="title" column="title"/>
+      <result property="size" column="size"/>
+      <result property="count" column="count"/>
+      <result property="description" column="description"/>
+      <result property="addedAt" column="added_at"/>
+      <result property="cover" column="cover"/>
+	  <association property="publisher" javaType="Publisher">
+		  <id property="id" column="publisher_id"/>
+		  <result property="name" column="pub_name"/>
+	  </association>
+	  <collection javaType="ArrayList" property="authors" resultMap="Authors" />
+	  <collection javaType="ArrayList" property="categories" resultMap="Categorys" />
+	</resultMap>
+
 	<resultMap id="userResultMap" type="User">
 	    <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="isAdmin" column="is_admin"/>
+        <collection javaType="ArrayList" property="favorites" resultMap="bookResultMap" />
 	</resultMap>
 
 	<select id="selectAll" resultMap="userResultMap">
-		select * from user
+		select user.*, book.id as book_id, book.ISBN, book.title, book.year, book.size, book.cover, book.count, book.publisher_id,
+		book.description, book.added_at, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
+		category.id as category_id, category.name as cat_name
+		from user
+		left join book_users on book_users.user_id = user.id
+		left join book on book_users.book_id = book.id
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
+		left join book_category on book_category.book_id = book.id
+		left join category on book_category.category_id = category.id
 	</select>
 	<select id="selectById" parameterType="int" resultMap="userResultMap">
 		select * from user where id = #{id}
@@ -35,5 +73,22 @@
 	<delete id="deleteUser" parameterType="User"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		delete from user where id=#{id}
+	</delete>
+	
+	
+	<insert id="insertUserFav" parameterType="FavoritesItem" flushCache="true"
+		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
+		timeout="20">
+		insert into book_users (user_id, book_id) values (#{user.id}, #{book.id})
+	</insert>
+	
+	<delete id="deleteUserFav" parameterType="FavoritesItem"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from book_users where book_users.user_id=#{user.id} and book_users.book_id=#{book.id}
+	</delete>
+	
+	<delete id="deleteUserFavs" parameterType="int"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from book_users where book_users.user_id=#{id}
 	</delete>
 </mapper>
