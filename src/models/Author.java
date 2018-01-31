@@ -1,7 +1,11 @@
 package models;
 
+import com.google.gson.annotations.Expose;
+
 public class Author {
+	@Expose
 	private int id;
+	@Expose
 	private String fullName;
 	
 	public int getId() {

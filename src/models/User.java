@@ -99,6 +99,10 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
+	public User(int id) {
+		this.id = id;
+	}
+	
 	public User() {
 		super();
 	}
