@@ -38,6 +38,7 @@ class Authorization extends Component {
       if (ok) {
         localStorage.setItem('isAdmin', data.isAdmin);
         localStorage.setItem('isAuthorized', true);
+          localStorage.setItem('userId', data.id);
         this.props.history.push('/books/list');
       } else {
         this.setState({ error: 'Ошибка сервера. Попробуйте позже' });
