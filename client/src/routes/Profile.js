@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
-import API from '../Api';
+import UserAPI from '../api/user';
 import { Image, Title, Favorites } from '../components';
 
 class Book extends Component {
@@ -18,7 +18,7 @@ class Book extends Component {
 
   async componentDidMount() {
     const userId = localStorage.getItem('userId');
-    const response = await API.getUser(userId);
+    const response = await UserAPI.getUser(userId);
     const { data } = response;
     this.setState({ user: data });
   }

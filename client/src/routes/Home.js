@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import intersection from 'lodash/intersection';
 import { Book as B } from '../components';
 import { isAdmin } from '../utils';
-import API from '../Api';
+import API from '../api/Api';
 
 class Home extends Component {
   constructor() {

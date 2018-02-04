@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
-import API from '../Api';
+import API from '../api/Api';
 import { Image, Title, Author } from '../components';
 import { isAdmin } from '../utils';
 

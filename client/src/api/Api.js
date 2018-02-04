@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/ru.yuriandco.abis/';
+import { BASE_URL } from './base';
 
 const createBook = async (bookInfo) => {
   // private int id;
@@ -145,16 +145,6 @@ const getBook = async (id) => {
   }
 };
 
-const getUser = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}user?id=${id}`);
-    const json = await response.json();
-    return {ok: true, data: json};
-  } catch (error) {
-    return {ok: false, error};
-  }
-};
-
 const searchBooks = async (query) => {
   try {
     const response = await fetch(`${BASE_URL}books?name=${query}`);
@@ -163,34 +153,6 @@ const searchBooks = async (query) => {
   } catch (error) {
     return {ok: false, error};
   }
-};
-
-const registerUser = async ({email, password}) => {
-  try {
-    const response = await fetch(`${BASE_URL}users`, {
-      method: 'POST',
-      body: JSON.stringify({username: email, password}),
-    });
-
-    const data = await response.json();
-
-    return {ok: true, data};
-  } catch (error) {
-    return {ok: false, error};
-  }
-};
-
-const auth = async ({email, password}) => {
-  const response = await fetch(`${BASE_URL}login`, {
-    method: 'POST',
-    body: JSON.stringify({username: email, password}),
-  });
-
-  const data = await response.json();
-  if (data.message === 'fail') {
-    return {ok: false, error: 'Ошибка авторизации'};
-  }
-  return {ok: true, data};
 };
 
 const deleteBook = async (id) => {
@@ -216,10 +178,7 @@ export default {
   getCategories,
   getBooks,
   getBook,
-  getUser,
   createNewCategory,
   searchBooks,
-  registerUser,
-  auth,
   deleteBook,
 };
