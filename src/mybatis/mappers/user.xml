@@ -64,7 +64,17 @@
 		left join category on book_category.category_id = category.id where user.id = #{id}
 	</select>
 	<select id="selectByLogin" parameterType="String" resultMap="userResultMap">
-		select * from user where username = #{username}
+		select user.*, book.id as book_id, book.ISBN, book.title, book.year, book.size, book.cover, book.count, book.publisher_id,
+		book.description, book.added_at, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
+		category.id as category_id, category.name as cat_name
+		from user
+		left join book_users on book_users.user_id = user.id
+		left join book on book_users.book_id = book.id
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
+		left join book_category on book_category.book_id = book.id
+		left join category on book_category.category_id = category.id where username = #{username}
 	</select>
 	
 	<insert id="insertUser" parameterType="User" flushCache="true"

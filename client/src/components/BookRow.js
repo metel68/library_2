@@ -1,28 +1,46 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
 import Title from './Title';
 import Author from './Author';
+import FavAPI from '../api/favs';
 
-export const BookRow = ({
-  book: {
-    id, cover, title, authors,
-  }, className,
-}) => (
-  <Wrapper className={className}>
-    <Link to={{ pathname: `/book/view/${id}` }}>
-      <SmallImage src={cover} />
-    </Link>
-    <Title>{title}</Title>
-    {authors.map(author => (
-      <Author key={`${author.id}${author.fullName}`}>{author.fullName}</Author>
-    ))}
-  </Wrapper>
-);
+
+class BookRow extends Component {
+  deleteFav = async () => {
+    const { redrawParent } = this.props;
+    const userId = localStorage.getItem('userId');
+    const response = FavAPI.deleteFav(this.props.book.id, userId).then(() => redrawParent());
+  };
+
+  render() {
+    const { id, cover, title, authors } = this.props.book;
+    const { className } = this.props;
+    const { deleteFav } = this;
+
+    return (
+      <Wrapper className={className}>
+        <Link to={{ pathname: `/book/view/${id}` }}>
+          <SmallImage src={cover} />
+        </Link>
+        <Title>{title}</Title>
+        {authors.map(author => (
+          <Author key={`${author.id}${author.fullName}`}>{author.fullName}</Author>
+        ))}
+        <Button type="button" onClick={deleteFav}>
+          X
+        </Button>
+      </Wrapper>
+    );
+  }
+}
+
+export default BookRow;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const SmallImage = styled.img`

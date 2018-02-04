@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import API from '../api/Api';
+import FavAPI from '../api/favs';
 import { Image, Title, Author } from '../components';
 import { isAdmin } from '../utils';
 
@@ -27,9 +28,16 @@ class Book extends Component {
     this.props.history.push('/');
   };
 
+  addFav = async () => {
+    const {book} = this.state;
+    const userId = localStorage.getItem('userId');
+    const response = FavAPI.createFav(book.id, userId);
+    this.setState({inFavs: true});
+  };
+
   render() {
     const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
-    const { deleteBook } = this;
+    const { deleteBook, addFav } = this;
     const { isAdmin } = this.state;
     return (
       <Layout text>
@@ -65,17 +73,20 @@ class Book extends Component {
             <RowContent>{year}</RowContent>
           </InfoRow>
           <InfoRow>
-            <RowTitle>Колличество страниц</RowTitle>
+            <RowTitle>Количество страниц</RowTitle>
             <RowContent>{size}</RowContent>
           </InfoRow>
           <InfoRow>
-            <RowTitle>Колличество на складе</RowTitle>
+            <RowTitle>Количество на складе</RowTitle>
             <RowContent>{size}</RowContent>
           </InfoRow>
         </BookInfo>
         <Divider />
         <Header size="medium">Описание</Header>
         <p>{description}</p>
+        <a href="#" onClick={addFav}>
+          Добавить в заявку
+        </a>
       </Layout>
     );
   }
