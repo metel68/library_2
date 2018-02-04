@@ -21,6 +21,7 @@ public class BaseDALTest {
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After

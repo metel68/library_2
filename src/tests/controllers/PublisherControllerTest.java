@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.*;
 
+import DAL.BaseDAL;
+
 public class PublisherControllerTest {
     
     public PublisherControllerTest() {
@@ -23,6 +25,7 @@ public class PublisherControllerTest {
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After

@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.*;
 
+import DAL.BaseDAL;
+
 public class AuthorControllerTest {
     
     public AuthorControllerTest() {
@@ -22,6 +24,7 @@ public class AuthorControllerTest {
     
     @Before
     public void setUp() {
+    	BaseDAL.initSqlSessionFactory();
     }
     
     @After
