@@ -66,8 +66,8 @@
 
 	<update id="updateBook" parameterType="Book"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		update book set (isbn=#{isbn}, title='#{title}', year=#{year}, size=#{size}, count=#{count},
-		publisher_id=#{publisher.id}, description='#{description}', added_at='#{addedAt}, cover=#{cover}') where id=#{id}
+		update book set isbn=#{isbn}, title=#{title}, year=#{year}, size=#{size}, count=#{count},
+		publisher_id=#{publisher.id}, description=#{description}, cover=#{cover} where id=#{id}
 	</update>
 
 	<delete id="deleteBook" parameterType="int"

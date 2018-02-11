@@ -83,9 +83,11 @@ public class BookView extends BaseView {
 				out.print(res);
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				e.printStackTrace();
 				response.setStatus(422);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				e.printStackTrace();
 				response.setStatus(500);
 			}
 		}
