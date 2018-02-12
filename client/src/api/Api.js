@@ -43,6 +43,49 @@ const createBook = async (bookInfo) => {
   return response;
 };
 
+const editBook = async (id, bookInfo) => {
+  // private int id;
+  // private String isbn;
+  // private String title;
+  // private List<Author> authors = new ArrayList<>();
+  // private List<Category> categories = new ArrayList<>();
+  // private Publisher publisher;
+  // private int year;
+  // private int count;
+  // private int size;
+  // private String description;
+  // private Date addedAt;
+  // private String cover;
+  const {
+    authors,
+    publishers,
+    categories,
+    title,
+    year,
+    count,
+    size,
+    description,
+    cover,
+    isbn,
+  } = bookInfo;
+
+  const data = {
+    title,
+    authors: authors.selected,
+    categories: categories.selected,
+    publisher: publishers.selected,
+    year,
+    count,
+    size,
+    description,
+    cover,
+    isbn,
+  };
+
+  const response = await fetch(`${BASE_URL}book?id=${id}`, {method: 'PUT', body: JSON.stringify(data)});
+  return response;
+};
+
 const createNewAuthor = async (author) => {
   try {
     const response = await fetch(`${BASE_URL}authors`, {
@@ -180,5 +223,6 @@ export default {
   getBook,
   createNewCategory,
   searchBooks,
+  editBook,
   deleteBook,
 };

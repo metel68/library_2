@@ -43,13 +43,18 @@ class Book extends Component {
   };
 
   render() {
-    const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
+    const { id, cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
     const { deleteBook } = this;
     const { isAdmin, inFavs } = this.state;
     return (
       <Layout text>
         <InfoRow>
           <Link to={{ pathname: '/' }}>Назад</Link>
+          {isAdmin ? (
+            <Link to={{ pathname: `/book/edit/${id}` }}>
+              Редактировать
+            </Link>
+          ) : null}
           {isAdmin ? (
             <a href="#" onClick={deleteBook}>
               Удалить

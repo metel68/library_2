@@ -46,6 +46,7 @@ class CreateBook extends Component {
         selected: [],
         new: '',
       },
+      isbn: '',
       title: '',
       year: '',
       count: '',
@@ -356,6 +357,7 @@ class CreateBook extends Component {
           <Form.Field>
             <label>Название</label>
             <input
+              type="text"
               name="title"
               onChange={changeInputValue}
               value={title}
@@ -414,11 +416,11 @@ class CreateBook extends Component {
           {publishers.showAddField ? NewPublisherForm() : null}
           <Form.Field>
             <label>Введите год издания</label>
-            <input value={year} name="year" onChange={changeInputValue} placeholder="Год издания" />
+            <input type="number" value={year} name="year" onChange={changeInputValue} placeholder="Год издания" />
           </Form.Field>
           <Form.Field>
             <label>Вставьте ссылку на картинку обложки книги</label>
-            <input
+            <input type="url"
               value={cover}
               name="cover"
               onChange={changeInputValue}
@@ -427,7 +429,7 @@ class CreateBook extends Component {
           </Form.Field>
           <Form.Field>
             <label>Колличество книг на складе</label>
-            <input
+            <input type="number"
               name="count"
               onChange={changeInputValue}
               value={count}
@@ -436,11 +438,11 @@ class CreateBook extends Component {
           </Form.Field>
           <Form.Field>
             <label>ISBN код</label>
-            <input name="isbn" onChange={changeInputValue} value={isbn} placeholder="ISBN код" />
+            <input type="text" name="isbn" onChange={changeInputValue} value={isbn} placeholder="ISBN код" />
           </Form.Field>
           <Form.Field>
             <label>Колличество страниц в книге</label>
-            <Input
+            <Input type="number"
               value={size}
               label={{ basic: true, content: 'страниц' }}
               labelPosition="right"
