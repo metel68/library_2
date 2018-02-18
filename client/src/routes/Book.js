@@ -43,7 +43,7 @@ class Book extends Component {
   };
 
   render() {
-    const { id, cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
+    const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
     const { deleteBook } = this;
     const { isAdmin, inFavs } = this.state;
     return (
@@ -90,7 +90,7 @@ class Book extends Component {
           </InfoRow>
           <InfoRow>
             <RowTitle>Количество на складе</RowTitle>
-            <RowContent>{size}</RowContent>
+            <RowContent>{count}</RowContent>
           </InfoRow>
         </BookInfo>
         <Divider />

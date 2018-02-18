@@ -1,30 +1,7 @@
 import React, {Component} from 'react';
-import {
-  Container,
-  Header,
-  Form,
-  Button,
-  Dropdown,
-  Input,
-  TextArea,
-  Message,
-} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
-import styled from 'styled-components';
-import Author from '../components/Author';
 import API from '../api/Api';
 import CreateBook from "./CreateBook";
-// private int id;
-// private String isbn;
-// private String title;
-// private List<Author> authors = new ArrayList<>();
-// private List<Category> cateries = new ArrayList<>()
-// private Publisher publisher;
-// private int year;
-// private int count;
-// private int size;
-// private String description;
-// private Date addedAt;
+
 class EditBook extends CreateBook {
   async componentDidMount() {
     const {bookId} = this.props.match.params;
@@ -88,10 +65,15 @@ class EditBook extends CreateBook {
     } else {
       console.error(categoriesResponse.error);
     }
+
+    this.setState(prevState => ({
+      ...prevState,
+      loadingComplete: true
+    }));
   }
 
   createNewBook = async () => {
-    const response = await API.editBook(this.state);
+    const response = await API.editBook(this.state.id, this.state);
     const {ok, data, error} = response;
     if (ok) {
       this.props.history.push('/');
