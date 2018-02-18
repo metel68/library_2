@@ -33,7 +33,8 @@
 	    <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
-        <result property="isAdmin" column="is_admin"/>
+        <result property="realname" column="realname"/>
+        <result property="role" column="role"/>
         <collection javaType="ArrayList" property="favorites" resultMap="bookResultMap" />
 	</resultMap>
 
