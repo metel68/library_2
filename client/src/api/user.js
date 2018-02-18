@@ -1,10 +1,25 @@
 import { BASE_URL } from './base';
 
-const registerUser = async ({email, password}) => {
+const registerUser = async ({email, ...rest}) => {
   try {
     const response = await fetch(`${BASE_URL}users`, {
       method: 'POST',
-      body: JSON.stringify({username: email, password}),
+      body: JSON.stringify({username: email, ...rest}),
+    });
+
+    const data = await response.json();
+
+    return {ok: true, data};
+  } catch (error) {
+    return {ok: false, error};
+  }
+};
+
+const editUser = async (id, {email, ...rest}) => {
+  try {
+    const response = await fetch(`${BASE_URL}user?id=${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({username: email, ...rest}),
     });
 
     const data = await response.json();
@@ -40,6 +55,7 @@ const getUser = async (id) => {
 
 export default {
   registerUser,
+  editUser,
   auth,
   getUser,
 }

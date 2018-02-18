@@ -20,7 +20,8 @@ export default () => (
       <AuthRoute path="/auth" component={Authorization} />
       <AuthRoute path="/registration" component={Registration} />
       <PrivateRoute path="/book/view/:bookId" component={Book} />
-      <PrivateRoute path="/user" component={Profile} />
+      <PrivateRoute path="/user/current" component={Profile} />
+      <AdminRoute path="/user/:id" component={Profile} />
       <AdminRoute path="/book/create" component={CreateBook} />
       <AdminRoute path="/book/edit/:bookId" component={EditBook} />
     </Switch>

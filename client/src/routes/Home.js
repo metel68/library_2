@@ -68,7 +68,7 @@ class Home extends Component {
         <a href="#" onClick={logout}>
           Выйти
         </a>
-          <Link to={{ pathname: '/user/' }} style={{ float: 'right' }}>Просмотр профиля</Link>
+          <Link to={{ pathname: '/user/current' }} style={{ float: 'right' }}>Просмотр профиля</Link>
         <Wrapper>
           {isAdmin ? <Link to={{ pathname: '/book/create' }}>Добавить книгу</Link> : null}
           <Input icon="search" placeholder="Search..." onChange={searchBook} />

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import UserAPI from '../api/user';
-import { Image, Title, Favorites } from '../components';
+import { Image, Title, Favorites, UserForm } from '../components';
 
 class Book extends Component {
   constructor() {
@@ -11,16 +11,17 @@ class Book extends Component {
     this.state = {
       user: {
         username: 'loading...',
+        realname: 'Пупкин Вася Ибрагимович',
         favorites: [],
       },
     };
   }
 
   async componentDidMount() {
-    this.updateUser();
+    this.fetchUser();
   }
 
-  async updateUser() {
+  async fetchUser() {
     const userId = localStorage.getItem('userId');
     const response = await UserAPI.getUser(userId);
     const { data } = response;
@@ -28,9 +29,9 @@ class Book extends Component {
   }
 
   render() {
-    const { username, favorites, isAdmin } = this.state.user;
-    const updateUser = this.updateUser.bind(this);
-    // const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
+    const { username, favorites } = this.state.user;
+    const updateUser = this.fetchUser.bind(this);
+
     return (
       <Layout>
         <InfoRow>
@@ -38,6 +39,9 @@ class Book extends Component {
         </InfoRow>
         <Header>Профиль { username }</Header>
 
+        <UserForm user={this.state.user} />
+
+        <Divider />
         <Favorites books={ favorites } redrawParent={updateUser} />
         <Divider />
       </Layout>
@@ -49,6 +53,7 @@ const InfoRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 16px;
 `;
 
 const Layout = styled(Container)`

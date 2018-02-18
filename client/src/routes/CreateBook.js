@@ -232,7 +232,8 @@ class CreateBook extends Component {
       changeNewPublisherValue,
       changeCategoriesArray,
       createNewBook,
-      showAddField
+      showAddField,
+      hideAddField
     } = this;
 
     const {
@@ -252,6 +253,7 @@ class CreateBook extends Component {
                   changeCategoriesArray={changeCategoriesArray}
                   createNewBook={createNewBook}
                   showAddField={showAddField}
+                  hideAddField={hideAddField}
         />
       )
     } else {
