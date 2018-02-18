@@ -30,9 +30,9 @@ public class UserTest {
 
 	@Test
 	public void testEqualsUser() {
-		User user1 = new User(1, "Bro122", "password123", false);
-		User user11 = new User(1, "LenaOlova", "9353278671a", false);
-		User user2 = new User(2, "MaxMetel", "32gr3g23etsd", true);
+		User user1 = new User(1, "Bro122", "password123", "Mischenko Yuri", "USER");
+		User user11 = new User(1, "LenaOlova", "9353278671a", "Orlova Elena", "LIBR");
+		User user2 = new User(2, "MaxMetel", "32gr3g23etsd", "Metel Maxim", "ADMIN"); // Please refer to Git history and terminate this student from universty hahui
 		assertEquals(user1, user1);
 		assertNotEquals(user1, user11);
 		assertEquals(user2, user2);
@@ -49,23 +49,23 @@ public class UserTest {
 		user2.setPassword("123pass");
 		assertEquals(user2.getPassword(), "123pass");
                 
-                user2.setAdmin(false);
-                assertEquals(user2.isAdmin(), false);
+                user2.setRole("USER");
+                assertEquals(user2.getRole(), "USER");
       
 	}
 
         @Test
         public void testTrueUser() {
-                User user5 = new User(5, "Slava Volkov", "mypasswordisgood", false);
+                User user5 = new User(5, "SVolkov", "mypasswordisgood", "Slava Volkov", "USER");
                 user5.setId(9);
-		assertTrue(user5.getId() == 9);
-                user5.setAdmin(true);
-		assertTrue(user5.isAdmin() == true);
+                assertTrue(user5.getId() == 9);
+                user5.setRole("ADMIN");
+                assertTrue(user5.getRole().equals("ADMIN"));
         }
         
         @Test
         public void testtoStringUser() {
-                User user11 = new User(11, "Katia Verova", "sfabhaw4nsd1", false);
+                User user11 = new User(11, "Verova", "sfabhaw4nsd1", "Katia Verova", "USER");
                 assertEquals(user11.toString(), "11: Katia Verova");
                 
                 user11.setId(12);
@@ -77,7 +77,7 @@ public class UserTest {
                 user11.setPassword("renejkreejr4");
                 assertEquals(user11.toString(), "12: Katia Verova-Gelever");
                 
-                user11.setAdmin(false);
+                user11.setRole("LIBR");
                 assertEquals(user11.toString(), "12: Katia Verova-Gelever");
         }
         

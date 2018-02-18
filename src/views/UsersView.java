@@ -33,10 +33,8 @@ public class UsersView extends BaseView {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// // Параметр
 		// String parameter = request.getParameter("parameter");
 		//
-		// // Старт HTTP сессии
 		// HttpSession session = request.getSession(true);
 		// session.setAttribute("parameter", parameter);
 
@@ -68,7 +66,7 @@ public class UsersView extends BaseView {
 				Gson gson = this.gsonb.excludeFieldsWithoutExposeAnnotation().create();
 				User user = gson.fromJson(jsonObject, User.class);
 
-				User newUser = this.controller.insert(user, false);
+				User newUser = this.controller.insert(user, "USER");
 				out.print(gson.toJson(newUser));
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));

@@ -19,7 +19,10 @@ public class User {
 	private String password;
 
 	@Expose
-	private boolean isAdmin;
+	private String role;
+	
+	@Expose
+	private String realname;
 	
 	@Expose
 	private List<Book> favorites = new ArrayList<>();
@@ -43,13 +46,21 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public boolean isAdmin() {
-		return isAdmin;
+	
+	public String getRole() {
+		return role;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
 	}
 
 	public int getId() {
@@ -91,12 +102,13 @@ public class User {
 		return true;
 	}
 
-	public User(int id, String username, String password, boolean isAdmin) {
+	public User(int id, String username, String password, String realname, String role) {
 		this();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.isAdmin = isAdmin;
+		this.realname = realname;
+		this.role = role;
 	}
 
 	public User(int id) {

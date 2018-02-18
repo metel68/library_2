@@ -80,14 +80,14 @@
 	<insert id="insertUser" parameterType="User" flushCache="true"
 		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
 		timeout="20">
-		insert into user (username, password, is_admin) values (#{username},
-		#{password}, #{isAdmin})
+		insert into user (username, password, realname, role) values (#{username},
+		#{password}, #{realname}, #{role})
 	</insert>
 
 	<update id="updateUser" parameterType="User"
 		flushCache="true" statementType="PREPARED" timeout="20">
 		update user set (username=#{username}, password=#{password},
-		isAdmin=#{isAdmin})
+		realname=#{realname}, role=#{role})
 	</update>
 
 	<delete id="deleteUser" parameterType="User"

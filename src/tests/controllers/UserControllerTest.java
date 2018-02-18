@@ -63,9 +63,9 @@ public class UserControllerTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        User user1 = new User(1, "Bro122", "password123", false);
+        User user1 = new User(1, "Bro122", "password123", "MMU", "USER");
         UserController instance = new UserController();
-        User result = instance.insert(user1, false);
+        User result = instance.insert(user1, "USER");
         User expResult = instance.getUser(user1.getId());
         assertEquals(expResult, result);
     }
@@ -76,7 +76,7 @@ public class UserControllerTest {
         User user1 = new User();
         UserController instance = new UserController();
         User expResult = null;
-        User result = instance.insert(user1, false);
+        User result = instance.insert(user1, "USER");
         assertEquals(expResult, result);
     }
 

@@ -62,7 +62,7 @@ public class UserDALTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        User user1 = new User(1, "Bro122", "password123", false);
+        User user1 = new User(1, "Bro122", "password123", "MMU", "USER");
         UserDAL instance = new UserDAL();
         int result = instance.insert(user1);
         User expResult = instance.selectById(user1.getId());

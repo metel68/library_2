@@ -36,6 +36,19 @@ public class UserDAL extends BaseDAL {
 		return ret;
 	}
 	
+	public int update(User user) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.update("user.updateUser", user);
+		session.close();
+		return ret;
+	}	
+	
+	public int delete(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUser", id);
+		session.close();
+		return ret;
+	}
 	
 	public int insertUserFav(FavoritesItem author) {
 		SqlSession session = getSqlSessionFactory().openSession(true);

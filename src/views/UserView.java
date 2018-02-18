@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -55,6 +57,53 @@ public class UserView extends BaseView {
 				}
 				
 				out.print(gson.toJson(user));
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		setAccessControlHeaders(response);
+		response.setContentType("application/json;charset=UTF-8");
+
+		String jsonObject = request.getReader().lines().collect(Collectors.joining());
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				Gson gson = new Gson();
+				User user =  gson.fromJson(jsonObject, User.class);
+				if (user.getId() == 0) {
+					String ids = request.getParameter("id");
+					int id = Integer.parseInt(ids);
+					user.setId(id);
+				}
+				int res = controller.update(user);
+				out.print(res);
+			} catch (PersistenceException e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(422);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		setAccessControlHeaders(response);
+		String ids = request.getParameter("id");
+		int id = Integer.parseInt(ids);
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				int result = controller.delete(id);
+				out.println(result);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);

@@ -3,6 +3,8 @@ CREATE TABLE `user` (
   `password` varchar(128) NOT NULL,
   `is_admin` boolean NOT NULL,
   `username` varchar(30) NOT NULL,
+  `realname` varchar(30),
+  `role` varchar(5) NOT NULL
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

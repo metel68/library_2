@@ -43,6 +43,16 @@ public class BookController {
 	}
 	
 	public int update(Book book) {
+		dal.deleteAuthorsFromBook(book.getId());
+		book.getAuthors().forEach((author) -> {
+			BookAuthor link = new BookAuthor(book, author);
+			dal.insertAuthor(link);
+		});
+		dal.deleteCategorysFromBook(book.getId());
+		book.getCategories().forEach((category) -> {
+			BookCategory link = new BookCategory(book, category);
+			dal.insertCategory(link);
+		});
 		return dal.update(book);
 	}
 	
