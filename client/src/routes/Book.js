@@ -7,6 +7,13 @@ import FavAPI from '../api/favs';
 import { Image, Title, Author } from '../components';
 import { isAdmin } from '../utils';
 
+function FavLink({inFavs, addFav}) {
+  if (inFavs) {
+    return '';
+  }
+  return (<a href="#" id="addFav" onClick={addFav}>Добавить в заявку</a>);
+}
+
 class Book extends Component {
   constructor() {
     super();
@@ -36,13 +43,18 @@ class Book extends Component {
   };
 
   render() {
-    const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
-    const { deleteBook, addFav } = this;
-    const { isAdmin } = this.state;
+    const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
+    const { deleteBook } = this;
+    const { isAdmin, inFavs } = this.state;
     return (
       <Layout text>
         <InfoRow>
           <Link to={{ pathname: '/' }}>Назад</Link>
+          {isAdmin ? (
+            <Link to={{ pathname: `/book/edit/${id}` }}>
+              Редактировать
+            </Link>
+          ) : null}
           {isAdmin ? (
             <a href="#" onClick={deleteBook}>
               Удалить
@@ -78,15 +90,13 @@ class Book extends Component {
           </InfoRow>
           <InfoRow>
             <RowTitle>Количество на складе</RowTitle>
-            <RowContent>{size}</RowContent>
+            <RowContent>{count}</RowContent>
           </InfoRow>
         </BookInfo>
         <Divider />
         <Header size="medium">Описание</Header>
         <p>{description}</p>
-        <a href="#" onClick={addFav}>
-          Добавить в заявку
-        </a>
+        <FavLink inFavs={inFavs} addFav={this.addFav} />
       </Layout>
     );
   }
