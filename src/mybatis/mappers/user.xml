@@ -34,7 +34,7 @@
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="realname" column="realname"/>
-        <result property="role" column="role"/>
+        <result property="role" column="rolez"/>
         <collection javaType="ArrayList" property="favorites" resultMap="bookResultMap" />
 	</resultMap>
 
@@ -87,8 +87,7 @@
 
 	<update id="updateUser" parameterType="User"
 		flushCache="true" statementType="PREPARED" timeout="20">
-		update user set (username=#{username}, password=#{password},
-		realname=#{realname}, role=#{role})
+		update user set username=#{username}, password=#{password}, realname=#{realname}, role=#{role} where id=#{id}
 	</update>
 
 	<delete id="deleteUser" parameterType="User"
