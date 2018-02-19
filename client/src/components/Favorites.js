@@ -7,7 +7,7 @@ export const Favorites = ({
   books, className, redrawParent,
 }) => (
   <Wrapper className={className}>
-    {books.map(book => <BookRow book={book} redrawParent={redrawParent} />)}
+    {books.map((book, key) => <BookRow book={book} key={key} redrawParent={redrawParent} />)}
   </Wrapper>
 );
 

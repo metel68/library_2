@@ -11,6 +11,7 @@ import {PrivateRoute} from './PrivateRoute';
 import {AdminRoute} from './AdminRoute';
 import {AuthRoute} from './AuthRoute';
 import Profile from './Profile';
+import UserAdmin from "./UserAdmin";
 
 export default () => (
   <BrowserRouter>
@@ -22,6 +23,7 @@ export default () => (
       <PrivateRoute path="/book/view/:bookId" component={Book} />
       <PrivateRoute path="/user/current" component={Profile} />
       <AdminRoute path="/user/:id" component={Profile} />
+      <AdminRoute path="/users/list" component={UserAdmin} />
       <AdminRoute path="/book/create" component={CreateBook} />
       <AdminRoute path="/book/edit/:bookId" component={EditBook} />
     </Switch>

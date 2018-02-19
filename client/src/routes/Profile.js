@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
 import UserAPI from '../api/user';
-import { Image, Title, Favorites, UserForm } from '../components';
+import { Favorites, UserForm } from '../components';
 
-class Book extends Component {
+class Profile extends Component {
   constructor() {
     super();
     this.state = {
@@ -22,7 +22,7 @@ class Book extends Component {
   }
 
   async fetchUser() {
-    const userId = localStorage.getItem('userId');
+    const userId = this.props.match.params.id || localStorage.getItem('userId');
     const response = await UserAPI.getUser(userId);
     const { data } = response;
     this.setState({ user: data });
@@ -61,4 +61,4 @@ const Layout = styled(Container)`
   margin-bottom: 150px;
 `;
 
-export default Book;
+export default Profile;

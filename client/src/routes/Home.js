@@ -70,6 +70,7 @@ class Home extends Component {
         </a>
           <Link to={{ pathname: '/user/current' }} style={{ float: 'right' }}>Просмотр профиля</Link>
         <Wrapper>
+          {isAdmin ? <Link to={{ pathname: '/users/list' }}>Управление пользователями</Link> : null}
           {isAdmin ? <Link to={{ pathname: '/book/create' }}>Добавить книгу</Link> : null}
           <Input icon="search" placeholder="Search..." onChange={searchBook} />
         </Wrapper>

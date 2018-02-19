@@ -53,9 +53,20 @@ const getUser = async (id) => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}users`);
+    const json = await response.json();
+    return {ok: true, data: json};
+  } catch (error) {
+    return {ok: false, error};
+  }
+};
+
 export default {
   registerUser,
   editUser,
   auth,
   getUser,
+  getUsers,
 }
