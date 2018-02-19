@@ -18,7 +18,7 @@ class Book extends Component {
   }
 
   async componentDidMount() {
-    this.fetchUser();
+    await this.fetchUser();
   }
 
   async fetchUser() {

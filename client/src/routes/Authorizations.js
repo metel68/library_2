@@ -36,7 +36,7 @@ class Authorization extends Component {
       const response = await UserAPI.auth(this.state);
       const { ok, data } = response;
       if (ok) {
-        localStorage.setItem('isAdmin', data.isAdmin);
+        localStorage.setItem('role', data.role);
         localStorage.setItem('isAuthorized', true);
         localStorage.setItem('userId', data.id);
         this.props.history.push('/books/list');

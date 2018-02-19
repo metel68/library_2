@@ -11,26 +11,26 @@ export default class UserForm extends Component {
     super();
 
     this.state = {
+      user: {
+        realname: '',
+        username: '',
+        password: null,
+        role: 'USER',
+      },
       showForm: false,
     }
   }
 
-  hideEditForm = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      showForm: false
-    }))
-  }
+  hideEditForm = () => this.setState({showForm: false});
 
   showEditForm = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      showForm: true
-    }))
-  }
+    const {user} = this.props;
+
+    this.setState({user, showForm: true});
+  };
 
   saveUser = async () => {
-    const {user} = this.props;
+    const {user} = this.state;
     const response = await UserAPI.editUser(user.id, user);
     const {ok, data, error} = response;
 
@@ -39,22 +39,41 @@ export default class UserForm extends Component {
     } else {
       this.setState({error});
     }
-  }
+  };
+
+  changeInputValue = e => {
+    const {name, value} = e.target;
+    const {user} = this.state;
+
+    user[name] = value;
+    this.setState({user}); // triggers update event
+  };
 
   EditForm = ({user}) => {
+    const {changeInputValue} = this;
+
     return (
       <Form>
         <Form.Field>
           <label>ФИО:</label>
           <input
             name="realname"
-            value={user.realname}
+            defaultValue={user.realname}
+            onChange={changeInputValue}
             placeholder="ФИО"
           />
         </Form.Field>
         <Form.Field>
+          <label>Пароль:</label>
+          <input
+            name="password"
+            onChange={changeInputValue}
+            placeholder="123456 ;)"
+          />
+        </Form.Field>
+        <Form.Field>
           <Button type="submit" onClick={this.saveUser}>
-            Добавить
+            Сохранить
           </Button>
         </Form.Field>
         <Form.Field>
