@@ -37,12 +37,12 @@ class Home extends Component {
     if (checked) {
       this.setState(prevState => ({
         ...prevState,
-        selectedFilters: [...prevState.selectedFilters, name],
+        selectedFilters: [...prevState.selectedFilters, Number(name)],
       }));
     } else {
       this.setState(prevState => ({
         ...prevState,
-        selectedFilters: prevState.selectedFilters.filter(filterId => filterId !== name),
+        selectedFilters: prevState.selectedFilters.filter(filterId => filterId !== Number(name)),
       }));
     }
   };
@@ -76,17 +76,17 @@ class Home extends Component {
         </Wrapper>
         <Wrapper>
           {tags.map(tag => (
-            <Category>
+            <Category key={tag.key}>
               <Checkbox
                 label={{ children: tag.text }}
-                name={tag.key}
+                name={tag.key.toString()}
                 type="radio"
                 onClick={filterBooks}
               />
             </Category>
           ))}
         </Wrapper>
-        <Wrapper>{filteredBooks.map(book => <Book book={book}/>)}</Wrapper>
+        <Wrapper>{filteredBooks.map(book => <Book key={book.id} book={book}/>)}</Wrapper>
       </Layout>
     );
   }

@@ -118,7 +118,7 @@ class BookForm extends Component {
     } = this;
 
     return (
-      <Form>
+      <Form onSubmit={createNewBook}>
         <Form.Field>
           <label>Название</label>
           <input
@@ -127,6 +127,7 @@ class BookForm extends Component {
             onChange={changeInputValue}
             value={title}
             placeholder="Название книги"
+            required
           />
         </Form.Field>
         <Form.Field>
@@ -184,7 +185,7 @@ class BookForm extends Component {
         {publishers.showAddField ? NewPublisherForm() : null}
         <Form.Field>
           <label>Введите год издания</label>
-          <input type="number" value={year} name="year" onChange={changeInputValue} placeholder="Год издания"/>
+          <input type="number" value={year} name="year" onChange={changeInputValue} placeholder="Год издания" min="0" max="2100" />
         </Form.Field>
         <Form.Field>
           <label>Вставьте ссылку на картинку обложки книги</label>
@@ -193,6 +194,7 @@ class BookForm extends Component {
                  name="cover"
                  onChange={changeInputValue}
                  placeholder="ссылка на обложку"
+                 required
           />
         </Form.Field>
         <Form.Field>
@@ -202,6 +204,8 @@ class BookForm extends Component {
                  onChange={changeInputValue}
                  value={count}
                  placeholder="Колличество книг на складе"
+                 required
+                 min="0" max="99999"
           />
         </Form.Field>
         <Form.Field>
@@ -217,6 +221,8 @@ class BookForm extends Component {
                  placeholder="Введите колличество страниц в книге"
                  name="size"
                  onChange={changeInputValue}
+                 required
+                 min="0" max="99999"
           />
         </Form.Field>
         <Form.Field>
@@ -229,7 +235,7 @@ class BookForm extends Component {
             style={{minHeight: 100}}
           />
         </Form.Field>
-        <Button type="submit" onClick={createNewBook}>
+        <Button type="submit">
           Submit
         </Button>
       </Form>
