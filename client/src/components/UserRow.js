@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import UserAPI from "../api/user";
+import {Dropdown} from "semantic-ui-react";
 
 export default class UserRow extends Component {
   getUserUrl = () => `/user/${this.props.user.id}`;
@@ -10,12 +11,20 @@ export default class UserRow extends Component {
     document.location.reload();
   };
 
-  setRole = async () => {
+  setRole = async (e, data) => {
+    const {user} = this.props;
 
+    await UserAPI.editUser(user.id, {...user, role: data.value});
   };
 
   render() {
     const { user } = this.props;
+
+    const roles = [
+      {value: 'USER', text: 'Читатель'},
+      {value: 'LIBR', text: 'Библиотекарь'},
+      {value: 'ADMIN', text: 'Администратор'}
+    ];
 
     return (
       <tr className="user-row">
@@ -25,7 +34,9 @@ export default class UserRow extends Component {
         </a>)
         </td>
         <td>
-          <a className="user-roles" href="#" onClick={this.setRole}>Изменить роль</a>
+          Роль: <Dropdown inline options={roles}
+                    defaultValue={user.role}
+                    onChange={this.setRole}/>
         </td>
         <td>
           <a className="user-remove" href="#" onClick={this.deleteUser}>Удалить</a>

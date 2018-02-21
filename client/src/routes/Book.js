@@ -5,7 +5,7 @@ import { Container, Divider, Header } from 'semantic-ui-react';
 import API from '../api/Api';
 import FavAPI from '../api/favs';
 import { Image, Title, Author } from '../components';
-import { isAdmin } from '../utils';
+import { isAdmin, isManager } from '../utils';
 
 function FavLink({inFavs, addFav}) {
   if (inFavs) {
@@ -26,7 +26,7 @@ class Book extends Component {
     const { bookId } = this.props.match.params;
     const response = await API.getBook(bookId);
     const { data } = response;
-    this.setState({ book: data, isAdmin: isAdmin() });
+    this.setState({ book: data });
   }
 
   deleteBook = async () => {
@@ -45,17 +45,17 @@ class Book extends Component {
   render() {
     const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
     const { deleteBook } = this;
-    const { isAdmin, inFavs } = this.state;
+    const { inFavs } = this.state;
     return (
       <Layout text>
         <InfoRow>
           <Link to={{ pathname: '/' }}>Назад</Link>
-          {isAdmin ? (
+          {isManager() ? (
             <Link to={{ pathname: `/book/edit/${id}` }}>
               Редактировать
             </Link>
           ) : null}
-          {isAdmin ? (
+          {isAdmin() ? (
             <a href="#" onClick={deleteBook}>
               Удалить
             </a>

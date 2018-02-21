@@ -34,20 +34,20 @@ class Authorization extends Component {
       this.setState({ error: 'Email или Пароль не должны быть пустыми' });
     } else {
       const response = await UserAPI.auth(this.state);
-      const { ok, data } = response;
+      const { ok, data, error } = response;
       if (ok) {
         localStorage.setItem('role', data.role);
         localStorage.setItem('isAuthorized', true);
         localStorage.setItem('userId', data.id);
         this.props.history.push('/books/list');
       } else {
-        this.setState({ error: 'Ошибка сервера. Попробуйте позже' });
+        this.setState({ error });
       }
     }
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, error } = this.state;
     const { changeInputValue, auth } = this;
     return (
       <Wrapper text>
@@ -70,6 +70,7 @@ class Authorization extends Component {
           <Button type="submit" onClick={auth}>
             Submit
           </Button>
+          <ErrorBlock>{error}</ErrorBlock>
           <RegistrationLink to={{ pathname: '/registration' }}>Зарегестрироваться</RegistrationLink>
         </Form>
       </Wrapper>
@@ -86,4 +87,10 @@ const RegistrationLink = styled(Link)`
   margin-left: auto;
   margin-top: 30px;
 `;
+
+const ErrorBlock = styled.span`
+  margin-top: 30px;
+  color: red;
+`;
+
 export default Authorization;
