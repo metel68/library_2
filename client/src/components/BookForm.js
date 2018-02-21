@@ -8,9 +8,6 @@ import {
   Input,
   TextArea,
 } from 'semantic-ui-react';
-import {Link} from "react-router-dom";
-import styled from "styled-components";
-
 
 class BookForm extends Component {
   NewAuthorForm = () => {
@@ -121,132 +118,123 @@ class BookForm extends Component {
     } = this;
 
     return (
-      <Wrapper text>
-        <Link to={{pathname: '/'}}>Назад</Link>
-        <Header>Добавить книгу</Header>
-        <Form>
-          <Form.Field>
-            <label>Название</label>
-            <input
-              type="text"
-              name="title"
-              onChange={changeInputValue}
-              value={title}
-              placeholder="Название книги"
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Выбрать категории книги</label>
-            <Dropdown
-              placeholder="Выбрать категории"
-              fluid
-              multiple
-              selection
-              options={categories.loaded}
-              onChange={changeCategoriesArray}
-              defaultValue={categories.selected.map(cat => cat.value)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Button type="submit" name="categories" onClick={showAddField}>
-              +
-            </Button>
-          </Form.Field>
-          {categories.showAddField ? NewCategoryForm() : null}
-          <Form.Field>
-            <label>Выбрать авторов книги</label>
-            <Dropdown
-              placeholder="Выбрать авторов"
-              fluid
-              multiple
-              selection
-              options={authors.loaded}
-              onChange={changeAuthorsArray}
-              defaultValue={(authors.selected.map(author => author.value))}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Button type="submit" name="authors" onClick={showAddField}>
-              +
-            </Button>
-          </Form.Field>
-          {authors.showAddField ? NewAuthorForm() : null}
-          <Form.Field>
-            <label>Выбрать издательство</label>
-            <Dropdown
-              placeholder="Выбрать издательство"
-              fluid
-              selection
-              options={publishers.loaded}
-              onChange={setPublisherValue}
-              defaultValue={publishers.selected.value}
-            />
-          </Form.Field>
-          <Form.Field>
-            <Button type="submit" name="publishers" onClick={showAddField}>
-              +
-            </Button>
-          </Form.Field>
-          {publishers.showAddField ? NewPublisherForm() : null}
-          <Form.Field>
-            <label>Введите год издания</label>
-            <input type="number" value={year} name="year" onChange={changeInputValue} placeholder="Год издания"/>
-          </Form.Field>
-          <Form.Field>
-            <label>Вставьте ссылку на картинку обложки книги</label>
-            <input type="url"
-                   value={cover}
-                   name="cover"
-                   onChange={changeInputValue}
-                   placeholder="ссылка на обложку"
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Колличество книг на складе</label>
-            <input type="number"
-                   name="count"
-                   onChange={changeInputValue}
-                   value={count}
-                   placeholder="Колличество книг на складе"
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>ISBN код</label>
-            <input type="text" name="isbn" onChange={changeInputValue} value={isbn} placeholder="ISBN код"/>
-          </Form.Field>
-          <Form.Field>
-            <label>Колличество страниц в книге</label>
-            <Input type="number"
-                   value={size}
-                   label={{basic: true, content: 'страниц'}}
-                   labelPosition="right"
-                   placeholder="Введите колличество страниц в книге"
-                   name="size"
-                   onChange={changeInputValue}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Описание книги</label>
-            <TextArea
-              onChange={changeInputValue}
-              value={description}
-              name="description"
-              placeholder="Tell us more"
-              style={{minHeight: 100}}
-            />
-          </Form.Field>
-          <Button type="submit" onClick={createNewBook}>
-            Submit
+      <Form>
+        <Form.Field>
+          <label>Название</label>
+          <input
+            type="text"
+            name="title"
+            onChange={changeInputValue}
+            value={title}
+            placeholder="Название книги"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Выбрать категории книги</label>
+          <Dropdown
+            placeholder="Выбрать категории"
+            fluid
+            multiple
+            selection
+            options={categories.loaded}
+            onChange={changeCategoriesArray}
+            defaultValue={categories.selected.map(cat => cat.value)}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="categories" onClick={showAddField}>
+            +
           </Button>
-        </Form>
-      </Wrapper>
+        </Form.Field>
+        {categories.showAddField ? NewCategoryForm() : null}
+        <Form.Field>
+          <label>Выбрать авторов книги</label>
+          <Dropdown
+            placeholder="Выбрать авторов"
+            fluid
+            multiple
+            selection
+            options={authors.loaded}
+            onChange={changeAuthorsArray}
+            defaultValue={(authors.selected.map(author => author.value))}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="authors" onClick={showAddField}>
+            +
+          </Button>
+        </Form.Field>
+        {authors.showAddField ? NewAuthorForm() : null}
+        <Form.Field>
+          <label>Выбрать издательство</label>
+          <Dropdown
+            placeholder="Выбрать издательство"
+            fluid
+            selection
+            options={publishers.loaded}
+            onChange={setPublisherValue}
+            defaultValue={publishers.selected.value}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Button type="submit" name="publishers" onClick={showAddField}>
+            +
+          </Button>
+        </Form.Field>
+        {publishers.showAddField ? NewPublisherForm() : null}
+        <Form.Field>
+          <label>Введите год издания</label>
+          <input type="number" value={year} name="year" onChange={changeInputValue} placeholder="Год издания"/>
+        </Form.Field>
+        <Form.Field>
+          <label>Вставьте ссылку на картинку обложки книги</label>
+          <input type="url"
+                 value={cover}
+                 name="cover"
+                 onChange={changeInputValue}
+                 placeholder="ссылка на обложку"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Колличество книг на складе</label>
+          <input type="number"
+                 name="count"
+                 onChange={changeInputValue}
+                 value={count}
+                 placeholder="Колличество книг на складе"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>ISBN код</label>
+          <input type="text" name="isbn" onChange={changeInputValue} value={isbn} placeholder="ISBN код"/>
+        </Form.Field>
+        <Form.Field>
+          <label>Колличество страниц в книге</label>
+          <Input type="number"
+                 value={size}
+                 label={{basic: true, content: 'страниц'}}
+                 labelPosition="right"
+                 placeholder="Введите колличество страниц в книге"
+                 name="size"
+                 onChange={changeInputValue}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Описание книги</label>
+          <TextArea
+            onChange={changeInputValue}
+            value={description}
+            name="description"
+            placeholder="Tell us more"
+            style={{minHeight: 100}}
+          />
+        </Form.Field>
+        <Button type="submit" onClick={createNewBook}>
+          Submit
+        </Button>
+      </Form>
     );
   }
 }
-
-const Wrapper = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 50px;
-`;
 
 export default BookForm;

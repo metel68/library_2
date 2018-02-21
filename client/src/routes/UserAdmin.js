@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import {Container} from 'semantic-ui-react';
+import {Container, Header} from 'semantic-ui-react';
 import UserAPI from '../api/user';
 import UserRow from "../components/UserRow";
+import {Link} from "react-router-dom";
 
 class UserAdmin extends Component {
   constructor() {
@@ -28,8 +28,12 @@ class UserAdmin extends Component {
 
     return (
       <Layout>
+        <Link to={{ pathname: '/' }}>Назад</Link>
+        <Header>Управление пользователями</Header>
         <table className="users-list">
-          {users.map((user, key) => <UserRow key={key} user={user} />)}
+          <tbody>
+            {users.map((user, key) => <UserRow key={key} user={user} />)}
+          </tbody>
         </table>
       </Layout>
     );

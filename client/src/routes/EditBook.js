@@ -72,6 +72,10 @@ class EditBook extends CreateBook {
     }));
   }
 
+  _getHeaderText() {
+    return 'Изменить книгу';
+  }
+
   createNewBook = async () => {
     const response = await API.editBook(this.state.id, this.state);
     const {ok, data, error} = response;

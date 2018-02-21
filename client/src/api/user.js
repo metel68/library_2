@@ -63,10 +63,25 @@ const getUsers = async () => {
   }
 };
 
+const deleteUser = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}user?id=${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    return {ok: true, data};
+  } catch (error) {
+    return {ok: false, error};
+  }
+};
+
 export default {
   registerUser,
   editUser,
   auth,
   getUser,
   getUsers,
+  deleteUser
 }

@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import API from '../api/Api';
 import BookForm from "../components/BookForm";
+import {Container, Header} from "semantic-ui-react";
+import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 class CreateBook extends Component {
   constructor() {
@@ -222,6 +225,10 @@ class CreateBook extends Component {
     }));
   };
 
+  _getHeaderText() {
+    return 'Добавить книгу';
+  }
+
   render() {
     const {
       changeInputValue,
@@ -243,23 +250,32 @@ class CreateBook extends Component {
 
     if (loadingComplete) {
       return (
-        <BookForm {...state}
-                  changeInputValue={changeInputValue}
-                  changeAuthorsArray={changeAuthorsArray}
-                  addNewAuthor={addNewAuthor}
-                  setPublisherValue={setPublisherValue}
-                  addNewPublisher={addNewPublisher}
-                  changeNewPublisherValue={changeNewPublisherValue}
-                  changeCategoriesArray={changeCategoriesArray}
-                  createNewBook={createNewBook}
-                  showAddField={showAddField}
-                  hideAddField={hideAddField}
-        />
+        <Wrapper text>
+          <Link to={{pathname: '/'}}>Назад</Link>
+          <Header>{this._getHeaderText()}</Header>
+          <BookForm {...state}
+                    changeInputValue={changeInputValue}
+                    changeAuthorsArray={changeAuthorsArray}
+                    addNewAuthor={addNewAuthor}
+                    setPublisherValue={setPublisherValue}
+                    addNewPublisher={addNewPublisher}
+                    changeNewPublisherValue={changeNewPublisherValue}
+                    changeCategoriesArray={changeCategoriesArray}
+                    createNewBook={createNewBook}
+                    showAddField={showAddField}
+                    hideAddField={hideAddField}
+          />
+        </Wrapper>
       )
     } else {
       return null;
     }
   }
 }
+
+const Wrapper = styled(Container)`
+  margin-top: 50px;
+  margin-bottom: 50px;
+`;
 
 export default CreateBook;
