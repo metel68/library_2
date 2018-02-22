@@ -236,7 +236,10 @@ class CreateBook extends Component {
       addNewAuthor,
       setPublisherValue,
       addNewPublisher,
+      addNewCategory,
       changeNewPublisherValue,
+      changeNewCategoryValue,
+      changeNewAuthorValue,
       changeCategoriesArray,
       createNewBook,
       showAddField,
@@ -259,7 +262,10 @@ class CreateBook extends Component {
                     addNewAuthor={addNewAuthor}
                     setPublisherValue={setPublisherValue}
                     addNewPublisher={addNewPublisher}
+                    addNewCategory={addNewCategory}
                     changeNewPublisherValue={changeNewPublisherValue}
+                    changeNewAuthorValue={changeNewAuthorValue}
+                    changeNewCategoryValue={changeNewCategoryValue}
                     changeCategoriesArray={changeCategoriesArray}
                     createNewBook={createNewBook}
                     showAddField={showAddField}

@@ -18,18 +18,18 @@ class BookForm extends Component {
           <label>Добавить автора</label>
           <input
             name="author"
-            value={authors.new}
+            defaultValue={authors.new}
             onChange={changeNewAuthorValue}
             placeholder="Имя автора"
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" onClick={addNewAuthor}>
+          <Button type="button" onClick={addNewAuthor}>
             Добавить
           </Button>
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="authors" onClick={hideAddField}>
+          <Button type="button" name="authors" onClick={hideAddField}>
             Отменить
           </Button>
         </Form.Field>
@@ -45,18 +45,18 @@ class BookForm extends Component {
           <label>Добавить категорию</label>
           <input
             name="category"
-            value={categories.new}
+            defaultValue={categories.new}
             onChange={changeNewCategoryValue}
             placeholder="Название категории"
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" onClick={addNewCategory}>
+          <Button type="button" onClick={addNewCategory}>
             Добавить
           </Button>
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="categories" onClick={hideAddField}>
+          <Button type="button" name="categories" onClick={hideAddField}>
             Отменить
           </Button>
         </Form.Field>
@@ -71,19 +71,19 @@ class BookForm extends Component {
         <Form.Field>
           <label>Добавить издательство</label>
           <input
-            value={publishers.new}
+            defaultValue={publishers.new}
             name="newPublisher"
             onChange={changeNewPublisherValue}
             placeholder="Название издательства"
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" onClick={addNewPublisher}>
+          <Button type="button" onClick={addNewPublisher}>
             Добавить
           </Button>
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="publishers" onClick={hideAddField}>
+          <Button type="button" name="publishers" onClick={hideAddField}>
             Отменить
           </Button>
         </Form.Field>
@@ -143,7 +143,7 @@ class BookForm extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="categories" onClick={showAddField}>
+          <Button type="button" name="categories" onClick={showAddField}>
             +
           </Button>
         </Form.Field>
@@ -161,7 +161,7 @@ class BookForm extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="authors" onClick={showAddField}>
+          <Button type="button" name="authors" onClick={showAddField}>
             +
           </Button>
         </Form.Field>
@@ -178,7 +178,7 @@ class BookForm extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <Button type="submit" name="publishers" onClick={showAddField}>
+          <Button type="button" name="publishers" onClick={showAddField}>
             +
           </Button>
         </Form.Field>
