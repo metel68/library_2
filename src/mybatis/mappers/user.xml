@@ -96,6 +96,11 @@
 	</delete>
 	
 	
+	<select id="checkUserFav" parameterType="FavoritesItem" resultType="int" flushCache="true"
+		timeout="20">
+		select count(book_id) from book_users where user_id=#{user.id} and book_id=#{book.id}
+	</select>
+	
 	<insert id="insertUserFav" parameterType="FavoritesItem" flushCache="true"
 		statementType="PREPARED" keyProperty="" keyColumn="" useGeneratedKeys="true"
 		timeout="20">

@@ -33,6 +33,27 @@ public class FavoritesView extends BaseView {
 		super();
 		this.controller = new FavoritesController();
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		setAccessControlHeaders(response);
+
+		try (PrintWriter out = response.getWriter()) {
+			try {
+				int bookId = Integer.parseInt(request.getParameter("book"));
+				int userId = Integer.parseInt(request.getParameter("user"));
+				int res = controller.check(bookId, userId);
+				out.print(res);
+			} catch (PersistenceException e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(422);
+			} catch (Exception e) {
+				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
+				response.setStatus(500);
+			}
+		}
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
