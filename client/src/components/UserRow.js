@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import UserAPI from "../api/user";
 import {Dropdown} from "semantic-ui-react";
+import styled from "styled-components";
 
 export default class UserRow extends Component {
   getUserUrl = () => `/user/${this.props.user.id}`;
@@ -28,20 +29,24 @@ export default class UserRow extends Component {
 
     return (
       <tr className="user-row">
-        <td>{user.realname}&nbsp;
+        <Cell>{user.realname}&nbsp;
         (<a className="user-edit" href={this.getUserUrl()}>
           {user.username}
         </a>)
-        </td>
-        <td>
+        </Cell>
+        <Cell>
           Роль: <Dropdown inline options={roles}
                     defaultValue={user.role}
                     onChange={this.setRole}/>
-        </td>
-        <td>
+        </Cell>
+        <Cell>
           <a className="user-remove" href="#" onClick={this.deleteUser}>Удалить</a>
-        </td>
+        </Cell>
       </tr>
     );
   }
 }
+
+const Cell = styled.td`
+  padding: 0 0 10px 30px;
+`;

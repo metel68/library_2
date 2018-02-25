@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Container, Divider, Header } from 'semantic-ui-react';
+import { Divider, Header } from 'semantic-ui-react';
 import UserAPI from '../api/user';
 import { Favorites, UserForm } from '../components';
+import SiteContainer from "../components/SiteContainer";
 
 class Profile extends Component {
   constructor() {
@@ -33,10 +32,7 @@ class Profile extends Component {
     const updateUser = this.fetchUser.bind(this);
 
     return (
-      <Layout>
-        <InfoRow>
-          <Link to={{ pathname: '/' }}>Назад</Link>
-        </InfoRow>
+      <SiteContainer>
         <Header>Профиль { username }</Header>
 
         <UserForm user={this.state.user} />
@@ -44,21 +40,9 @@ class Profile extends Component {
         <Divider />
         <Favorites books={ favorites } redrawParent={updateUser} />
         <Divider />
-      </Layout>
+      </SiteContainer>
     );
   }
 }
-
-const InfoRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 16px;
-`;
-
-const Layout = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 150px;
-`;
 
 export default Profile;

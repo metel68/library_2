@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import BookRow from './BookRow';
+import {Header} from "semantic-ui-react";
 
 export const Favorites = ({
   books, className, redrawParent,
 }) => (
   <Wrapper className={className}>
+    {books.length ? <Header>Книги на руках</Header> : null}
     {books.map((book, key) => <BookRow book={book} key={key} redrawParent={redrawParent} />)}
   </Wrapper>
 );

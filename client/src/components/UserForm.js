@@ -105,9 +105,9 @@ export default class UserForm extends Component {
 
     return (
       <div>
-        <a href="#" onClick={this.showEditForm}>Редактировать</a>
         <InfoRow>
           <UserContent user={user} showForm={this.state.showForm} />
+          <a href="#" onClick={this.showEditForm}>Редактировать</a>
         </InfoRow>
       </div>
     );

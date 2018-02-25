@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Container, Input, Checkbox as C } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import {Checkbox as C, Input} from 'semantic-ui-react';
 import intersection from 'lodash/intersection';
 import { Book as B } from '../components';
-import {isAdmin, isManager} from '../utils';
 import API from '../api/Api';
+import SiteContainer from "../components/SiteContainer";
 
 class Home extends Component {
   constructor() {
@@ -47,12 +46,6 @@ class Home extends Component {
     }
   };
 
-  logout = () => {
-    localStorage.setItem('isAuthorized', false);
-    localStorage.setItem('role', 'GUEST');
-    this.props.history.push('/');
-  };
-
   render() {
     const { books, tags, selectedFilters } = this.state;
     const filteredBooks = selectedFilters.length
@@ -62,16 +55,10 @@ class Home extends Component {
           return numberOfIntersections !== 0;
         })
       : books;
-    const { searchBook, filterBooks, logout } = this;
+    const { searchBook, filterBooks } = this;
     return (
-      <Layout>
-        <a href="#" onClick={logout}>
-          Выйти
-        </a>
-          <Link to={{ pathname: '/user/current' }} style={{ float: 'right' }}>Просмотр профиля</Link>
+      <SiteContainer>
         <Wrapper>
-          {isAdmin() ? <Link to={{ pathname: '/users/list' }}>Управление пользователями</Link> : null}
-          {isManager() ? <Link to={{ pathname: '/book/create' }}>Добавить книгу</Link> : null}
           <Input icon="search" placeholder="Search..." onChange={searchBook} />
         </Wrapper>
         <Wrapper>
@@ -87,7 +74,7 @@ class Home extends Component {
           ))}
         </Wrapper>
         <Wrapper>{filteredBooks.map(book => <Book key={book.id} book={book}/>)}</Wrapper>
-      </Layout>
+      </SiteContainer>
     );
   }
 }
@@ -105,10 +92,6 @@ const Book = styled(B)`
   align-items: flex-start;
   margin-bottom: 25px;
   width: 33%;
-`;
-
-const Layout = styled(Container)`
-  margin-top: 50px;
 `;
 
 const Category = styled.label`

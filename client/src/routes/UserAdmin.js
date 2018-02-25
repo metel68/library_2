@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
-import {Container, Header} from 'semantic-ui-react';
+import {Header} from 'semantic-ui-react';
 import UserAPI from '../api/user';
 import UserRow from "../components/UserRow";
-import {Link} from "react-router-dom";
+import SiteContainer from "../components/SiteContainer";
 
 class UserAdmin extends Component {
   constructor() {
@@ -27,22 +26,16 @@ class UserAdmin extends Component {
     const {users} = this.state;
 
     return (
-      <Layout>
-        <Link to={{ pathname: '/' }}>Назад</Link>
+      <SiteContainer>
         <Header>Управление пользователями</Header>
         <table className="users-list">
           <tbody>
             {users.map((user, key) => <UserRow key={key} user={user} />)}
           </tbody>
         </table>
-      </Layout>
+      </SiteContainer>
     );
   }
 }
-
-const Layout = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 150px;
-`;
 
 export default UserAdmin;

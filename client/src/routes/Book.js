@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container, Divider, Header } from 'semantic-ui-react';
+import { Divider, Header } from 'semantic-ui-react';
 import API from '../api/Api';
 import FavAPI from '../api/favs';
 import { Image, Title, Author } from '../components';
 import { isAdmin, isManager } from '../utils';
+import SiteContainer from "../components/SiteContainer";
 
 function FavLink({inFavs, addFav}) {
   if (inFavs) {
@@ -47,9 +48,8 @@ class Book extends Component {
     const { deleteBook } = this;
     const { inFavs } = this.state;
     return (
-      <Layout text>
+      <SiteContainer text>
         <InfoRow>
-          <Link to={{ pathname: '/' }}>Назад</Link>
           {isManager() ? (
             <Link to={{ pathname: `/book/edit/${id}` }}>
               Редактировать
@@ -97,7 +97,7 @@ class Book extends Component {
         <Header size="medium">Описание</Header>
         <p>{description}</p>
         <FavLink inFavs={inFavs} addFav={this.addFav} />
-      </Layout>
+      </SiteContainer>
     );
   }
 }
@@ -111,6 +111,7 @@ const RowContent = styled.span`
 `;
 
 const InfoRow = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -119,11 +120,6 @@ const InfoRow = styled.div`
 const BookInfo = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Layout = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 150px;
 `;
 
 const BookWrapper = styled.div`
