@@ -6,8 +6,6 @@ import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
-import exceptions.ValidationException;
-
 public class Book {
 	@Expose
 	private int id;
@@ -84,21 +82,12 @@ public class Book {
 	}
 	public void setYear(int year) {
 		this.year = year;
-		if (year <= 0 || year > 2018) {
-			throw new ValidationException();
-		}
 	}
 	public void setCount(int count) {
 		this.count = count;
-		if (count < 0) {
-			throw new ValidationException();
-		}
 	}
 	public void setSize(int size) {
 		this.size = size;
-		if (size <= 0) {
-			throw new ValidationException();
-		}
 	}
 	public void setAddedAt(Date addedAt) {
 		this.addedAt = addedAt;
@@ -117,10 +106,6 @@ public class Book {
 		this.size = size;
 		this.description = description;
 		this.addedAt = addedAt;
-		
-		if (year <= 0 || year > 2018 || size <= 0 || count < 0) {
-			throw new ValidationException();
-		}
 	}
 	public Book(int id) {
 		this.id = id;

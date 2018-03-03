@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 
 import DAL.BookDAL;
+import exceptions.ValidationException;
 import models.Author;
 import models.Book;
 import models.BookAuthor;
@@ -29,7 +30,21 @@ public class BookController {
 		return dal.findByName(likePattern);
 	}
 	
+	private void validate(Book book) {
+		if (book.getYear() <= 0 || book.getYear() > 2100)  {
+			throw new ValidationException("Year should be between 0 and 2100!");
+		}
+		if (book.getSize() <= 0) {
+			throw new ValidationException("Book should have one or more pages!");
+		}
+		if (book.getCount() < 0) {
+			throw new ValidationException("Book count should be positive!");
+		}
+	}
+	
 	public Book insert(Book book) {
+		this.validate(book);
+		
 		dal.insert(book);
 		book.getAuthors().forEach((author) -> {
 			BookAuthor link = new BookAuthor(book, author);
