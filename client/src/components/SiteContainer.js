@@ -11,11 +11,13 @@ export default class SiteContainer extends Component {
   };
 
   render() {
+
+
     return (
       <Layout>
         <nav>
         <Wrapper>
-          <Link to={{ pathname: '/' }}><h1>АБИС "Купш, shit и плаки"</h1></Link>
+          <Link to={{ pathname: '/' }}><h1>АБИС "Купш и К"</h1></Link>
         </Wrapper>
         <Wrapper>
           <Link to={{ pathname: '/user/current' }}>Просмотр профиля</Link>
