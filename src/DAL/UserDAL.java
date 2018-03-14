@@ -50,16 +50,23 @@ public class UserDAL extends BaseDAL {
 		return ret;
 	}
 	
-	public int insertUserFav(FavoritesItem author) {
+	public int checkUserFav(FavoritesItem fav) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-		int ret = session.insert("user.insertUserFav", author);
+		Integer tmp = session.selectOne("user.checkUserFav", fav);
+		session.close();
+		return tmp;
+	}
+	
+	public int insertUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.insert("user.insertUserFav", fav);
 		session.close();
 		return ret;
 	}
 	
-	public int deleteUserFav(FavoritesItem author) {
+	public int deleteUserFav(FavoritesItem fav) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-		int ret = session.delete("user.deleteUserFav", author);
+		int ret = session.delete("user.deleteUserFav", fav);
 		session.close();
 		return ret;
 	}
