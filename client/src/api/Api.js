@@ -1,5 +1,7 @@
 import { BASE_URL } from './base';
 
+const ERROR_REQUIRED = 'This field is required';
+
 const createBook = async (bookInfo) => {
   // private int id;
   // private String isbn;
@@ -88,6 +90,9 @@ const editBook = async (id, bookInfo) => {
 
 const createNewAuthor = async (author) => {
   try {
+    if (!author.length) {
+      return {ok: false, ERROR_REQUIRED};
+    }
     const response = await fetch(`${BASE_URL}authors`, {
       method: 'POST',
       body: JSON.stringify({fullName: author}),
@@ -101,6 +106,9 @@ const createNewAuthor = async (author) => {
 
 const createNewPublisher = async (publisher) => {
   try {
+    if (!publisher.length) {
+      return {ok: false, ERROR_REQUIRED};
+    }
     const response = await fetch(`${BASE_URL}publishers`, {
       method: 'POST',
       body: JSON.stringify({name: publisher}),
@@ -155,6 +163,9 @@ const getCategories = async () => {
 
 const createNewCategory = async (category) => {
   try {
+    if (!category.length) {
+      return {ok: false, ERROR_REQUIRED};
+    }
     const response = await fetch(`${BASE_URL}categories`, {
       method: 'POST',
       body: JSON.stringify({name: category}),
