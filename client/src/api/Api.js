@@ -223,6 +223,20 @@ const deleteBook = async (id) => {
   }
 };
 
+const deleteCategory = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}category?id=${id}`, {
+      method: 'DELETE',
+    });
+
+    const data = await response.json();
+
+    return {ok: true, data};
+  } catch (error) {
+    return {ok: false, error};
+  }
+};
+
 export default {
   createBook,
   createNewAuthor,
@@ -236,4 +250,5 @@ export default {
   searchBooks,
   editBook,
   deleteBook,
+  deleteCategory
 };
