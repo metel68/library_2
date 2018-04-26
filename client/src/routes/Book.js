@@ -8,8 +8,8 @@ import { Image, Title, Author } from '../components';
 import { isAdmin, isManager } from '../utils';
 import SiteContainer from "../components/SiteContainer";
 
-function FavLink({inFavs, addFav}) {
-  if (inFavs) {
+function FavLink({inFavs, count, addFav}) {
+  if (inFavs || count < 1) {
     return '';
   }
   return (<a href="#" id="addFav" onClick={addFav}>Добавить в заявку</a>);
@@ -25,9 +25,14 @@ class Book extends Component {
 
   async componentDidMount() {
     const { bookId } = this.props.match.params;
+    const userId = localStorage.getItem('userId');
     const response = await API.getBook(bookId);
     const { data } = response;
     this.setState({ book: data });
+
+    const favResponse = await FavAPI.getFav(bookId, userId);
+    const favCountResponse = await FavAPI.countFav(bookId);
+    this.setState({ inFavs: favResponse.data == 1, favCount: favCountResponse.data });
   }
 
   deleteBook = async () => {
@@ -46,7 +51,7 @@ class Book extends Component {
   render() {
     const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
     const { deleteBook } = this;
-    const { inFavs } = this.state;
+    const { inFavs, favCount } = this.state;
     return (
       <SiteContainer text>
         <InfoRow>
@@ -89,14 +94,19 @@ class Book extends Component {
             <RowContent>{size}</RowContent>
           </InfoRow>
           <InfoRow>
-            <RowTitle>Количество на складе</RowTitle>
+            <RowTitle>Общее количество</RowTitle>
             <RowContent>{count}</RowContent>
+          </InfoRow>
+          <InfoRow>
+            <RowTitle>Количество на складе</RowTitle>
+            <RowContent>{count - favCount}</RowContent>
           </InfoRow>
         </BookInfo>
         <Divider />
         <Header size="medium">Описание</Header>
         <p>{description}</p>
-        <FavLink inFavs={inFavs} addFav={this.addFav} />
+        <FavLink inFavs={inFavs} count={count - favCount} addFav={this.addFav} />
+        <p/>
       </SiteContainer>
     );
   }

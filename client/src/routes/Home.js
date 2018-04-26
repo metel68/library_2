@@ -96,7 +96,7 @@ const Book = styled(B)`
 
 const Category = styled.label`
   display: inline-block;
-  margin-right: 0.5em;
+  margin: 0.5em;
   padding: 0.25em;
   padding-right: 15px;
   line-height: 1;
@@ -105,6 +105,8 @@ const Category = styled.label`
   border: 1px solid #e7f2ff;
   border-radius: 3px;
   background-color: #e7f2ff;
+  width: 23%;
+  text-align: center;
 `;
 const Checkbox = styled(C)`
   color: #4078c0;
