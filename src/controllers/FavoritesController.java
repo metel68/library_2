@@ -19,6 +19,11 @@ public class FavoritesController {
 		FavoritesItem fav = new FavoritesItem(book, user);
 		return dal.checkUserFav(fav);
 	}
+	
+	public int count(int bookId) {
+		Book book = new Book(bookId);
+		return dal.countBookFav(bookId);
+	}
 
 	public int link(int bookId, int userId) {
 		Book book = new Book(bookId);

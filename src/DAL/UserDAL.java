@@ -50,6 +50,13 @@ public class UserDAL extends BaseDAL {
 		return ret;
 	}
 	
+	public int countBookFav(int bookId) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		Integer tmp = session.selectOne("book.countBookFav", bookId); // happy debugging! xD
+		session.close();
+		return tmp;
+	}
+	
 	public int checkUserFav(FavoritesItem fav) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
 		Integer tmp = session.selectOne("user.checkUserFav", fav);
