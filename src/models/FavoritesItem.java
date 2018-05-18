@@ -1,8 +1,18 @@
 package models;
 
+import java.sql.Timestamp;
+
 public class FavoritesItem {
 	private Book book;
 	private User user;
+	private Timestamp timestamp;
+	
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
 	public Book getBook() {
 		return book;
 	}
@@ -19,6 +29,12 @@ public class FavoritesItem {
 		super();
 		this.book = book;
 		this.user = user;
+	}
+	public FavoritesItem(Book book, User user, Timestamp timestamp) {
+		super();
+		this.book = book;
+		this.user = user;
+		this.timestamp = timestamp;
 	}
 	@Override
 	public int hashCode() {

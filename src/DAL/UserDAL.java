@@ -63,6 +63,13 @@ public class UserDAL extends BaseDAL {
 		session.close();
 		return tmp;
 	}
+
+	public FavoritesItem getUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		FavoritesItem tmp = session.selectOne("user.getUserFav", fav);
+		session.close();
+		return tmp;
+	}
 	
 	public int insertUserFav(FavoritesItem fav) {
 		SqlSession session = getSqlSessionFactory().openSession(true);

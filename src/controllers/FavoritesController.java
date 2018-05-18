@@ -1,5 +1,7 @@
 package controllers;
 
+import java.sql.Timestamp;
+
 import DAL.UserDAL;
 import models.Book;
 import models.FavoritesItem;
@@ -29,6 +31,7 @@ public class FavoritesController {
 		Book book = new Book(bookId);
 		User user = new User(userId);
 		FavoritesItem fav = new FavoritesItem(book, user);
+		fav.setTimestamp(new Timestamp(System.currentTimeMillis()));
 		return dal.insertUserFav(fav);
 	}
 
@@ -37,6 +40,10 @@ public class FavoritesController {
 		User user = new User(userId);
 		FavoritesItem fav = new FavoritesItem(book, user);
 		return dal.deleteUserFav(fav);
+	}
+
+	public FavoritesItem get(FavoritesItem fav) {
+		return dal.getUserFav(fav);
 	}
 
 	@Deprecated

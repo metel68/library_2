@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,8 @@ public class Book {
 	private Date addedAt;
 	@Expose
 	private String cover;
+	@Expose
+	private Timestamp date;
 	
 	public int getId() {
 		return id;
@@ -151,5 +154,11 @@ public class Book {
 	}
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 }

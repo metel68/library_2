@@ -14,17 +14,22 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import com.google.gson.Gson;
 
 import utils.Constants;
+import controllers.BookController;
 import controllers.FavoritesController;
+import controllers.UserController;
 import models.Book;
 import models.FavoritesItem;
+import models.User;
 
 /**
  * Servlet implementation class CategoryView
  */
-@WebServlet("/favorites")
+@WebServlet("/favorites/all")
 public class FavoritesView extends BaseView {
 	private static final long serialVersionUID = 1L;
 	private FavoritesController controller;
+	private BookController books;
+	private UserController users;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,6 +37,8 @@ public class FavoritesView extends BaseView {
 	public FavoritesView() {
 		super();
 		this.controller = new FavoritesController();
+		this.books = new BookController();
+		this.users = new UserController();
 	}
 	
 	@Override
@@ -41,66 +48,19 @@ public class FavoritesView extends BaseView {
 
 		try (PrintWriter out = response.getWriter()) {
 			try {
+				Gson gson = new Gson();
 				int bookId = Integer.parseInt(request.getParameter("book"));
-				String userId = request.getParameter("user");
-				int res;
-				if (userId != null) {
-					res = controller.check(bookId, Integer.parseInt(userId));
-				} else {
-					res = controller.count(bookId);
-				}
-				out.print(res);
+				int userId = Integer.parseInt(request.getParameter("user"));
+				User user = this.users.getUser(userId);
+				Book book = this.books.selectById(bookId);
+				
+				FavoritesItem res = controller.get(new FavoritesItem(book, user));
+					
+				out.print(gson.toJson(res));
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);
 			}
 		}
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		setAccessControlHeaders(response);
-
-		try (PrintWriter out = response.getWriter()) {
-			try {
-				int bookId = Integer.parseInt(request.getParameter("book"));
-				int userId = Integer.parseInt(request.getParameter("user"));
-				int res = controller.link(bookId, userId);
-				out.print(res);
-			} catch (PersistenceException e) {
-				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
-				response.setStatus(422);
-			} catch (Exception e) {
-				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
-				response.setStatus(500);
-			}
-		}
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		setAccessControlHeaders(response);
-
-		try (PrintWriter out = response.getWriter()) {
-			try {
-				String bookIds = request.getParameter("book");
-				int userId = Integer.parseInt(request.getParameter("user"));
-				int result = -91;
-				if (bookIds != null && bookIds.length() > 0) {
-					int bookId = Integer.parseInt(bookIds);
-					result = controller.unlink(bookId, userId);
-				} 
-				if (bookIds != null && bookIds.equals("0")) {
-					result = controller.deleteAll(userId);
-				}
-				out.println(result);
-			} catch (Exception e) {
-				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
-				response.setStatus(500);
-			}
-		}
-	}
-
 }

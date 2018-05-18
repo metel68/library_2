@@ -68,6 +68,7 @@ CREATE TABLE `book_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` varchar(17) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `date` TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `main_book_owners_book_id_303f824e_uniq` (`book_id`,`user_id`),
   KEY `main_book_owners_user_id_80f057e4_fk_auth_user_id` (`user_id`),
