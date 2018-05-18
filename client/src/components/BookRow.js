@@ -15,9 +15,11 @@ class BookRow extends Component {
   };
 
   render() {
-    const {id, cover, title, authors} = this.props.book;
+    const {id, cover, title, authors, date} = this.props.book;
     const {className} = this.props;
     const {deleteFav} = this;
+
+    const offset = (Date.now() - Date.parse(date)) / (1000 * 60 * 60 * 24);
 
     return (
       <Wrapper className={className}>
@@ -29,6 +31,9 @@ class BookRow extends Component {
           {authors.map(author => (
             <Author key={`${author.id}${author.fullName}`}>{author.fullName}</Author>
           ))}
+        </InlinedDiv>
+        <InlinedDiv>
+            На руках {Math.floor(offset)} дней
         </InlinedDiv>
 
         <Button type="button" style={{backgroundColor: '#d43f3a', color: 'white', marginLeft: 'auto'}}

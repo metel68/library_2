@@ -107,6 +107,7 @@ class Book extends Component {
         <p>{description}</p>
         <FavLink inFavs={inFavs} count={count - favCount} addFav={this.addFav} />
         <p/>
+        <p><br/></p>
       </SiteContainer>
     );
   }
