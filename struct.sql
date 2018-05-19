@@ -75,3 +75,9 @@ CREATE TABLE `book_users` (
   CONSTRAINT `main_book_owners_book_id_3de5e13f_fk_main_book_ISBN` FOREIGN KEY (`book_id`) REFERENCES `main_book` (`ISBN`),
   CONSTRAINT `main_book_owners_user_id_80f057e4_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `maxDuration` int(11) DEFAULT 30,
+  PRIMARY KEY (`id`)
+)

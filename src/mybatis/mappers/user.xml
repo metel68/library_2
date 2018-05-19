@@ -56,6 +56,13 @@
         <result property="role" column="role"/>
         <collection javaType="ArrayList" property="favorites" resultMap="bookResultMapPlus" />
 	</resultMap>
+	
+	<resultMap id="favResultMap" type="FavoritesItem">
+		<id property="id" column="id"/>
+		<result property="timestamp" column="date"/>
+		<association property="book" resultMap="bookResultMap" />
+	    <association property="user" resultMap="userResultMap" />
+	</resultMap>
 
 	<select id="selectAll" resultMap="userResultMap">
 		select user.*, book.id as book_id, book.ISBN, book.title, book.year, book.size, book.cover, book.count, book.publisher_id,
@@ -119,9 +126,20 @@
 		select count(book_id) from book_users where user_id=#{user.id} and book_id=#{book.id}
 	</select>
 	
-	<select id="getUserFav" parameterType="FavoritesItem" resultType="FavoritesItem" flushCache="true"
+	<select id="getUserFav" parameterType="FavoritesItem" resultMap="favResultMap" flushCache="true"
 		timeout="20">
-		select book_id, user_id, date from book_users where user_id=#{user.id} and book_id=#{book.id}
+		select user.*, book.id as book_id, book.ISBN, book.title, book.year, book.size, book.cover, book.count, book.publisher_id,
+		book.description, book.added_at, publisher.name as pub_name, book_authors.author_id, author.full_name as author_name,
+		category.id as category_id, category.name as cat_name, book_users.date as date
+		from book_users
+		left join user on book_users.user_id = user.id
+		left join book on book_users.book_id = book.id
+		left join publisher on publisher.id = book.publisher_id
+		left join book_authors on book_authors.book_id = book.id
+		left join author on book_authors.author_id = author.id
+		left join book_category on book_category.book_id = book.id
+		left join category on book_category.category_id = category.id
+		where book_users.user_id=#{user.id} and book_users.book_id=#{book.id}
 	</select>
 	
 	<insert id="insertUserFav" parameterType="FavoritesItem" flushCache="true"

@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="setting">
+	<select id="selectAll" resultType="Setting">
+		select * from setting
+	</select>
+	<select id="selectById" resultType="Setting" parameterType="int">
+		select * from setting where id=#{id}
+	</select>
+	<insert id="insertSetting" parameterType="Setting" flushCache="true"
+		statementType="PREPARED" keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+		timeout="20">
+		insert into setting (maxDuration) values (#{maxDuration})
+	</insert>
+
+	<update id="updateSetting" parameterType="Setting"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		update setting set maxDuration=#{maxDuration} where id=#{id}
+	</update>
+
+	<delete id="deleteSetting" parameterType="int"
+		flushCache="true" statementType="PREPARED" timeout="20">
+		delete from setting where id=#{id}
+	</delete>
+</mapper>

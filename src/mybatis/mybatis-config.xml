@@ -15,6 +15,7 @@
 	<typeAliases>
 		<typeAlias alias="User" type="models.User" />
 		<typeAlias alias="Book" type="models.Book" />
+		<typeAlias alias="Setting" type="models.Setting" />
 		<typeAlias alias="Author" type="models.Author" />
 		<typeAlias alias="Category" type="models.Category" />
 		<typeAlias alias="Publisher" type="models.Publisher" />
@@ -41,6 +42,7 @@
     	<mapper resource="mappers/publisher.xml"/>
 		<mapper resource="mappers/user.xml"/>
 		<mapper resource="mappers/category.xml"/>
+		<mapper resource="mappers/setting.xml"/>
 	</mappers>
 
 </configuration>
