@@ -58,10 +58,15 @@
 	</resultMap>
 	
 	<resultMap id="favResultMap" type="FavoritesItem">
-		<id property="id" column="id"/>
-		<result property="timestamp" column="date"/>
+		<result property="timestamp" column="date" />
 		<association property="book" resultMap="bookResultMap" />
-	    <association property="user" resultMap="userResultMap" />
+	    <association property="user">
+	    	<id property="id" column="id"/>
+        	<result property="username" column="username"/>
+        	<result property="password" column="password"/>
+        	<result property="realname" column="realname"/>
+        	<result property="role" column="role"/>
+	    </association>
 	</resultMap>
 
 	<select id="selectAll" resultMap="userResultMap">

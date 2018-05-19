@@ -2,7 +2,6 @@ package views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 
-import com.google.gson.Gson;
-
 import utils.Constants;
 import controllers.FavoritesController;
-import models.Book;
-import models.FavoritesItem;
 
 /**
  * Servlet implementation class CategoryView

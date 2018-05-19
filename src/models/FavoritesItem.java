@@ -25,6 +25,8 @@ public class FavoritesItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public FavoritesItem() {
+	}
 	public FavoritesItem(Book book, User user) {
 		super();
 		this.book = book;

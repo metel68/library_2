@@ -60,6 +60,7 @@ public class FavoritesView extends BaseView {
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(422);
+				e.printStackTrace();
 			}
 		}
 	}
