@@ -22,7 +22,7 @@ class BookRow extends Component {
 
     moment.locale('ru');
 
-    const offset = (moment.duration(moment().diff(moment(date)))).humanize();
+    const offset = (moment.duration((moment().utc()).diff(moment.parseZone(date).utc()))).humanize();
 
     return (
       <Wrapper className={className}>

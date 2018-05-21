@@ -13,7 +13,7 @@ import moment from "moment-with-locales-es6";
 function FavLink({inFavs, count, addFav, date}) {
   moment.locale('ru');
 
-  const offset = (moment.duration(moment().diff(moment(date)))).humanize();
+  const offset = (moment.duration((moment().utc()).diff(moment.parseZone(date).utc()))).humanize();
 
   if (inFavs) {
     return (<span>Книга на руках {offset}</span>);
