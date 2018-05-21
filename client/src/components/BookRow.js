@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from 'moment-with-locales-es6';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
@@ -19,7 +20,9 @@ class BookRow extends Component {
     const {className} = this.props;
     const {deleteFav} = this;
 
-    const offset = (Date.now() - Date.parse(date)) / (1000 * 60 * 60 * 24);
+    moment.locale('ru');
+
+    const offset = (moment.duration(moment().diff(moment(date)))).humanize();
 
     return (
       <Wrapper className={className}>
@@ -33,7 +36,7 @@ class BookRow extends Component {
           ))}
         </InlinedDiv>
         <InlinedDiv>
-            На руках {Math.floor(offset)} дней
+            На руках {offset}
         </InlinedDiv>
 
         <Button type="button" style={{backgroundColor: '#d43f3a', color: 'white', marginLeft: 'auto'}}

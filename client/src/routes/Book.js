@@ -4,12 +4,21 @@ import { Link } from 'react-router-dom';
 import { Divider, Header } from 'semantic-ui-react';
 import API from '../api/Api';
 import FavAPI from '../api/favs';
+import UserAPI from '../api/user';
 import { Image, Title, Author } from '../components';
 import { isAdmin, isManager } from '../utils';
 import SiteContainer from "../components/SiteContainer";
+import moment from "moment-with-locales-es6";
 
-function FavLink({inFavs, count, addFav}) {
-  if (inFavs || count < 1) {
+function FavLink({inFavs, count, addFav, date}) {
+  moment.locale('ru');
+
+  const offset = (moment.duration(moment().diff(moment(date)))).humanize();
+
+  if (inFavs) {
+    return (<span>Книга на руках {offset}</span>);
+  }
+  if (count < 1) {
     return '';
   }
   return (<a href="#" id="addFav" onClick={addFav}>Добавить в заявку</a>);
@@ -30,9 +39,14 @@ class Book extends Component {
     const { data } = response;
     this.setState({ book: data });
 
-    const favResponse = await FavAPI.getFav(bookId, userId);
+    const userResponse = await UserAPI.getUser(userId);
     const favCountResponse = await FavAPI.countFav(bookId);
-    this.setState({ inFavs: favResponse.data == 1, favCount: favCountResponse.data });
+
+    const favorite = userResponse.data.favorites.find((fav) => fav.id == bookId);
+
+    const date = favorite && favorite.date;
+
+    this.setState({ inFavs: !!favorite, date, favCount: favCountResponse.data });
   }
 
   deleteBook = async () => {
@@ -51,7 +65,7 @@ class Book extends Component {
   render() {
     const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
     const { deleteBook } = this;
-    const { inFavs, favCount } = this.state;
+    const { inFavs, favCount, date } = this.state;
     return (
       <SiteContainer text>
         <InfoRow>
@@ -105,7 +119,7 @@ class Book extends Component {
         <Divider />
         <Header size="medium">Описание</Header>
         <p>{description}</p>
-        <FavLink inFavs={inFavs} count={count - favCount} addFav={this.addFav} />
+        <FavLink inFavs={inFavs} date={date} count={count - favCount} addFav={this.addFav} />
         <p/>
         <p><br/></p>
       </SiteContainer>
