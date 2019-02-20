@@ -3,8 +3,8 @@ package DAL;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
+import models.FavoritesItem;
 import models.User;
 
 public class UserDAL extends BaseDAL {
@@ -35,4 +35,61 @@ public class UserDAL extends BaseDAL {
 		session.close();
 		return ret;
 	}
+	
+	public int update(User user) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.update("user.updateUser", user);
+		session.close();
+		return ret;
+	}	
+	
+	public int delete(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUser", id);
+		session.close();
+		return ret;
+	}
+	
+	public int countBookFav(int bookId) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		Integer tmp = session.selectOne("book.countBookFav", bookId); // happy debugging! xD
+		session.close();
+		return tmp;
+	}
+	
+	public int checkUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		Integer tmp = session.selectOne("user.checkUserFav", fav);
+		session.close();
+		return tmp;
+	}
+
+	public FavoritesItem getUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		FavoritesItem tmp = session.selectOne("user.getUserFav", fav);
+		session.close();
+		return tmp;
+	}
+	
+	public int insertUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.insert("user.insertUserFav", fav);
+		session.close();
+		return ret;
+	}
+	
+	public int deleteUserFav(FavoritesItem fav) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUserFav", fav);
+		session.close();
+		return ret;
+	}
+
+	public int deleteUserFavs(int id) {
+		SqlSession session = getSqlSessionFactory().openSession(true);
+		int ret = session.delete("user.deleteUserFavs", id);
+		session.close();
+		return ret;
+	}
+	
 }

@@ -25,11 +25,25 @@ public class UserController {
 		return dal.selectByLogin(username);
 	}
 
-	public User insert(User user, boolean isAdmin) {
+	public User insert(User user, String role) {
 		user.hashPassword();
-		user.setAdmin(isAdmin);
+		user.setRole(role);
 		dal.insert(user);
 		return user;
+	}
+	
+	public int update(User user) {
+		if (user.getPassword() == null || user.getPassword().isEmpty()) {
+			User oldUser = this.getUser(user.getId());
+			user.setPassword(oldUser.getPassword());
+		} else {
+			user.hashPassword();
+		}
+		return dal.update(user);
+	}
+	
+	public int delete(int id) {
+		return dal.delete(id);
 	}
 	
 	public User authorize(User jsonUser) {

@@ -14,23 +14,24 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import com.google.gson.Gson;
 
 import utils.Constants;
-import controllers.BookController;
-import models.Book;
+import controllers.SettingsController;
+import models.Publisher;
+import models.Setting;
 
 /**
- * Servlet implementation class BookView
+ * Servlet implementation class SettingView
  */
-@WebServlet("/book")
-public class BookView extends BaseView {
+@WebServlet("/setting")
+public class SettingView extends BaseView {
 	private static final long serialVersionUID = 1L;
-	BookController controller;
+	SettingsController controller;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BookView() {
+	public SettingView() {
 		super();
-		this.controller = new BookController();
+		this.controller = new SettingsController();
 	}
 
 	/**
@@ -45,15 +46,11 @@ public class BookView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				String ids = request.getParameter("id");
-				int id = Integer.parseInt(ids);
-				Book book = controller.selectById(id);
-
-				if (book == null) {
+				Setting setting = controller.selectLast();
+				if (setting == null) {
 					response.setStatus(404);
 				}
-				
-				String jsonOutput = gson.toJson(book);
+				String jsonOutput = gson.toJson(setting);
 				out.println(jsonOutput);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
@@ -62,8 +59,7 @@ public class BookView extends BaseView {
 		}
 	}
 
-	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		setAccessControlHeaders(response);
 		response.setContentType("application/json;charset=UTF-8");
@@ -73,37 +69,12 @@ public class BookView extends BaseView {
 		try (PrintWriter out = response.getWriter()) {
 			try {
 				Gson gson = new Gson();
-				Book book = gson.fromJson(jsonObject, Book.class);
-				if (book.getId() == 0) {
-					String ids = request.getParameter("id");
-					int id = Integer.parseInt(ids);
-					book.setId(id);
-				}
-				int res = controller.update(book);
-				out.print(res);
+				Setting setting = gson.fromJson(jsonObject, Setting.class);
+				setting = controller.upsert(setting);
+				out.print(gson.toJson(setting));
 			} catch (PersistenceException e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
-				e.printStackTrace();
 				response.setStatus(422);
-			} catch (Exception e) {
-				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
-				e.printStackTrace();
-				response.setStatus(500);
-			}
-		}
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		setAccessControlHeaders(response);
-		String ids = request.getParameter("id");
-		int id = Integer.parseInt(ids);
-
-		try (PrintWriter out = response.getWriter()) {
-			try {
-				int result = controller.delete(id);
-				out.println(result);
 			} catch (Exception e) {
 				out.print(String.format(Constants.JSON_ERROR, e.getMessage()));
 				response.setStatus(500);

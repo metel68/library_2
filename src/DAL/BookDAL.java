@@ -39,7 +39,6 @@ public class BookDAL extends BaseDAL {
 	
 	public int update(Book book) {
 		SqlSession session = getSqlSessionFactory().openSession(true);
-        System.out.println(book);
 		int ret = session.update("book.updateBook", book);
 		session.close();
 		return ret;

@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Header, Form, Button, Dropdown, Input, TextArea } from 'semantic-ui-react';
+import { Container, Header, Form, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Author from '../components/Author';
-import API from '../Api';
-// private int id;
-// private String isbn;
-// private String title;
-// private List<Author> authors = new ArrayList<>();
-// private List<Category> cateries = new ArrayList<>()
-// private Publisher publisher;
-// private int year;
-// private int count;
-// private int size;
-// private String description;
-// private Date addedAt;
+import UserAPI from '../api/user';
+
 class Registration extends Component {
   constructor() {
     super();
@@ -34,12 +23,13 @@ class Registration extends Component {
     if (email === '' || password === '') {
       this.setState({ error: 'Email или Пароль не должны быть пустыми' });
     } else {
-      const response = await API.registerUser(this.state);
+      const response = await UserAPI.registerUser(this.state);
       const { ok, data } = response;
 
       if (ok) {
-        localStorage.setItem('isAdmin', data.isAdmin);
+        localStorage.setItem('role', data.role);
         localStorage.setItem('isAuthorized', true);
+        localStorage.setItem('userId', data.id);
         this.props.history.push('/books/list');
       } else {
         this.setState({ error: 'Не правильные email или пароль' });

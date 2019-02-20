@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container, Divider, Header } from 'semantic-ui-react';
-import API from '../Api';
+import { Divider, Header } from 'semantic-ui-react';
+import API from '../api/Api';
+import FavAPI from '../api/favs';
+import UserAPI from '../api/user';
 import { Image, Title, Author } from '../components';
-import { isAdmin } from '../utils';
+import { isAdmin, isManager } from '../utils';
+import SiteContainer from "../components/SiteContainer";
+import moment from "moment-with-locales-es6";
+
+function FavLink({inFavs, count, addFav, date}) {
+  moment.locale('ru');
+
+  const offset = (moment.duration((moment().utc()).diff(moment.parseZone(date).utc()))).humanize();
+
+  if (inFavs) {
+    return (<span>Книга на руках {offset}</span>);
+  }
+  if (count < 1) {
+    return '';
+  }
+  return (<a href="#" id="addFav" onClick={addFav}>Добавить в заявку</a>);
+}
 
 class Book extends Component {
   constructor() {
@@ -16,26 +34,47 @@ class Book extends Component {
 
   async componentDidMount() {
     const { bookId } = this.props.match.params;
+    const userId = localStorage.getItem('userId');
     const response = await API.getBook(bookId);
     const { data } = response;
-    this.setState({ book: data, isAdmin: isAdmin() });
+    this.setState({ book: data });
+
+    const userResponse = await UserAPI.getUser(userId);
+    const favCountResponse = await FavAPI.countFav(bookId);
+
+    const favorite = userResponse.data.favorites.find((fav) => fav.id == bookId);
+
+    const date = favorite && favorite.date;
+
+    this.setState({ inFavs: !!favorite, date, favCount: favCountResponse.data });
   }
 
   deleteBook = async () => {
     const { book } = this.state;
-    const reponse = API.deleteBook(book.id);
+    const response = API.deleteBook(book.id);
     this.props.history.push('/');
   };
 
+  addFav = async () => {
+    const {book} = this.state;
+    const userId = localStorage.getItem('userId');
+    const response = FavAPI.createFav(book.id, userId);
+    this.setState({inFavs: true});
+  };
+
   render() {
-    const { cover, title, authors, isbn, publisher, year, size, description } = this.state.book;
+    const { id, cover, title, authors, isbn, publisher, year, size, count, description } = this.state.book;
     const { deleteBook } = this;
-    const { isAdmin } = this.state;
+    const { inFavs, favCount, date } = this.state;
     return (
-      <Layout text>
+      <SiteContainer text>
         <InfoRow>
-          <Link to={{ pathname: '/' }}>Назад</Link>
-          {isAdmin ? (
+          {isManager() ? (
+            <Link to={{ pathname: `/book/edit/${id}` }}>
+              Редактировать
+            </Link>
+          ) : null}
+          {isAdmin() ? (
             <a href="#" onClick={deleteBook}>
               Удалить
             </a>
@@ -65,18 +104,25 @@ class Book extends Component {
             <RowContent>{year}</RowContent>
           </InfoRow>
           <InfoRow>
-            <RowTitle>Колличество страниц</RowTitle>
+            <RowTitle>Количество страниц</RowTitle>
             <RowContent>{size}</RowContent>
           </InfoRow>
           <InfoRow>
-            <RowTitle>Колличество на складе</RowTitle>
-            <RowContent>{size}</RowContent>
+            <RowTitle>Общее количество</RowTitle>
+            <RowContent>{count}</RowContent>
+          </InfoRow>
+          <InfoRow>
+            <RowTitle>Количество на складе</RowTitle>
+            <RowContent>{count - favCount}</RowContent>
           </InfoRow>
         </BookInfo>
         <Divider />
         <Header size="medium">Описание</Header>
         <p>{description}</p>
-      </Layout>
+        <FavLink inFavs={inFavs} date={date} count={count - favCount} addFav={this.addFav} />
+        <p/>
+        <p><br/></p>
+      </SiteContainer>
     );
   }
 }
@@ -90,6 +136,7 @@ const RowContent = styled.span`
 `;
 
 const InfoRow = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -98,11 +145,6 @@ const InfoRow = styled.div`
 const BookInfo = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Layout = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 150px;
 `;
 
 const BookWrapper = styled.div`

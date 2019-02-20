@@ -1,24 +1,38 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import exceptions.ValidationException;
+import com.google.gson.annotations.Expose;
 
 public class Book {
+	@Expose
 	private int id;
+	@Expose
 	private String isbn;
+	@Expose
 	private String title;
+	@Expose
 	private List<Author> authors = new ArrayList<>();
 	private List<Category> categories = new ArrayList<>();
+	@Expose
 	private Publisher publisher;
+	@Expose
 	private int year;
+	@Expose
 	private int count;
+	@Expose
 	private int size;
+	@Expose
 	private String description;
+	@Expose
 	private Date addedAt;
+	@Expose
 	private String cover;
+	@Expose
+	private Timestamp date;
 	
 	public int getId() {
 		return id;
@@ -71,21 +85,12 @@ public class Book {
 	}
 	public void setYear(int year) {
 		this.year = year;
-		if (year <= 0 || year > 2018) {
-			throw new ValidationException();
-		}
 	}
 	public void setCount(int count) {
 		this.count = count;
-		if (count < 0) {
-			throw new ValidationException();
-		}
 	}
 	public void setSize(int size) {
 		this.size = size;
-		if (size <= 0) {
-			throw new ValidationException();
-		}
 	}
 	public void setAddedAt(Date addedAt) {
 		this.addedAt = addedAt;
@@ -104,10 +109,9 @@ public class Book {
 		this.size = size;
 		this.description = description;
 		this.addedAt = addedAt;
-		
-		if (year <= 0 || year > 2018 || size <= 0 || count < 0) {
-			throw new ValidationException();
-		}
+	}
+	public Book(int id) {
+		this.id = id;
 	}
 	public Book() {
 		
@@ -150,5 +154,11 @@ public class Book {
 	}
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 }
